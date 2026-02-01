@@ -1,7 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 const Sambutan = () => {
+  const navigate = useNavigate();
+
   // Konfigurasi animasi dasar agar konsisten
   const fadeInUp = {
     initial: { opacity: 0, y: 60 },
@@ -43,9 +46,9 @@ const Sambutan = () => {
               Syawal Arifin, S.S., M.Pd.
             </h2>
             
-            <div className="w-16 h-1.5 bg-[#00B0F1] mb-6 rounded-full" />
+            <div className="w-16 h-1.5 bg-[#587F93] mb-6 rounded-full" />
             
-            <p className="text-[#00B0F1] font-bold text-sm lg:text-base uppercase tracking-[0.2em] mb-8">
+            <p className="text-[#587F93] font-bold text-sm lg:text-base uppercase tracking-[0.2em] mb-8">
               Kepala SMA Negeri 14 Samarinda
             </p>
 
@@ -65,8 +68,14 @@ const Sambutan = () => {
               </p>
             </div>
 
-            <button className="mt-10 group flex items-center gap-3 text-gray-900 font-[800] hover:text-[#00B4D8] transition-all w-fit">
-              <span className="border-b-2 border-gray-900 group-hover:border-[#00B4D8] pb-1">
+            <button 
+              onClick={() => {
+                navigate('/profil');
+                window.scrollTo(0, 0);
+              }}
+              className="mt-10 group flex items-center gap-3 text-gray-900 font-[800] hover:text-[#587F93] transition-all w-fit"
+            >
+              <span className="border-b-2 border-gray-900 group-hover:border-[#587F93] pb-1">
                 Profil SMA Negeri 14 Samarinda
               </span>
               <span className="text-xl group-hover:translate-x-2 transition-transform duration-300">

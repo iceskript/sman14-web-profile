@@ -62,7 +62,7 @@ const ProgramUnggulan = () => {
 
               {/* Content Layer */}
               <div className="p-8 flex flex-col flex-grow">
-                <div className="bg-[#00B4D8] text-white w-10 h-7 flex items-center justify-center font-bold text-sm mb-4">
+                <div className="bg-[#587F93] text-white w-10 h-7 flex items-center justify-center font-bold text-sm mb-4">
                   #{item.id}
                 </div>
 

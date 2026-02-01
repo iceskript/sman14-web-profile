@@ -31,7 +31,7 @@ const ScrollToTop = () => {
         onClick={scrollToTop}
         className={`
           ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}
-          bg-[#00B4D8] hover:bg-[#0096b4] text-white p-2 rounded-full shadow-md 
+          bg-[#587F93] hover:bg-[#587F93] text-white p-2 rounded-full shadow-md 
           transition-all duration-300 ease-in-out active:scale-90 flex items-center justify-center
         `}
       >

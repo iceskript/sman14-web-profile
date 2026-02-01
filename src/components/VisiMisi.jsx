@@ -102,7 +102,7 @@ const VisiMisi = () => {
                           exit={{ opacity: 0 }}
                           transition={{ duration: 0.4, delay: 0.3 }}
                         >
-                          <p className="text-[15px] lg:text-[17px] font-medium leading-relaxed max-w-[450px] text-white/80 border-l-[3px] border-[#00B4D8] pl-5 py-1">
+                          <p className="text-[15px] lg:text-[17px] font-medium leading-relaxed max-w-[450px] text-white/80 border-l-[3px] border-[#587F93] pl-5 py-1">
                             {item.desc}
                           </p>
                         </motion.div>

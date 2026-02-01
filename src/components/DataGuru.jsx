@@ -52,7 +52,7 @@ const DataGuru = () => {
           <p className="text-[18px] lg:text-[22px] font-medium text-[#555]">
             SMA Negeri 14 Samarinda
           </p>
-          <div className="w-24 h-[4px] bg-[#00B4D8] mx-auto mt-4 rounded-full" />
+          <div className="w-24 h-[4px] bg-[#587F93] mx-auto mt-4 rounded-full" />
         </div>
 
         {/* --- SLIDER AREA --- */}
@@ -96,7 +96,7 @@ const DataGuru = () => {
                     <h3 className="text-[19px] lg:text-[21px] font-bold text-[#1A1A1A] leading-tight mb-1">
                       {guru.nama}
                     </h3>
-                    <p className="text-[#00B4D8] font-semibold text-[14px] uppercase tracking-widest">
+                    <p className="text-[#587F93] font-semibold text-[14px] uppercase tracking-widest">
                       {guru.jabatan}
                     </p>
                   </div>
@@ -108,14 +108,14 @@ const DataGuru = () => {
           {/* --- NAVIGASI ARROW --- */}
           <button 
             onClick={handlePrev}
-            className="absolute top-[40%] -left-4 lg:-left-20 transform -translate-y-1/2 z-50 text-gray-300 hover:text-[#00B4D8] transition-all duration-300 opacity-0 group-hover:opacity-100 hidden md:block cursor-pointer p-4"
+            className="absolute top-[40%] -left-4 lg:-left-20 transform -translate-y-1/2 z-50 text-gray-300 hover:text-[#587F93] transition-all duration-300 opacity-0 group-hover:opacity-100 hidden md:block cursor-pointer p-4"
           >
             <ChevronLeft size={56} strokeWidth={1.2} />
           </button>
           
           <button 
             onClick={handleNext}
-            className="absolute top-[40%] -right-4 lg:-right-20 transform -translate-y-1/2 z-50 text-gray-300 hover:text-[#00B4D8] transition-all duration-300 opacity-0 group-hover:opacity-100 hidden md:block cursor-pointer p-4"
+            className="absolute top-[40%] -right-4 lg:-right-20 transform -translate-y-1/2 z-50 text-gray-300 hover:text-[#587F93] transition-all duration-300 opacity-0 group-hover:opacity-100 hidden md:block cursor-pointer p-4"
           >
             <ChevronRight size={56} strokeWidth={1.2} />
           </button>
@@ -132,7 +132,7 @@ const DataGuru = () => {
             /* Menghapus shadow-[#00B4D8]/20 (glow) 
                Menggunakan shadow-lg (drop shadow abu-abu standar)
             */
-            className="bg-[#00B4D8] text-white px-8 py-3 rounded-full font-bold text-[13px] uppercase tracking-[0.2em] transition-all shadow-lg"
+            className="bg-[#587F93] text-white px-8 py-3 rounded-full font-bold text-[13px] uppercase tracking-[0.2em] transition-all shadow-lg"
           >
             Selengkapnya
           </motion.button>

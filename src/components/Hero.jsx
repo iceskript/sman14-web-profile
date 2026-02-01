@@ -85,7 +85,7 @@ const Hero = () => {
           
           <motion.div variants={itemVariants}>
             <a href="#sambutan" className="inline-block">
-              <button className="group bg-transparent hover:bg-[#00B0F1] border-2 border-white hover:border-[#00B4D8] text-white px-6 py-3 lg:px-10 lg:py-3.5 rounded-full font-bold text-[14px] lg:text-[16px] flex items-center gap-2 transition-all duration-300 shadow-lg active:scale-95 cursor-pointer">
+              <button className="group bg-transparent hover:bg-[#587F93] border-2 border-white hover:border-[#587F93] text-white px-6 py-3 lg:px-10 lg:py-3.5 rounded-full font-bold text-[14px] lg:text-[16px] flex items-center gap-2 transition-all duration-300 shadow-lg active:scale-95 cursor-pointer">
                 Selengkapnya
                 <ChevronDown size={20} className="group-hover:translate-y-1 transition-transform duration-300" />
               </button>

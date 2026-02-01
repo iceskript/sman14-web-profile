@@ -47,7 +47,7 @@ const LatestNews = () => {
           <h2 className="text-[28px] lg:text-[36px] font-[900] text-black uppercase tracking-tight">
             SMAPAS Latest News
           </h2>
-          <div className="w-[80px] h-[3px] bg-[#00B4D8] mx-auto mt-2"></div>
+          <div className="w-[80px] h-[3px] bg-[#587F93] mx-auto mt-2"></div>
         </div>
 
         <div className="relative news-slider-container">
@@ -91,7 +91,7 @@ const LatestNews = () => {
                       {news.title}
                     </h3>
                     
-                    <button className="mt-auto w-fit bg-[#00B4D8] text-white px-7 py-2.5 rounded-full text-[12px] font-[900] hover:bg-[#0096b4] transition-all active:scale-95 shadow-sm">
+                    <button className="mt-auto w-fit bg-[#587F93] text-white px-7 py-2.5 rounded-full text-[12px] font-[900] hover:bg-[#587F93] transition-all active:scale-95 shadow-sm">
                       Lanjutkan Baca
                     </button>
                   </div>
@@ -120,7 +120,7 @@ const LatestNews = () => {
         </div>
 
         <div className="text-center mt-4">
-          <button className="bg-[#00B4D8] text-white px-12 py-3.5 rounded-full text-[16px] font-[900] shadow-md hover:shadow-lg hover:bg-[#0096b4] transition-all active:scale-95">
+          <button className="bg-[#587F93] text-white px-12 py-3.5 rounded-full text-[16px] font-[900] shadow-md hover:shadow-lg hover:bg-[#587F93] transition-all active:scale-95">
             Berita Selengkapnya
           </button>
         </div>

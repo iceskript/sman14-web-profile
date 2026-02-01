@@ -52,7 +52,7 @@ const Footer = () => {
               <ul className="space-y-4">
                 {['Beranda', 'Kontak', 'Sosmed', 'Fasilitas'].map((item) => (
                   <li key={item}>
-                    <a href={`#${item.toLowerCase()}`} className="flex items-center gap-2 text-gray-500 hover:text-[#00B4D8] transition-all group">
+                    <a href={`#${item.toLowerCase()}`} className="flex items-center gap-2 text-gray-500 hover:text-[#587F93] transition-all group">
                       <ChevronRight size={18} className="text-gray-400 group-hover:translate-x-1 transition-transform" />
                       <span>{item}</span>
                     </a>
@@ -67,11 +67,11 @@ const Footer = () => {
                 <h3 className="text-lg font-bold mb-6 text-gray-900">Kontak</h3>
                 <div className="space-y-4">
                   <div className="flex items-center gap-3 text-gray-500">
-                    <Phone size={18} className="text-[#00B4D8]" />
+                    <Phone size={18} className="text-[#587F93]" />
                     <span>0812-2995-9922</span>
                   </div>
                   <div className="flex items-center gap-3 text-gray-500">
-                    <Mail size={18} className="text-[#00B4D8]" />
+                    <Mail size={18} className="text-[#587F93]" />
                     <span>sman14.smapas@gmail.com</span>
                   </div>
                 </div>

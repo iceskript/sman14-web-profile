@@ -15,7 +15,7 @@ const StatCounter = () => {
       label: "Siswa Aktif",
       value: 1400,
       suffix: "+",
-      icon: <GraduationCap size={36} className="text-[#00B4D8]" strokeWidth={1.2} />,
+      icon: <GraduationCap size={36} className="text-[#587F93]" strokeWidth={1.2} />,
       // Menambah min-width agar kontainer tidak berubah ukuran saat angka bergulir
       minWidth: "min-w-[120px] lg:min-w-[150px]" 
     },
@@ -24,7 +24,7 @@ const StatCounter = () => {
       label: "Guru & Staff",
       value: 75,
       suffix: "+",
-      icon: <Presentation size={36} className="text-[#00B4D8]" strokeWidth={1.2} />,
+      icon: <Presentation size={36} className="text-[#587F93]" strokeWidth={1.2} />,
       minWidth: "min-w-[80px] lg:min-w-[100px]"
     },
     {
@@ -32,7 +32,7 @@ const StatCounter = () => {
       label: "Ruang Kelas",
       value: 25,
       suffix: "",
-      icon: <School size={36} className="text-[#00B4D8]" strokeWidth={1.2} />,
+      icon: <School size={36} className="text-[#587F93]" strokeWidth={1.2} />,
       minWidth: "min-w-[60px] lg:min-w-[80px]"
     },
   ];

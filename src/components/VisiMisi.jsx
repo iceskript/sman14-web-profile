@@ -48,7 +48,7 @@ const VisiMisi = () => {
             - Gambar tetap nyambung (tidak ada gap antar kartu)
             - Overflow hidden untuk memotong sudut gambar di dalam
         */}
-        <div className="flex flex-col lg:flex-row h-[600px] w-full bg-gray-900 rounded-[40px] overflow-hidden shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] border border-gray-100">
+        <div className="flex flex-col lg:flex-row h-[600px] w-full bg-gray-900 rounded-[40px] overflow-hidden">
           {dataVisiMisi.map((item, index) => (
             <div
               key={index}
@@ -83,7 +83,7 @@ const VisiMisi = () => {
                   
                   {/* Judul: Tetap stabil dan tajam */}
                   <h3 
-                    className={`font-[900] uppercase tracking-wider leading-tight transition-all duration-500 drop-shadow-2xl ${
+                    className={`font-[900] uppercase tracking-wider leading-tight transition-all duration-500 ${
                       hoveredIndex === index 
                         ? 'text-[30px] lg:text-[38px] mb-4 text-white opacity-100' 
                         : 'text-[18px] lg:text-[20px] mb-0 text-white/40'

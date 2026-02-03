@@ -10,7 +10,7 @@ const ProfilSekolah = () => {
   // State untuk Tab Aktif di Section Organisasi
   const [activeTab, setActiveTab] = useState("Struktur Organisasi");
 
-  // Data Sarana Prasarana (Show Off)
+  // Data Sarana Prasarana
   const facilities = [
     { 
       id: 1, 
@@ -28,7 +28,7 @@ const ProfilSekolah = () => {
     },
   ];
 
-  // Data Konten Dinamis untuk Section Organisasi (Sesuai Permintaan Gambar 1 & 2)
+  // Data Konten Dinamis untuk Section Organisasi
   const organizationContent = {
     "Struktur Organisasi": {
       type: "text",
@@ -68,6 +68,19 @@ const ProfilSekolah = () => {
   };
 
   const menuGrid = Object.keys(organizationContent);
+
+  // --- LOGIKA NAVIGASI TOMBOL PANAH ---
+  const handleNext = () => {
+    const currentIndex = menuGrid.indexOf(activeTab);
+    const nextIndex = (currentIndex + 1) % menuGrid.length;
+    setActiveTab(menuGrid[nextIndex]);
+  };
+
+  const handlePrev = () => {
+    const currentIndex = menuGrid.indexOf(activeTab);
+    const prevIndex = (currentIndex - 1 + menuGrid.length) % menuGrid.length;
+    setActiveTab(menuGrid[prevIndex]);
+  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -109,7 +122,7 @@ const ProfilSekolah = () => {
         </div>
         <div className="absolute inset-0 pointer-events-none">
           <div className="max-w-[1440px] mx-auto h-full px-5 lg:px-[60px] relative">
-            <div className="absolute -bottom-16 lg:-bottom-24 left-5 lg:left-[60px] w-[90%] lg:w-[65%] bg-[#587F93] text-white p-8 lg:p-14 rounded-tr-[40px] lg:rounded-tr-[100px] z-10 pointer-events-auto border-2 border-white/20 antialiased shadow-xl">
+            <div className="absolute -bottom-16 lg:-bottom-24 left-0 w-[90%] lg:w-[65%] bg-[#587F93] text-white p-8 lg:p-14 rounded-tr-[40px] lg:rounded-tr-[100px] z-10 pointer-events-auto antialiased">
               <h2 className="text-[22px] lg:text-[32px] font-[800] mb-4 lg:mb-6 uppercase tracking-wider leading-tight">SMA Negeri 14 Samarinda</h2>
               <p className="text-[14px] lg:text-[16px] leading-relaxed opacity-95 text-justify font-medium">
                 SMA Negeri 14 Samarinda adalah lembaga pendidikan menengah atas yang berdedikasi untuk mencetak generasi penerus bangsa yang cerdas, berkarakter, dan kompetitif.
@@ -166,7 +179,7 @@ const ProfilSekolah = () => {
 
       {/* 5. SECTION PIMPINAN */}
       <motion.section variants={itemVariants} className="w-full mt-32">
-        <div className="text-center mb-16 px-5">
+        <div className="max-w-[1440px] mx-auto px-5 lg:px-[60px] text-center mb-16">
           <h2 className="text-[32px] lg:text-[42px] font-[900] text-black mb-3 uppercase tracking-tight">Pimpinan SMA Negeri 14 Samarinda</h2>
           <div className="w-16 h-1.5 bg-[#587F93] mx-auto rounded-full"></div>
         </div>
@@ -190,14 +203,14 @@ const ProfilSekolah = () => {
 
       {/* 6. BOTTOM SHAPE SECTION (VISI MISI) */}
       <motion.section variants={itemVariants} className="relative w-full pt-20 lg:pt-32 pb-40 lg:pb-80 flex flex-col items-center">
-        <div className="relative z-20 w-full max-w-[1320px] px-5 lg:px-0">
-            <div className="relative w-full h-[400px] lg:h-[550px] overflow-visible shadow-2xl">
+        <div className="relative z-20 w-full max-w-[1440px] mx-auto px-5 lg:px-[60px]">
+            <div className="relative w-full h-[400px] lg:h-[550px] overflow-visible">
                 <img src="/gedung2.webp" alt="Gedung SMAN 14 Samarinda" className="w-full h-full object-cover" />
-                <div className="absolute bottom-6 left-6 lg:bottom-12 lg:left-12 max-w-[85%] lg:max-w-[450px] bg-[#587F93]/85 backdrop-blur-md text-white p-6 lg:p-10 rounded-xl z-30 border border-white/20">
+                <div className="absolute bottom-6 left-0 lg:bottom-12 lg:left-0 max-w-[85%] lg:max-w-[450px] bg-[#587F93]/85 backdrop-blur-md text-white p-6 lg:p-10 rounded-xl z-30">
                   <h3 className="text-[24px] lg:text-[42px] font-[900] mb-3 leading-none tracking-tighter uppercase">VISI</h3>
                   <p className="text-[14px] lg:text-[16px] leading-relaxed font-medium opacity-95 tracking-tight">Terwujudnya Insan yang Bertaqwa, Unggul dalam Prestasi, Berbudaya Lingkungan, dan Kompetitif di Era Global</p>
                 </div>
-                <div className="absolute bottom-0 right-0 translate-y-full w-[95%] lg:w-[63%] bg-[#587F93] text-white p-8 lg:p-12 z-40 rounded-xl rounded-tr-none antialiased shadow-2xl border-l-4 border-white/20">
+                <div className="absolute bottom-0 right-0 translate-y-full w-[95%] lg:w-[63%] bg-[#587F93] text-white p-8 lg:p-12 z-40 rounded-xl rounded-tr-none antialiased">
                    <h3 className="text-[24px] lg:text-[36px] font-[900] mb-6 tracking-tight uppercase">MISI</h3>
                    <ul className="flex flex-col gap-4 text-[13px] lg:text-[16px] font-medium opacity-95 leading-relaxed tracking-tight">
                     <li className="flex gap-4 items-start"><span className="flex-shrink-0 font-bold">1.</span><span>Melaksanakan pembelajaran dan bimbingan secara efektif, kreatif, dan inovatif.</span></li>
@@ -244,19 +257,19 @@ const ProfilSekolah = () => {
         </div>
       </section>
 
-      {/* 8. SECTION ORGANISASI (BLUE BLOCK CONTENT) */}
+      {/* 8. SECTION ORGANISASI */}
       <section className="w-full py-16 bg-white font-urbanist overflow-hidden">
         
-        {/* Menu Pills - PENENTU ALIGNMENT LURUS (px-5 lg:px-[60px]) */}
-        <div className="max-w-[1440px] mx-auto flex gap-3 mb-10 px-5 lg:px-[60px] overflow-x-auto no-scrollbar">
+        {/* Menu Pills */}
+        <div className="max-w-[1440px] mx-auto flex gap-4 mb-10 px-5 lg:px-[60px] overflow-x-auto no-scrollbar">
             {menuGrid.map((item) => (
                 <button 
                     key={item} 
                     onClick={() => setActiveTab(item)}
-                    className={`px-6 py-2.5 rounded-full text-sm font-bold shadow-md transition-all duration-300 border-2 uppercase tracking-tighter whitespace-nowrap ${
+                    className={`px-8 py-3 rounded-full text-sm font-[800] shadow-lg transition-all duration-300 border-2 uppercase tracking-tight whitespace-nowrap ${
                       activeTab === item 
-                      ? 'bg-[#587F93] text-white border-[#587F93]' 
-                      : 'bg-white text-[#587F93] border-gray-100 hover:border-[#587F93]'
+                      ? 'bg-white text-[#587F93] border-[#587F93]' 
+                      : 'bg-[#587F93] text-white border-[#587F93] hover:bg-white hover:text-[#587F93]'
                     }`}
                 >
                     {item}
@@ -264,11 +277,11 @@ const ProfilSekolah = () => {
             ))}
         </div>
 
-        {/* Blue Block Container */}
-        <div className="w-[92%] lg:w-[88%] bg-[#587F93] rounded-r-[40px] lg:rounded-r-[80px] py-12 lg:py-20 relative shadow-2xl min-h-[450px] lg:min-h-[500px] flex items-center overflow-hidden">
-            
-            {/* Pattern Overlay Background */}
-            <div className="absolute top-0 bottom-0 left-0 w-[30%] opacity-10 pointer-events-none overflow-hidden">
+        {/* Blue Block Container Wrapper */}
+        <div className="relative min-h-[450px] lg:min-h-[500px] flex items-center w-full">
+            {/* Background Layer */}
+            <div className="absolute inset-y-0 left-0 right-0 bg-[#587F93] rounded-r-lg shadow-2xl overflow-hidden max-w-[calc(100vw_-_((100vw_-_1440px)_/_2)_-_60px)]">
+                <div className="absolute top-0 bottom-0 left-0 w-[30%] opacity-10 pointer-events-none">
                  <svg width="100%" height="100%">
                     <defs>
                         <pattern id="pattern_grid_org" width="40" height="40" patternUnits="userSpaceOnUse">
@@ -277,76 +290,81 @@ const ProfilSekolah = () => {
                     </defs>
                     <rect width="100%" height="100%" fill="url(#pattern_grid_org)" />
                  </svg>
+                </div>
             </div>
 
-            {/* Dynamic Content Wrapper */}
-            {/* PERBAIKAN: pl-5 lg:pl-[60px] agar sejajar vertikal dengan tombol Menu Pills & Logo Navbar di atasnya */}
-            <AnimatePresence mode="wait">
-              <motion.div 
-                key={activeTab}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.5 }}
-                className="relative z-20 w-full pl-5 lg:pl-[60px] pr-8 lg:pr-20 flex flex-col lg:flex-row gap-10 lg:gap-20 items-center"
-              >
-                {/* Info Text (Sisi Kiri) - SEJAJAR LURUS KE BAWAH */}
-                <div className="w-full lg:w-1/2 flex flex-col items-start">
-                  <h2 className="text-[32px] lg:text-[54px] font-[900] text-white leading-none mb-4 uppercase tracking-tighter">
-                    {organizationContent[activeTab].title}
-                  </h2>
-                  <p className="text-white/70 text-[16px] lg:text-[18px] font-medium mb-12">
-                    {organizationContent[activeTab].subtitle}
-                  </p>
-                  
-                  {organizationContent[activeTab].type === "text" && (
-                    <button 
-                      onClick={() => navigate(organizationContent[activeTab].link)}
-                      className="group flex items-center gap-4 text-white font-bold text-sm uppercase tracking-widest border-b-2 border-white/30 pb-1 hover:border-white transition-all"
-                    >
-                      Selengkapnya 
-                      <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform duration-300" />
-                    </button>
-                  )}
-                </div>
-
-                {/* Visual Content (Sisi Kanan) */}
-                <div className="w-full lg:w-1/2">
-                  {organizationContent[activeTab].type === "text" ? (
-                    <p className="text-white/90 text-[18px] lg:text-[24px] leading-relaxed font-medium italic lg:pl-10 border-l-2 border-white/20">
-                      {organizationContent[activeTab].desc}
-                    </p>
-                  ) : (
-                    /* Grid Foto Member */
-                    <div className="flex gap-6 overflow-x-auto no-scrollbar pb-6 px-2">
-                      {organizationContent[activeTab].members.map((member, i) => (
-                        <div key={i} className="flex-shrink-0 flex flex-col items-center gap-4 group">
-                          <div className="w-[180px] h-[220px] lg:w-[210px] lg:h-[270px] bg-white/10 backdrop-blur-md overflow-hidden relative shadow-2xl border border-white/10 rounded-sm">
-                             <img 
-                               src={member.img} 
-                               alt={member.name} 
-                               className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
-                             />
-                          </div>
-                          <span className="text-white font-[800] text-[11px] lg:text-xs uppercase tracking-wider text-center">
-                            {member.name}
-                          </span>
-                        </div>
-                      ))}
+            {/* Content Layer */}
+            <div className="relative z-20 w-full max-w-[1440px] mx-auto px-5 lg:px-[60px] py-12 lg:py-20">
+                <AnimatePresence mode="wait">
+                  <motion.div 
+                    key={activeTab}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ duration: 0.5 }}
+                    className="flex flex-col lg:flex-row gap-10 lg:gap-20 items-center"
+                  >
+                    <div className="w-full lg:w-1/2 flex flex-col items-start">
+                      <h2 className="text-[32px] lg:text-[54px] font-[900] text-white leading-none mb-4 uppercase tracking-tighter">
+                        {organizationContent[activeTab].title}
+                      </h2>
+                      <p className="text-white/70 text-[16px] lg:text-[18px] font-medium mb-12">
+                        {organizationContent[activeTab].subtitle}
+                      </p>
+                      
+                      {organizationContent[activeTab].type === "text" && (
+                        <button 
+                          onClick={() => navigate(organizationContent[activeTab].link)}
+                          className="group flex items-center gap-4 text-white font-bold text-sm uppercase tracking-widest border-b-2 border-white/30 pb-1 hover:border-white transition-all"
+                        >
+                          Selengkapnya 
+                          <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform duration-300" />
+                        </button>
+                      )}
                     </div>
-                  )}
-                </div>
-              </motion.div>
-            </AnimatePresence>
 
-            {/* Global Navigation Arrows */}
-            <div className="absolute bottom-8 right-8 lg:right-16 flex gap-4 z-30">
-                <button className="bg-white/10 border border-white/20 text-white p-3 rounded-full hover:bg-white/20 transition backdrop-blur-sm active:scale-90">
-                    <ArrowLeft size={24} />
-                </button>
-                <button className="bg-white text-[#587F93] p-3 rounded-full shadow-2xl hover:scale-110 active:scale-95 transition-all">
-                    <ArrowRight size={24} />
-                </button>
+                    <div className="w-full lg:w-1/2">
+                      {organizationContent[activeTab].type === "text" ? (
+                        <p className="text-white/90 text-[18px] lg:text-[24px] leading-relaxed font-medium italic lg:pl-10 border-l-2 border-white/20">
+                          {organizationContent[activeTab].desc}
+                        </p>
+                      ) : (
+                        <div className="flex gap-6 overflow-x-auto no-scrollbar pb-6 px-2">
+                          {organizationContent[activeTab].members.map((member, i) => (
+                            <div key={i} className="flex-shrink-0 flex flex-col items-center gap-4 group">
+                              <div className="w-[180px] h-[220px] lg:w-[210px] lg:h-[270px] bg-white/10 backdrop-blur-md overflow-hidden relative rounded-sm">
+                                 <img 
+                                   src={member.img} 
+                                   alt={member.name} 
+                                   className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
+                                 />
+                              </div>
+                              <span className="text-white font-[800] text-[11px] lg:text-xs uppercase tracking-wider text-center">
+                                {member.name}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+
+                {/* --- NAVIGATION ARROWS (POJOK KANAN BAWAH) --- */}
+                <div className="absolute bottom-6 right-5 lg:right-[60px] z-30 flex gap-2">
+                    <button 
+                      onClick={handlePrev}
+                      className="group flex items-center justify-center w-10 h-10 lg:w-11 lg:h-11 border border-white/40 text-white rounded-full hover:bg-white/10 transition-all duration-300 active:scale-90 backdrop-blur-sm"
+                    >
+                        <ArrowLeft size={20} className="transition-transform group-hover:-translate-x-0.5" />
+                    </button>
+                    <button 
+                      onClick={handleNext}
+                      className="group flex items-center justify-center w-10 h-10 lg:w-11 lg:h-11 bg-white text-[#587F93] rounded-full hover:bg-white/90 border border-white transition-all duration-300 active:scale-90 shadow-lg"
+                    >
+                        <ArrowRight size={20} className="transition-transform group-hover:translate-x-0.5" />
+                    </button>
+                </div>
             </div>
         </div>
       </section>

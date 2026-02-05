@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { ChevronDown, ArrowRight, ArrowLeft } from 'lucide-react'; 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +9,9 @@ const ProfilSekolah = () => {
   
   // State untuk Tab Aktif di Section Organisasi
   const [activeTab, setActiveTab] = useState("Struktur Organisasi");
+
+  // Ref untuk mengontrol scroll horizontal konten organisasi
+  const scrollRef = useRef(null);
 
   // Data Sarana Prasarana
   const facilities = [
@@ -70,16 +73,17 @@ const ProfilSekolah = () => {
   const menuGrid = Object.keys(organizationContent);
 
   // --- LOGIKA NAVIGASI TOMBOL PANAH ---
+  // Sekarang berfungsi untuk menggeser konten grid secara horizontal
   const handleNext = () => {
-    const currentIndex = menuGrid.indexOf(activeTab);
-    const nextIndex = (currentIndex + 1) % menuGrid.length;
-    setActiveTab(menuGrid[nextIndex]);
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: 300, behavior: 'smooth' });
+    }
   };
 
   const handlePrev = () => {
-    const currentIndex = menuGrid.indexOf(activeTab);
-    const prevIndex = (currentIndex - 1 + menuGrid.length) % menuGrid.length;
-    setActiveTab(menuGrid[prevIndex]);
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: -300, behavior: 'smooth' });
+    }
   };
 
   const containerVariants = {
@@ -202,25 +206,27 @@ const ProfilSekolah = () => {
       </motion.section>
 
       {/* 6. BOTTOM SHAPE SECTION (VISI MISI) */}
-      <motion.section variants={itemVariants} className="relative w-full pt-20 lg:pt-32 pb-40 lg:pb-80 flex flex-col items-center">
+      <motion.section variants={itemVariants} className="relative w-full pt-20 lg:pt-32 pb-24 lg:pb-80 flex flex-col items-center">
         <div className="relative z-20 w-full max-w-[1440px] mx-auto px-5 lg:px-[60px]">
-            <div className="relative w-full h-[400px] lg:h-[550px] overflow-visible">
-                <img src="/gedung2.webp" alt="Gedung SMAN 14 Samarinda" className="w-full h-full object-cover" />
-                <div className="absolute bottom-6 left-0 lg:bottom-12 lg:left-0 max-w-[85%] lg:max-w-[450px] bg-[#587F93]/85 backdrop-blur-md text-white p-6 lg:p-10 rounded-xl z-30">
-                  <h3 className="text-[24px] lg:text-[42px] font-[900] mb-3 leading-none tracking-tighter uppercase">VISI</h3>
-                  <p className="text-[14px] lg:text-[16px] leading-relaxed font-medium opacity-95 tracking-tight">Terwujudnya Insan yang Bertaqwa, Unggul dalam Prestasi, Berbudaya Lingkungan, dan Kompetitif di Era Global</p>
+            <div className="relative w-full flex flex-col lg:block">
+                <div className="w-full h-[250px] lg:h-[550px] overflow-hidden rounded-2xl lg:rounded-none">
+                  <img src="/gedung2.webp" alt="Gedung SMAN 14 Samarinda" className="w-full h-full object-cover" />
                 </div>
-                <div className="absolute bottom-0 right-0 translate-y-full w-[95%] lg:w-[63%] bg-[#587F93] text-white p-8 lg:p-12 z-40 rounded-xl rounded-tr-none antialiased">
-                   <h3 className="text-[24px] lg:text-[36px] font-[900] mb-6 tracking-tight uppercase">MISI</h3>
-                   <ul className="flex flex-col gap-4 text-[13px] lg:text-[16px] font-medium opacity-95 leading-relaxed tracking-tight">
-                    <li className="flex gap-4 items-start"><span className="flex-shrink-0 font-bold">1.</span><span>Melaksanakan pembelajaran dan bimbingan secara efektif, kreatif, dan inovatif.</span></li>
-                    <li className="flex gap-4 items-start"><span className="flex-shrink-0 font-bold">2.</span><span>Menumbuhkan semangat keunggulan dan kompetisi yang sehat kepada seluruh warga sekolah.</span></li>
-                    <li className="flex gap-4 items-start"><span className="flex-shrink-0 font-bold">3.</span><span>Menerapkan manajemen partisipatif dengan melibatkan seluruh warga sekolah dan komite.</span></li>
+                <div className="mt-8 lg:mt-0 lg:absolute lg:bottom-12 lg:left-0 lg:max-w-[450px] lg:bg-[#587F93]/85 lg:backdrop-blur-md lg:text-white p-0 lg:p-10 rounded-xl lg:z-30">
+                  <h3 className="text-[24px] lg:text-[42px] font-[900] mb-3 leading-none tracking-tighter uppercase text-[#587F93] lg:text-white">VISI</h3>
+                  <p className="text-[14px] lg:text-[16px] leading-relaxed font-medium tracking-tight text-gray-700 lg:text-white lg:opacity-95">Terwujudnya Insan yang Bertaqwa, Unggul dalam Prestasi, Berbudaya Lingkungan, dan Kompetitif di Era Global</p>
+                </div>
+                <div className="mt-10 lg:mt-0 lg:absolute lg:bottom-0 lg:right-0 lg:translate-y-full lg:w-[63%] lg:bg-[#587F93] lg:text-white p-0 lg:p-12 lg:z-40 lg:rounded-xl lg:rounded-tr-none antialiased">
+                   <h3 className="text-[24px] lg:text-[36px] font-[900] mb-6 tracking-tight uppercase text-[#587F93] lg:text-white">MISI</h3>
+                   <ul className="flex flex-col gap-4 text-[13px] lg:text-[16px] font-medium leading-relaxed tracking-tight text-gray-700 lg:text-white lg:opacity-95">
+                    <li className="flex gap-4 items-start"><span className="flex-shrink-0 font-bold text-[#587F93] lg:text-white">1.</span><span>Melaksanakan pembelajaran dan bimbingan secara efektif, kreatif, dan inovatif.</span></li>
+                    <li className="flex gap-4 items-start"><span className="flex-shrink-0 font-bold text-[#587F93] lg:text-white">2.</span><span>Menumbuhkan semangat keunggulan dan kompetisi yang sehat kepada seluruh warga sekolah.</span></li>
+                    <li className="flex gap-4 items-start"><span className="flex-shrink-0 font-bold text-[#587F93] lg:text-white">3.</span><span>Menerapkan manajemen partisipatif dengan melibatkan seluruh warga sekolah dan komite.</span></li>
                   </ul>
                 </div>
             </div>
         </div>
-        <div className="w-full h-[250px] lg:h-[450px] relative -mt-[150px] lg:-mt-[250px] z-10">
+        <div className="hidden lg:block w-full h-[450px] relative lg:-mt-[250px] z-10">
           <div className="absolute inset-0 bg-[#587F93] flex items-end justify-center pb-12" style={{ clipPath: 'polygon(0% 45%, 33.3% 45%, 33.3% 10%, 100% 10%, 100% 100%, 0% 100%)' }}></div>
         </div>
       </motion.section>
@@ -261,12 +267,12 @@ const ProfilSekolah = () => {
       <section className="w-full py-16 bg-white font-urbanist overflow-hidden">
         
         {/* Menu Pills */}
-        <div className="max-w-[1440px] mx-auto flex gap-4 mb-10 px-5 lg:px-[60px] overflow-x-auto no-scrollbar">
+        <div className="max-w-[1440px] mx-auto flex flex-wrap gap-3 lg:gap-4 mb-10 px-5 lg:px-[60px]">
             {menuGrid.map((item) => (
                 <button 
                     key={item} 
                     onClick={() => setActiveTab(item)}
-                    className={`px-8 py-3 rounded-full text-sm font-[800] shadow-lg transition-all duration-300 border-2 uppercase tracking-tight whitespace-nowrap ${
+                    className={`px-5 lg:px-8 py-2.5 lg:py-3 rounded-full text-[12px] lg:text-sm font-[800] shadow-lg transition-all duration-300 border-2 uppercase tracking-tight whitespace-nowrap ${
                       activeTab === item 
                       ? 'bg-white text-[#587F93] border-[#587F93]' 
                       : 'bg-[#587F93] text-white border-[#587F93] hover:bg-white hover:text-[#587F93]'
@@ -278,9 +284,23 @@ const ProfilSekolah = () => {
         </div>
 
         {/* Blue Block Container Wrapper */}
-        <div className="relative min-h-[450px] lg:min-h-[500px] flex items-center w-full">
+        <AnimatePresence mode="wait">
+          <motion.div 
+            key={activeTab}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="relative min-h-[550px] lg:min-h-[500px] flex items-center w-full"
+          >
             {/* Background Layer */}
-            <div className="absolute inset-y-0 left-0 right-0 bg-[#587F93] rounded-r-lg shadow-2xl overflow-hidden max-w-[calc(100vw_-_((100vw_-_1440px)_/_2)_-_60px)]">
+            <div 
+                className="absolute inset-y-0 bg-[#587F93] rounded-r-lg lg:rounded-r-[40px] shadow-2xl overflow-hidden transition-none [--right-gap:50px] lg:[--right-gap:60px]"
+                style={{ 
+                    left: 'max(0px, 50vw - 1100px)',
+                    right: 'calc(max(0px, 50vw - 720px) + var(--right-gap))' 
+                }}
+            >
                 <div className="absolute top-0 bottom-0 left-0 w-[30%] opacity-10 pointer-events-none">
                  <svg width="100%" height="100%">
                     <defs>
@@ -294,21 +314,13 @@ const ProfilSekolah = () => {
             </div>
 
             {/* Content Layer */}
-            <div className="relative z-20 w-full max-w-[1440px] mx-auto px-5 lg:px-[60px] py-12 lg:py-20">
-                <AnimatePresence mode="wait">
-                  <motion.div 
-                    key={activeTab}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    transition={{ duration: 0.5 }}
-                    className="flex flex-col lg:flex-row gap-10 lg:gap-20 items-center"
-                  >
+            <div className="relative z-20 w-full max-w-[1440px] mx-auto px-5 lg:px-[60px] py-16 lg:py-20">
+                <div className="flex flex-col lg:flex-row gap-10 lg:gap-20 items-center">
                     <div className="w-full lg:w-1/2 flex flex-col items-start">
-                      <h2 className="text-[32px] lg:text-[54px] font-[900] text-white leading-none mb-4 uppercase tracking-tighter">
+                      <h2 className="text-[28px] lg:text-[54px] font-[900] text-white leading-tight lg:leading-none mb-4 uppercase tracking-tighter">
                         {organizationContent[activeTab].title}
                       </h2>
-                      <p className="text-white/70 text-[16px] lg:text-[18px] font-medium mb-12">
+                      <p className="text-white/70 text-[14px] lg:text-[18px] font-medium mb-8 lg:mb-12">
                         {organizationContent[activeTab].subtitle}
                       </p>
                       
@@ -325,11 +337,11 @@ const ProfilSekolah = () => {
 
                     <div className="w-full lg:w-1/2">
                       {organizationContent[activeTab].type === "text" ? (
-                        <p className="text-white/90 text-[18px] lg:text-[24px] leading-relaxed font-medium italic lg:pl-10 border-l-2 border-white/20">
+                        <p className="text-white/90 text-[16px] lg:text-[24px] leading-relaxed font-medium italic lg:pl-10 border-l-2 border-white/20">
                           {organizationContent[activeTab].desc}
                         </p>
                       ) : (
-                        <div className="flex gap-6 overflow-x-auto no-scrollbar pb-6 px-2">
+                        <div ref={scrollRef} className="flex gap-6 overflow-x-auto no-scrollbar pb-6 pl-2 pr-20 lg:pr-32 scroll-smooth">
                           {organizationContent[activeTab].members.map((member, i) => (
                             <div key={i} className="flex-shrink-0 flex flex-col items-center gap-4 group">
                               <div className="w-[180px] h-[220px] lg:w-[210px] lg:h-[270px] bg-white/10 backdrop-blur-md overflow-hidden relative rounded-sm">
@@ -347,27 +359,40 @@ const ProfilSekolah = () => {
                         </div>
                       )}
                     </div>
-                  </motion.div>
-                </AnimatePresence>
+                </div>
 
                 {/* --- NAVIGATION ARROWS (POJOK KANAN BAWAH) --- */}
-                <div className="absolute bottom-6 right-5 lg:right-[60px] z-30 flex gap-2">
-                    <button 
-                      onClick={handlePrev}
-                      className="group flex items-center justify-center w-10 h-10 lg:w-11 lg:h-11 border border-white/40 text-white rounded-full hover:bg-white/10 transition-all duration-300 active:scale-90 backdrop-blur-sm"
-                    >
-                        <ArrowLeft size={20} className="transition-transform group-hover:-translate-x-0.5" />
-                    </button>
-                    <button 
-                      onClick={handleNext}
-                      className="group flex items-center justify-center w-10 h-10 lg:w-11 lg:h-11 bg-white text-[#587F93] rounded-full hover:bg-white/90 border border-white transition-all duration-300 active:scale-90 shadow-lg"
-                    >
-                        <ArrowRight size={20} className="transition-transform group-hover:translate-x-0.5" />
-                    </button>
-                </div>
+                {organizationContent[activeTab].type === "grid" && (
+                  <div className="absolute bottom-6 right-14 lg:bottom-10 lg:right-[100px] z-30 flex gap-3">
+                      <button 
+                        onClick={handlePrev}
+                        className="group flex items-center justify-center w-8 h-8 lg:w-10 lg:h-10 border border-white/40 text-white rounded-full hover:bg-white/10 transition-all duration-300 active:scale-90 backdrop-blur-sm"
+                      >
+                          <ArrowLeft size={16} className="transition-transform group-hover:-translate-x-0.5" />
+                      </button>
+                      <button 
+                        onClick={handleNext}
+                        className="group flex items-center justify-center w-8 h-8 lg:w-10 lg:h-10 bg-white text-[#587F93] rounded-full hover:bg-white/90 border border-white transition-all duration-300 active:scale-90 shadow-lg"
+                      >
+                          <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" />
+                      </button>
+                  </div>
+                )}
             </div>
-        </div>
+          </motion.div>
+        </AnimatePresence>
       </section>
+
+      {/* CSS Global untuk menyembunyikan scrollbar */}
+      <style jsx global>{`
+        .no-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+        .no-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
 
     </motion.div>
   );

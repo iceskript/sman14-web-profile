@@ -22,28 +22,6 @@ const AppContent = () => {
   const location = useLocation();
   const isLoginPage = location.pathname === '/login';
 
-  useEffect(() => {
-    // KODE LENIS DI BAWAH INI TELAH DIHAPUS UNTUK MENGHILANGKAN GLITCH PADA TEKS
-    /*
-    const lenis = new Lenis({
-      lerp: 0.08,
-      wheelMultiplier: 1.2,
-      smoothWheel: true,
-      normalizeWheel: true,
-    });
-
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-
-    return () => {
-      lenis.destroy();
-    };
-    */
-  }, [location.pathname]); 
-
   return (
     // 'scroll-auto' memastikan perilaku scroll kembali ke standar browser yang stabil
     <div className="flex flex-col min-h-screen bg-white font-inter overflow-x-hidden select-none scroll-auto">

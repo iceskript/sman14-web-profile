@@ -126,7 +126,7 @@ const ProfilSekolah = () => {
         </div>
         <div className="absolute inset-0 pointer-events-none">
           <div className="max-w-[1440px] mx-auto h-full px-5 lg:px-[60px] relative">
-            <div className="absolute -bottom-16 lg:-bottom-24 left-0 w-[90%] lg:w-[65%] bg-[#587F93] text-white p-8 lg:p-14 rounded-tr-[40px] lg:rounded-tr-[100px] z-10 pointer-events-auto antialiased">
+            <div className="absolute -bottom-16 lg:-bottom-24 left-5 lg:left-[60px] w-[90%] lg:w-[51%] bg-[#587F93] text-white p-8 lg:p-14 rounded-tr-[40px] lg:rounded-tr-[100px] z-10 pointer-events-auto antialiased">
               <h2 className="text-[22px] lg:text-[32px] font-[800] mb-4 lg:mb-6 uppercase tracking-wider leading-tight">SMA Negeri 14 Samarinda</h2>
               <p className="text-[14px] lg:text-[16px] leading-relaxed opacity-95 text-justify font-medium">
                 SMA Negeri 14 Samarinda adalah lembaga pendidikan menengah atas yang berdedikasi untuk mencetak generasi penerus bangsa yang cerdas, berkarakter, dan kompetitif.
@@ -341,7 +341,7 @@ const ProfilSekolah = () => {
                           {organizationContent[activeTab].desc}
                         </p>
                       ) : (
-                        <div ref={scrollRef} className="flex gap-6 overflow-x-auto no-scrollbar pb-6 pl-2 pr-20 lg:pr-32 scroll-smooth">
+                        <div ref={scrollRef} className="flex gap-6 overflow-x-auto no-scrollbar pb-6 pl-2 pr-10 lg:pr-32 scroll-smooth">
                           {organizationContent[activeTab].members.map((member, i) => (
                             <div key={i} className="flex-shrink-0 flex flex-col items-center gap-4 group">
                               <div className="w-[180px] h-[220px] lg:w-[210px] lg:h-[270px] bg-white/10 backdrop-blur-md overflow-hidden relative rounded-sm">

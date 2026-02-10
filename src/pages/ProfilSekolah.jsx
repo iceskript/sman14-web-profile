@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { ChevronDown, ArrowRight, ArrowLeft } from 'lucide-react'; 
+import { ChevronDown, ArrowRight, ArrowLeft, Download } from 'lucide-react'; 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
@@ -37,13 +37,14 @@ const ProfilSekolah = () => {
       type: "text",
       title: "STRUKTUR ORGANISASI",
       subtitle: "Struktur Organisasi SMAN 14 Samarinda",
-      desc: '"Menampilkan bagan kepemimpinan dan tata kelola sekolah yang transparan dan akuntabel untuk mewujudkan visi sekolah."',
+      desc: "Menampilkan bagan kepemimpinan dan tata kelola sekolah yang transparan dan akuntabel untuk mewujudkan visi sekolah.",
       link: "/struktur-organisasi"
     },
     "Wakil Kepala Satuan Pendidikan": {
       type: "grid",
       title: "WAKIL KEPALA",
       subtitle: "Pimpinan Bidang Satuan Pendidikan",
+      desc: "Tim pimpinan yang berdedikasi dalam mengelola kurikulum, kesiswaan, serta sarana dan prasarana sekolah.",
       members: [
         { name: "Waka Kurikulum", img: "/waka1.png", link: "/waka" },
         { name: "Waka Kesiswaan", img: "/waka2.png", link: "/waka" },
@@ -54,6 +55,7 @@ const ProfilSekolah = () => {
       type: "grid",
       title: "TENAGA ADMINISTRASI",
       subtitle: "Unit Tata Usaha SMAN 14 Samarinda",
+      desc: "Mendukung operasional sekolah melalui layanan administrasi yang profesional, cepat, dan transparan.",
       members: [
         { name: "Kepala TAS", img: "/tas1.png", link: "/tas" },
         { name: "Staf Administrasi", img: "/tas2.png", link: "/tas" },
@@ -63,6 +65,7 @@ const ProfilSekolah = () => {
       type: "grid",
       title: "KOMITE SEKOLAH",
       subtitle: "Mitra Strategis Pengembangan Sekolah",
+      desc: "Wadah partisipasi masyarakat dan orang tua siswa dalam meningkatkan mutu pelayanan pendidikan.",
       members: [
         { name: "Ketua Komite", img: "/komite1.png", link: "/komite" },
         { name: "Sekretaris", img: "/komite2.png", link: "/komite" },
@@ -315,19 +318,25 @@ const ProfilSekolah = () => {
 
             {/* Content Layer */}
             <div className="relative z-20 w-full max-w-[1440px] mx-auto px-5 lg:px-[60px] py-16 lg:py-20">
-                <div className="flex flex-col lg:flex-row gap-10 lg:gap-20 items-center">
-                    <div className="w-full lg:w-1/2 flex flex-col items-start">
-                      <h2 className="text-[28px] lg:text-[54px] font-[900] text-white leading-tight lg:leading-none mb-4 uppercase tracking-tighter">
+                <div className="flex flex-col lg:flex-row gap-10 lg:gap-20 items-start">
+                    <div className={`w-full ${organizationContent[activeTab].type === "text" ? "lg:w-2/3" : "lg:w-1/2"} flex flex-col items-start`}>
+                      <h2 className="text-[28px] lg:text-[54px] font-[900] text-white leading-tight mb-4 uppercase tracking-tight">
                         {organizationContent[activeTab].title}
                       </h2>
-                      <p className="text-white/70 text-[14px] lg:text-[18px] font-medium mb-8 lg:mb-12">
+                      <p className="text-white/70 text-[14px] lg:text-[18px] font-medium mb-6 lg:mb-8 pl-2">
                         {organizationContent[activeTab].subtitle}
                       </p>
+                      
+                      {organizationContent[activeTab].desc && (
+                        <p className="text-white/90 text-[16px] lg:text-[22px] leading-relaxed font-medium italic mb-10 pl-2">
+                          {organizationContent[activeTab].desc}
+                        </p>
+                      )}
                       
                       {organizationContent[activeTab].type === "text" && (
                         <button 
                           onClick={() => navigate(organizationContent[activeTab].link)}
-                          className="group flex items-center gap-4 text-white font-bold text-sm uppercase tracking-widest border-b-2 border-white/30 pb-1 hover:border-white transition-all"
+                          className="group flex items-center gap-4 text-white font-bold text-sm uppercase tracking-widest border-b-2 border-white/30 pb-1 hover:border-white transition-all mt-2 ml-2"
                         >
                           Selengkapnya 
                           <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform duration-300" />
@@ -336,11 +345,7 @@ const ProfilSekolah = () => {
                     </div>
 
                     <div className="w-full lg:w-1/2">
-                      {organizationContent[activeTab].type === "text" ? (
-                        <p className="text-white/90 text-[16px] lg:text-[24px] leading-relaxed font-medium italic lg:pl-10 border-l-2 border-white/20">
-                          {organizationContent[activeTab].desc}
-                        </p>
-                      ) : (
+                      {organizationContent[activeTab].type === "grid" && (
                         <div ref={scrollRef} className="flex gap-6 overflow-x-auto no-scrollbar pb-6 pl-2 pr-10 lg:pr-32 scroll-smooth">
                           {organizationContent[activeTab].members.map((member, i) => (
                             <div key={i} className="flex-shrink-0 flex flex-col items-center gap-4 group">
@@ -382,6 +387,47 @@ const ProfilSekolah = () => {
           </motion.div>
         </AnimatePresence>
       </section>
+
+      {/* 9. SECTION SERTIFIKAT / AKREDITASI */}
+      <motion.section 
+        variants={itemVariants} 
+        className="w-full mb-24 lg:mb-40"
+      >
+        <div className="relative w-full py-20 lg:py-28 bg-[#3D5A6A] rounded-none rounded-bl-[80px] lg:rounded-bl-[150px] flex flex-col items-center justify-center overflow-hidden shadow-2xl">
+          {/* Background Image Layer (Subtle) */}
+          <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none">
+            <img src="/gedung2.webp" alt="" className="w-full h-full object-cover grayscale" />
+          </div>
+
+          {/* Dekorasi Background (Titik-titik halus) */}
+          <div className="absolute inset-0 opacity-[0.05] pointer-events-none">
+            <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(white 2px, transparent 2px)', backgroundSize: '30px 30px' }}></div>
+          </div>
+
+          {/* Box Sertifikat (Ukuran A4 Landscape) */}
+          <div className="relative group">
+            <div className="relative w-[280px] sm:w-[420px] lg:w-[650px] aspect-[297/210] bg-white shadow-[0_20px_50px_rgba(0,0,0,0.15)] rounded-sm overflow-hidden border-[6px] lg:border-[10px] border-white transition-all duration-500 group-hover:shadow-[0_30px_60px_rgba(88,127,147,0.3)]">
+              <img 
+                src="/sertifikat-akreditasi.webp" 
+                alt="Sertifikat Akreditasi" 
+                className="w-full h-full object-cover transition-all duration-700 group-hover:blur-md group-hover:scale-105"
+              />
+              
+              {/* Hover Overlay dengan Tombol Kecil */}
+              <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
+                <button className="bg-[#587F93] text-white px-6 py-3 rounded-full font-bold text-[13px] uppercase tracking-widest shadow-2xl transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 flex items-center gap-2 hover:bg-[#466575] active:scale-95">
+                  <Download size={18} />
+                  Unduh PDF
+                </button>
+              </div>
+            </div>
+            
+            {/* Aksen Sudut Dekoratif */}
+            <div className="absolute -top-4 -left-4 lg:-top-6 lg:-left-6 w-8 h-8 lg:w-12 lg:h-12 border-t-2 border-l-2 border-white/20"></div>
+            <div className="absolute -bottom-4 -right-4 lg:-bottom-6 lg:-right-6 w-8 h-8 lg:w-12 lg:h-12 border-b-2 border-r-2 border-white/20"></div>
+          </div>
+        </div>
+      </motion.section>
 
       {/* CSS Global untuk menyembunyikan scrollbar */}
       <style jsx global>{`

@@ -1,14 +1,28 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { ChevronDown, ArrowRight, ArrowLeft, Download } from 'lucide-react'; 
 import { motion, AnimatePresence } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const ProfilSekolah = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [isExpanded, setIsExpanded] = useState(false);
   
   // State untuk Tab Aktif di Section Organisasi
   const [activeTab, setActiveTab] = useState("Struktur Organisasi");
+
+  // Logika Scroll ke Section berdasarkan Hash (#)
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace('#', '');
+      const element = document.getElementById(id);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  }, [location]);
 
   // Ref untuk mengontrol scroll horizontal konten organisasi
   const scrollRef = useRef(null);
@@ -209,7 +223,7 @@ const ProfilSekolah = () => {
       </motion.section>
 
       {/* 6. BOTTOM SHAPE SECTION (VISI MISI) */}
-      <motion.section variants={itemVariants} className="relative w-full pt-20 lg:pt-32 pb-24 lg:pb-80 flex flex-col items-center">
+      <motion.section id="visi-misi" variants={itemVariants} className="relative w-full pt-20 lg:pt-32 pb-24 lg:pb-80 flex flex-col items-center scroll-mt-32">
         <div className="relative z-20 w-full max-w-[1440px] mx-auto px-5 lg:px-[60px]">
             <div className="relative w-full flex flex-col lg:block">
                 <div className="w-full h-[250px] lg:h-[550px] overflow-hidden rounded-2xl lg:rounded-none">
@@ -235,7 +249,7 @@ const ProfilSekolah = () => {
       </motion.section>
 
       {/* 7. SECTION SARANA PRASARANA */}
-      <section className="py-24 bg-white font-urbanist border-t border-gray-100 -mt-10 lg:-mt-20 relative z-20">
+      <section id="sarana-prasarana" className="py-24 bg-white font-urbanist border-t border-gray-100 -mt-10 lg:-mt-20 relative z-20 scroll-mt-32">
         <div className="max-w-[1440px] mx-auto px-5 lg:px-[60px]">
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start">
             <div className="w-full lg:w-1/3 flex flex-col items-start pt-4">
@@ -267,7 +281,7 @@ const ProfilSekolah = () => {
       </section>
 
       {/* 8. SECTION ORGANISASI */}
-      <section className="w-full py-16 bg-white font-urbanist overflow-hidden">
+      <section id="organisasi" className="w-full py-16 bg-white font-urbanist overflow-hidden scroll-mt-32">
         
         {/* Menu Pills */}
         <div className="max-w-[1440px] mx-auto flex flex-wrap gap-3 lg:gap-4 mb-10 px-5 lg:px-[60px]">

@@ -11,7 +11,9 @@ const Navbar = () => {
 
   const handleNavigation = (path) => {
     navigate(path);
-    window.scrollTo(0, 0);
+    if (!path.includes('#')) {
+      window.scrollTo(0, 0);
+    }
   };
 
   // Logika Deteksi Scroll (Utility Bar tetap terlihat saat scroll ke atas)
@@ -41,13 +43,13 @@ const Navbar = () => {
   const menuItems = [
     { name: 'BERANDA', dropdown: false, path: '/' },
     { 
-      name: 'PROFIL', 
+      name: 'TENTANG', 
       dropdown: true, 
       items: [
         { label: 'Profil Sekolah', path: '/profil' },
-        { label: 'Sejarah', path: '/profil' },
-        { label: 'Visi & Misi', path: '/profil' },
-        { label: 'Struktur Organisasi', path: '/profil' }
+        { label: 'Sarana dan Prasarana', path: '/profil#sarana-prasarana' },
+        { label: 'Visi & Misi', path: '/profil#visi-misi' },
+        { label: 'Struktur Organisasi', path: '/profil#organisasi' }
       ] 
     },
     { 

@@ -1,11 +1,13 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper/modules';
+import { useNavigate } from 'react-router-dom';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
 
 const LatestNews = () => {
+  const navigate = useNavigate();
   const newsData = [
     {
       id: 1,
@@ -91,7 +93,10 @@ const LatestNews = () => {
                       {news.title}
                     </h3>
                     
-                    <button className="mt-auto w-fit bg-[#587F93] text-white px-7 py-2.5 rounded-full text-[12px] font-[900] hover:bg-[#587F93] transition-all active:scale-95 shadow-sm">
+                    <button 
+                      onClick={() => navigate(`/berita/${news.id}`)}
+                      className="mt-auto w-fit bg-[#587F93] text-white px-7 py-2.5 rounded-full text-[12px] font-[900] hover:bg-[#587F93] transition-all active:scale-95 shadow-sm"
+                    >
                       Lanjutkan Baca
                     </button>
                   </div>
@@ -120,7 +125,10 @@ const LatestNews = () => {
         </div>
 
         <div className="text-center mt-4">
-          <button className="bg-[#587F93] text-white px-12 py-3.5 rounded-full text-[16px] font-[900] shadow-md hover:shadow-lg hover:bg-[#587F93] transition-all active:scale-95">
+          <button 
+            onClick={() => navigate('/berita')}
+            className="bg-[#587F93] text-white px-12 py-3.5 rounded-full text-[16px] font-[900] shadow-md hover:shadow-lg hover:bg-[#587F93] transition-all active:scale-95"
+          >
             Berita Selengkapnya
           </button>
         </div>

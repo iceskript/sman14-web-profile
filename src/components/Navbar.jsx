@@ -55,20 +55,20 @@ const Navbar = () => {
     { 
       name: 'BERITA', 
       dropdown: true, 
-      items: [{ label: 'Berita Terbaru', path: '/' }, { label: 'Pengumuman', path: '/' }, { label: 'Agenda', path: '/' }] 
+      items: [{ label: 'Berita Terbaru', path: '/berita' }] 
     },
     { 
       name: 'INFORMASI', 
       dropdown: true, 
-      items: [{ label: 'Pendaftaran', path: '/' }, { label: 'Kurikulum', path: '/' }, { label: 'Fasilitas', path: '/' }] 
+      items: [{ label: 'Pendaftaran', path: '/pendaftaran' }] 
     },
     { 
       name: 'DATA', 
       dropdown: true, 
-      items: [{ label: 'Data Guru', path: '/' }, { label: 'Data Siswa', path: '/' }, { label: 'Alumni', path: '/' }] 
+      items: [{ label: 'Data Guru', path: '/data-guru' }] 
     },
-    { name: 'EKSTRAKURIKULER', dropdown: false, path: '/' },
-    { name: 'GALERI', dropdown: false, path: '/' },
+    { name: 'EKSTRAKURIKULER', dropdown: false, path: '/ekstrakurikuler' },
+    { name: 'GALERI', dropdown: false, path: '/galeri' },
   ];
 
   return (
@@ -183,7 +183,7 @@ const Navbar = () => {
         onClick={() => setIsMobileMenuOpen(false)}
       />
 
-      <div className={`fixed top-0 right-0 h-full w-[85%] max-w-[350px] bg-white z-[200] shadow-2xl transition-transform duration-300 ease-in-out transform xl:hidden flex flex-col ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+    <div className={`fixed top-0 right-0 h-full w-[85%] max-w-[350px] bg-white z-[200] shadow-2xl transition-transform duration-300 ease-in-out transform xl:hidden flex flex-col font-urbanist ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
         <div className="flex justify-between items-center p-5 border-b border-gray-100 shrink-0">
            <img src="/logo-smapas.svg" alt="Logo" className="w-[40px] h-[40px]" onClick={() => { handleNavigation('/'); setIsMobileMenuOpen(false); }} />
            <button onClick={() => setIsMobileMenuOpen(false)} className="p-2 text-gray-500"><X size={28} /></button>

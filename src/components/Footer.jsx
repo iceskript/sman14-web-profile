@@ -4,8 +4,11 @@ import {
   Mail, 
   ChevronRight 
 } from 'lucide-react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Footer = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   // MENGGUNAKAN API EMBED MODE "PLACE" AGAR MUNCUL PIN MERAH
   // "q" diisi nama tempat spesifik + koordinat untuk akurasi maksimal
   const mapUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.688863677334!2d117.10098037497746!3d-0.5002820994939023!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2df67f08c3d9804b%3A0x6b2e126284699564!2sSMA%20Negeri%2014%20Samarinda!5e0!3m2!1sid!2sid!4v1709228945620!5m2!1sid!2sid";
@@ -52,7 +55,18 @@ const Footer = () => {
               <ul className="space-y-4">
                 {['Beranda', 'Kontak', 'Sosmed', 'Fasilitas'].map((item) => (
                   <li key={item}>
-                    <a href={`#${item.toLowerCase()}`} className="flex items-center gap-2 text-gray-500 hover:text-[#587F93] transition-all group">
+                    <a 
+                      href={item === 'Beranda' ? "/" : `#${item.toLowerCase()}`} 
+                      onClick={(e) => {
+                        if (item === 'Beranda') {
+                          e.preventDefault();
+                          navigate('/');
+                          // Memastikan scroll ke paling atas (0,0) dengan transisi halus.
+                          // Timeout 0 memastikan ini berjalan setelah siklus navigasi dimulai.
+                          setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 0);
+                        }
+                      }}
+                      className="flex items-center gap-2 text-gray-500 hover:text-[#587F93] transition-all group cursor-pointer">
                       <ChevronRight size={18} className="text-gray-400 group-hover:translate-x-1 transition-transform" />
                       <span>{item}</span>
                     </a>
@@ -81,7 +95,7 @@ const Footer = () => {
                 <h3 className="text-lg font-bold mb-4 text-gray-900">Ikuti Kami</h3>
                 <div className="flex gap-4">
                   {/* Instagram */}
-                  <a href="#" className="w-10 h-10 flex items-center justify-center bg-gray-50 rounded-full transition-all duration-300 shadow-sm group hover:bg-[#E1306C]">
+                  <a href="https://www.instagram.com/sman14samarinda/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 flex items-center justify-center bg-gray-50 rounded-full transition-all duration-300 shadow-sm group hover:bg-[#E1306C]">
                     <img 
                       src="/ig-logo.svg" 
                       alt="Instagram" 

@@ -17,14 +17,32 @@ import PrestasiSiswa from './components/PrestasiSiswa';
 import Testimoni from './components/Testimoni';
 import DataGuru from './components/DataGuru';
 import StatCounter from './components/StatCounter';
+import BeritaTerbaru from './pages/BeritaTerbaru';
+import NewsDetail from './pages/NewsDetail';
+import DataGuruPage from './pages/DataGuruPage';
+import Ekstrakurikuler from './pages/Ekstrakurikuler';
+import Galeri from './pages/Galeri';
+import Pendaftaran from './pages/Pendaftaran';
 
 const AppContent = () => {
   const location = useLocation();
   const isLoginPage = location.pathname === '/login';
 
+  // Global Scroll to Top: Reset scroll setiap kali pindah halaman (kecuali jika ada hash/anchor)
+  useEffect(() => {
+    // Matikan restorasi scroll otomatis browser agar tidak bentrok dengan manual scroll
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+
+    if (!location.hash) {
+      window.scrollTo(0, 0);
+    }
+  }, [location.pathname]);
+
   return (
     // 'scroll-auto' memastikan perilaku scroll kembali ke standar browser yang stabil
-    <div className="flex flex-col min-h-screen bg-white font-inter overflow-x-hidden select-none scroll-auto">
+    <div className="flex flex-col min-h-screen bg-white font-urbanist overflow-x-hidden select-none scroll-auto">
       {!isLoginPage && <Navbar />}
       <main className="flex-grow">
         <Routes>
@@ -42,6 +60,12 @@ const AppContent = () => {
             </>
           } />
           <Route path="/profil" element={<ProfilSekolah />} />
+          <Route path="/berita" element={<BeritaTerbaru />} />
+          <Route path="/berita/:id" element={<NewsDetail />} />
+          <Route path="/data-guru" element={<DataGuruPage />} />
+          <Route path="/ekstrakurikuler" element={<Ekstrakurikuler />} />
+          <Route path="/galeri" element={<Galeri />} />
+          <Route path="/pendaftaran" element={<Pendaftaran />} />
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

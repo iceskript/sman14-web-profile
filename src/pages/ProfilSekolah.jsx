@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ChevronDown, ArrowRight, ArrowLeft, Download } from 'lucide-react'; 
+import { ChevronDown, ArrowRight, ArrowLeft, Download, ChevronRight } from 'lucide-react'; 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
 
@@ -129,11 +129,16 @@ const ProfilSekolah = () => {
     >
       
       {/* 1. HEADER TITLE */}
-      <motion.div variants={itemVariants} className="max-w-[1440px] mx-auto px-5 lg:px-[60px] mb-8 lg:mb-12">
-        <h1 className="text-[40px] lg:text-[56px] font-[900] text-black leading-none mb-3 tracking-tight">
-          Profil Sekolah
+      <motion.div variants={itemVariants} className="max-w-[1440px] mx-auto px-5 lg:px-[60px] mb-12">
+        <div className="flex items-center gap-2 text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">
+          <span className="hover:text-[#587F93] cursor-pointer" onClick={() => navigate('/')}>Beranda</span>
+          <ChevronRight size={14} />
+          <span className="text-[#587F93]">Profil Sekolah</span>
+        </div>
+        <h1 className="text-[40px] lg:text-[56px] font-[900] text-black leading-none tracking-tight">
+          Profil <span className="text-[#587F93]">Sekolah</span>
         </h1>
-        <p className="text-[16px] lg:text-[18px] text-[#999] font-medium">Beranda / Profil</p>
+        <div className="w-20 h-1.5 bg-[#587F93] mt-6 rounded-full"></div>
       </motion.div>
 
       {/* 2. HERO SECTION */}
@@ -259,7 +264,7 @@ const ProfilSekolah = () => {
               </div>
               <h2 className="text-[36px] lg:text-[48px] font-[900] text-black uppercase leading-[1.1] mb-6 tracking-tight">Sarana & <br/> Prasarana</h2>
               <p className="text-gray-500 text-[16px] leading-relaxed mb-10 max-w-md">Kami menyediakan lingkungan belajar yang kondusif dengan fasilitas modern untuk mendukung pengembangan potensi siswa secara maksimal.</p>
-              <button onClick={() => navigate('/sarana-prasarana')} className="group flex items-center gap-4 text-black font-[800] text-[14px] uppercase tracking-wider hover:text-[#587F93] transition-colors">
+              <button onClick={() => navigate('/galeri', { state: { filter: 'Fasilitas' } })} className="group flex items-center gap-4 text-black font-[800] text-[14px] uppercase tracking-wider hover:text-[#587F93] transition-colors">
                 <span className="border-b-2 border-black group-hover:border-[#587F93] pb-1 transition-colors">Lihat Selengkapnya</span>
                 <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform duration-300" />
               </button>

@@ -113,7 +113,7 @@ const Footer = () => {
                     />
                   </a>
                   {/* TikTok */}
-                  <a href="#" className="w-10 h-10 flex items-center justify-center bg-gray-50 rounded-full transition-all duration-300 shadow-sm group hover:bg-black">
+                  <a href="https://www.tiktok.com/@osismapas" target="_blank" rel="noopener noreferrer" className="w-10 h-10 flex items-center justify-center bg-gray-50 rounded-full transition-all duration-300 shadow-sm group hover:bg-black">
                     <img 
                       src="/tt-logo.svg" 
                       alt="TikTok" 
@@ -124,7 +124,7 @@ const Footer = () => {
                     />
                   </a>
                   {/* Youtube */}
-                  <a href="#" className="w-10 h-10 flex items-center justify-center bg-gray-50 rounded-full transition-all duration-300 shadow-sm group hover:bg-[#FF0000]">
+                  <a href="https://www.youtube.com/@SMAPAS" target="_blank" rel="noopener noreferrer" className="w-10 h-10 flex items-center justify-center bg-gray-50 rounded-full transition-all duration-300 shadow-sm group hover:bg-[#FF0000]">
                     <img 
                       src="/yt-logo.svg" 
                       alt="Youtube" 

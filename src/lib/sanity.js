@@ -2,9 +2,9 @@ import { createClient } from "@sanity/client";
 import imageUrlBuilder from "@sanity/image-url";
 
 export const client = createClient({
-  projectId: "vn9r43ot",
-  dataset: "production",
-  useCdn: false, // Ubah ke false untuk development
+  projectId: import.meta.env.VITE_SANITY_PROJECT_ID, 
+  dataset: import.meta.env.VITE_SANITY_DATASET,
+  useCdn: true, 
   apiVersion: "2026-02-13",
 });
 

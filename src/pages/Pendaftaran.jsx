@@ -103,14 +103,14 @@ const Pendaftaran = () => {
               </h3>
               <div className="grid gap-4">
                 {documents.map((doc) => (
-                  <div key={doc.id} className="group bg-white p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:border-[#587F93]/30 transition-all flex items-center justify-between gap-4">
-                    <div className="flex items-center gap-4 overflow-hidden">
-                      <div className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-[#587F93] transition-colors">
-                        <FileText size={24} className="text-gray-400 group-hover:text-white transition-colors" />
+                  <div key={doc.id} className="group bg-white p-3 sm:p-4 lg:p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:border-[#587F93]/30 transition-all flex items-center justify-between gap-3 sm:gap-4">
+                    <div className="flex-1 flex items-center gap-3 overflow-hidden">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gray-50 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-[#587F93] transition-colors">
+                        <FileText className="w-5 h-5 sm:w-6 sm:h-6 text-gray-400 group-hover:text-white transition-colors" />
                       </div>
-                      <div className="min-w-0">
-                        <h4 className="font-bold text-gray-800 truncate group-hover:text-[#587F93] transition-colors">{doc.title}</h4>
-                        <div className="flex items-center gap-3 text-xs text-gray-400 font-medium mt-1">
+                      <div className="min-w-0 flex-1">
+                        <h4 className="font-bold text-gray-800 truncate group-hover:text-[#587F93] transition-colors text-sm sm:text-base">{doc.title}</h4>
+                        <div className="flex flex-wrap items-center gap-x-2 sm:gap-x-3 gap-y-1 text-[10px] sm:text-xs text-gray-400 font-medium mt-1">
                           <span className="bg-gray-100 px-2 py-0.5 rounded text-gray-500">{doc.type}</span>
                           <span>{doc.size}</span>
                           <span className="w-1 h-1 bg-gray-300 rounded-full"></span>

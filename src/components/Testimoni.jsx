@@ -126,13 +126,14 @@ const Testimoni = () => {
             .testimoni-slider-container .swiper-pagination-bullet {
               width: 14px;
               height: 14px;
-              background: #D1D5DB;
-              opacity: 1;
+              background: #587F93;
+              opacity: 0.2;
               margin: 0 8px !important;
               transition: all 0.3s ease;
             }
             .testimoni-slider-container .swiper-pagination-bullet-active {
-              background: #00B4D8 !important;
+              background: #587F93 !important;
+              opacity: 1;
               width: 14px;
               border-radius: 50%;
             }

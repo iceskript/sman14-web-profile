@@ -69,8 +69,8 @@ const LatestNews = () => {
             className="!pb-20" 
           >
             {newsData.map((news) => (
-              <SwiperSlide key={news._id} className="h-auto">
-                <div className="bg-white rounded-[20px] overflow-hidden shadow-xl border border-gray-100 flex flex-col h-full mb-8 mx-2">
+              <SwiperSlide key={news._id} className="h-auto flex">
+                <div className="bg-white rounded-[20px] overflow-hidden shadow-xl border border-gray-100 flex flex-col flex-1 mb-8 mx-2">
                   
                   {/* Image Container */}
                   <div className="relative h-[200px] overflow-hidden bg-gray-100">
@@ -108,6 +108,16 @@ const LatestNews = () => {
                     <p className="text-gray-500 text-[14px] leading-relaxed mb-6 line-clamp-3 font-medium flex-grow">
                       {news.excerpt}
                     </p>
+                    {/* Hashtags */}
+                    {news.hashtag && news.hashtag.length > 0 && (
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {news.hashtag.slice(0, 2).map((tag, idx) => (
+                          <span key={idx} className="text-[9px] px-2 py-0.5 bg-[#587F93]/10 text-[#587F93] rounded-full font-bold">
+                            {tag.startsWith('#') ? tag : `#${tag}`}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                     <button 
                       onClick={() => navigate(`/berita/${news._id}`)}
                       className="mt-auto w-fit bg-[#587F93] text-white px-7 py-2.5 rounded-full text-[12px] font-[900] hover:bg-[#466575] transition-all active:scale-95 shadow-sm"
@@ -125,16 +135,18 @@ const LatestNews = () => {
               bottom: 10px !important;
             }
             .news-slider-container .swiper-pagination-bullet {
-              width: 10px;
-              height: 10px;
-              background: #D1D5DB;
-              opacity: 1;
+              width: 14px;
+              height: 14px;
+              background: #587F93;
+              opacity: 0.2;
               margin: 0 6px !important;
+              transition: all 0.3s ease;
             }
             .news-slider-container .swiper-pagination-bullet-active {
-              background: #00B4D8;
-              width: 25px;
-              border-radius: 5px;
+              background: #587F93;
+              width: 14px;
+              border-radius: 50%;
+              opacity: 1;
             }
           `}</style>
         </div>

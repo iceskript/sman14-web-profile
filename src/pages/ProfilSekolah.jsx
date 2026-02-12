@@ -194,7 +194,7 @@ const ProfilSekolah = () => {
             <div className="relative w-[300px] h-[340px] lg:w-[450px] lg:h-[420px]">
               <div className="absolute inset-0 bg-[#587F93] rounded-t-[220px] rounded-bl-[120px] rounded-br-none border-b-4 border-black/10 z-0 shadow-lg"></div>
               <div className="absolute bottom-0 left-0 w-full h-[160%] flex justify-center z-10 pointer-events-none">
-                <img src="/test1.png" alt="Kepala Sekolah" className="h-full w-auto object-contain object-bottom ml-[4%]" />
+                <img src="/" alt="" className="h-full w-auto object-contain object-bottom ml-[4%]" />
               </div>
               <div className="absolute bottom-10 right-[-15px] bg-white text-[#587F93] px-8 py-2.5 rounded-l-full border-y border-l border-black/10 z-20 shadow-md">
                 <h3 className="text-[18px] lg:text-[24px] font-[900] uppercase tracking-tighter">SAMBUTAN</h3>

@@ -122,6 +122,17 @@ const BeritaTerbaru = () => {
                   {news.excerpt}
                 </p>
 
+                {/* Hashtags */}
+                {news.hashtag && news.hashtag.length > 0 && (
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {news.hashtag.slice(0, 3).map((tag, idx) => (
+                      <span key={idx} className="text-[10px] px-2 py-1 bg-[#587F93]/10 text-[#587F93] rounded-full font-bold">
+                        {tag.startsWith('#') ? tag : `#${tag}`}
+                      </span>
+                    ))}
+                  </div>
+                )}
+
                 <button 
                   onClick={() => navigate(`/berita/${news._id}`)}
                   className="mt-auto flex items-center gap-3 text-[#587F93] font-black text-[13px] uppercase tracking-widest group/btn"

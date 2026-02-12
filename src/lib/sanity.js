@@ -47,7 +47,8 @@ export const fetchBerita = async () => {
     tanggal,
     excerpt,
     foto,
-    konten
+    konten,
+    hashtag
   }`;
   return await client.fetch(query);
 };
@@ -134,4 +135,34 @@ export const fetchGaleriBySlug = async (slug) => {
     tanggal
   }`;
   return await client.fetch(query, { slug });
+};
+
+export const fetchBeritaById = async (id) => {
+  const query = `*[_type == "berita" && _id == $id][0] {
+    _id,
+    judul,
+    slug,
+    kategori,
+    tanggal,
+    excerpt,
+    foto,
+    konten,
+    hashtag,
+    "author": coalesce(penulis, "Admin SMAN 14")
+  }`;
+  return await client.fetch(query, { id });
+};
+
+export const fetchRelatedBerita = async (kategori, excludeId) => {
+  const query = `*[_type == "berita" && kategori == $kategori && _id != $excludeId] | order(tanggal desc)[0..2] {
+    _id,
+    judul,
+    slug,
+    kategori,
+    tanggal,
+    excerpt,
+    foto,
+    hashtag
+  }`;
+  return await client.fetch(query, { kategori, excludeId });
 };

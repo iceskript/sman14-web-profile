@@ -67,7 +67,7 @@ const DataGuruPage = () => {
             <span className="text-[#587F93]">Data Guru & Staf</span>
           </div>
           <h1 className="text-[40px] lg:text-[56px] font-[900] text-black leading-none tracking-tight">
-            Struktur <span className="text-[#587F93]">Organisasi</span>
+            Data <span className="text-[#587F93]">Guru</span>
           </h1>
           <div className="w-20 h-1.5 bg-[#587F93] mt-6 rounded-full"></div>
           <p className="mt-8 text-gray-500 max-w-2xl font-medium text-lg">

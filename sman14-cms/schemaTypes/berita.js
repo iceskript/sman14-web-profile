@@ -68,5 +68,14 @@ export default {
       ],
       validation: (Rule) => Rule.required(),
     },
+    {
+      name: 'hashtag',
+      title: 'Hashtag',
+      type: 'array',
+      of: [{ type: 'string' }],
+      options: {
+        layout: 'tags',
+      },
+    },
   ],
 };

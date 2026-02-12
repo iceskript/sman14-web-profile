@@ -3,10 +3,12 @@ import { motion } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules'; 
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 import 'swiper/css';
 
 const DataGuru = () => {
+  const navigate = useNavigate();
   const swiperRef = useRef(null);
 
   const rawData = [
@@ -124,6 +126,7 @@ const DataGuru = () => {
         {/* --- TOMBOL SELENGKAPNYA --- */}
         <div className="relative z-10 flex justify-center">
           <motion.button
+            onClick={() => navigate('/data-guru')}
             whileHover={{ 
               scale: 1.05, 
               boxShadow: "0 15px 30px rgba(0,0,0,0.15)" // Drop shadow standar (bukan glow biru)

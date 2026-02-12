@@ -69,8 +69,8 @@ const PrestasiSiswa = () => {
             className="!pb-24"
           >
             {prestasiData.map((item) => (
-              <SwiperSlide key={item._id}>
-                <div className="bg-white rounded-[40px] overflow-hidden flex flex-col h-full border border-[#F5F5F5] shadow-2xl drop-shadow-[0_20px_20px_rgba(0,0,0,0.05)] mb-10">
+              <SwiperSlide key={item._id} className="h-auto flex">
+                <div className="bg-white rounded-[40px] overflow-hidden flex flex-col flex-1 border border-[#F5F5F5] shadow-2xl drop-shadow-[0_20px_20px_rgba(0,0,0,0.05)] mb-10">
                   
                   {/* Image Area */}
                   <div className="relative h-[300px] bg-[#F8F8F8] overflow-hidden">
@@ -98,7 +98,7 @@ const PrestasiSiswa = () => {
                     <p className="text-[#666666] font-semibold text-[15px] mb-4">
                       {item.namaSiswa}
                     </p>
-                    <p className="text-[#666666] font-medium leading-relaxed text-[14px] opacity-80 max-w-[300px]">
+                    <p className="text-[#666666] font-medium leading-relaxed text-[14px] opacity-80 max-w-[300px] line-clamp-3">
                       {item.deskripsi}
                     </p>
                   </div>
@@ -114,13 +114,14 @@ const PrestasiSiswa = () => {
             .prestasi-slider-container .swiper-pagination-bullet {
               width: 14px;
               height: 14px;
-              background: #D1D5DB;
-              opacity: 1;
+              background: #587F93;
+              opacity: 0.2;
               margin: 0 8px !important;
               transition: all 0.3s ease;
             }
             .prestasi-slider-container .swiper-pagination-bullet-active {
-              background: #00B4D8;
+              background: #587F93;
+              opacity: 1;
               width: 14px;
               border-radius: 50%;
             }

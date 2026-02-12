@@ -56,7 +56,7 @@ const Footer = () => {
                 {['Beranda', 'Kontak', 'Sosmed', 'Fasilitas'].map((item) => (
                   <li key={item}>
                     <a 
-                      href={item === 'Beranda' ? "/" : `#${item.toLowerCase()}`} 
+                      href={item === 'Beranda' ? "/" : item === 'Fasilitas' ? "/profil#sarana-prasarana" : `#${item.toLowerCase()}`} 
                       onClick={(e) => {
                         if (item === 'Beranda') {
                           e.preventDefault();
@@ -64,6 +64,13 @@ const Footer = () => {
                           // Memastikan scroll ke paling atas (0,0) dengan transisi halus.
                           // Timeout 0 memastikan ini berjalan setelah siklus navigasi dimulai.
                           setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 0);
+                        } else if (item === 'Fasilitas') {
+                          e.preventDefault();
+                          navigate('/profil');
+                          setTimeout(() => {
+                            const element = document.getElementById('sarana-prasarana');
+                            if (element) element.scrollIntoView({ behavior: 'smooth' });
+                          }, 100);
                         }
                       }}
                       className="flex items-center gap-2 text-gray-500 hover:text-[#587F93] transition-all group cursor-pointer">
@@ -77,7 +84,7 @@ const Footer = () => {
 
             {/* 3. KONTAK & IKUTI KAMI */}
             <div className="space-y-8">
-              <div>
+              <div id="kontak">
                 <h3 className="text-lg font-bold mb-6 text-gray-900">Kontak</h3>
                 <div className="space-y-4">
                   <div className="flex items-center gap-3 text-gray-500">
@@ -91,7 +98,7 @@ const Footer = () => {
                 </div>
               </div>
               
-              <div>
+              <div id="sosmed">
                 <h3 className="text-lg font-bold mb-4 text-gray-900">Ikuti Kami</h3>
                 <div className="flex gap-4">
                   {/* Instagram */}

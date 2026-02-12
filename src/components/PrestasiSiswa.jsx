@@ -1,38 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper/modules';
+import { fetchPrestasiSiswa, urlFor } from '../lib/sanity';
 
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
 
 const PrestasiSiswa = () => {
-  const prestasiData = [
-    {
-      id: 1,
-      nama: "NAMA SISWA/I",
-      prestasi: "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi",
-      img: "/siswa-1.jpg", 
-    },
-    {
-      id: 2,
-      nama: "NAMA SISWA/I",
-      prestasi: "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi",
-      img: "/siswa-2.jpg",
-    },
-    {
-      id: 3,
-      nama: "NAMA SISWA/I",
-      prestasi: "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi",
-      img: "/siswa-3.jpg",
-    },
-    {
-      id: 4,
-      nama: "NAMA SISWA/I",
-      prestasi: "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi",
-      img: "/siswa-4.jpg",
-    },
-  ];
+  const [prestasiData, setPrestasiData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const loadPrestasi = async () => {
+      try {
+        const data = await fetchPrestasiSiswa();
+        setPrestasiData(data);
+      } catch (error) {
+        console.error('Gagal memuat prestasi:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadPrestasi();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <section className="py-24 bg-white font-urbanist overflow-hidden">
+        <div className="max-w-[1440px] mx-auto px-5 lg:px-[100px] text-center">
+          <p className="text-gray-500 font-medium">Memuat data prestasi...</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-24 bg-white font-urbanist overflow-hidden">
@@ -68,26 +69,37 @@ const PrestasiSiswa = () => {
             className="!pb-24"
           >
             {prestasiData.map((item) => (
-              <SwiperSlide key={item.id}>
+              <SwiperSlide key={item._id}>
                 <div className="bg-white rounded-[40px] overflow-hidden flex flex-col h-full border border-[#F5F5F5] shadow-2xl drop-shadow-[0_20px_20px_rgba(0,0,0,0.05)] mb-10">
                   
-                  {/* Image Area - Bersih tanpa garis X */}
+                  {/* Image Area */}
                   <div className="relative h-[300px] bg-[#F8F8F8] overflow-hidden">
-                    <img 
-                      src={item.img} 
-                      alt={item.nama}
-                      className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
-                      onError={(e) => { e.target.src = 'https://via.placeholder.com/600x400?text=Foto+Siswa'; }}
-                    />
+                    {item.foto ? (
+                      <img 
+                        src={urlFor(item.foto).width(600).height(400).url()}
+                        alt={item.namaSiswa}
+                        className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center bg-gray-100">
+                        <span className="text-gray-400">Foto Prestasi</span>
+                      </div>
+                    )}
                   </div>
 
                   {/* Content Area */}
                   <div className="p-10 text-center flex flex-col flex-grow items-center">
-                    <h3 className="text-[22px] lg:text-[24px] font-[900] text-[#1A1A1A] mb-4 uppercase tracking-tight">
-                      {item.nama}
+                    <span className="text-[12px] font-black text-[#587F93] uppercase tracking-widest mb-3 px-3 py-1 bg-[#587F93]/10 rounded-full">
+                      {item.tingkatPrestasi}
+                    </span>
+                    <h3 className="text-[22px] lg:text-[24px] font-[900] text-[#1A1A1A] mb-4 uppercase tracking-tight line-clamp-2">
+                      {item.judul}
                     </h3>
-                    <p className="text-[#666666] font-semibold leading-relaxed text-[15px] lg:text-[16px] opacity-90 max-w-[300px]">
-                      {item.prestasi}
+                    <p className="text-[#666666] font-semibold text-[15px] mb-4">
+                      {item.namaSiswa}
+                    </p>
+                    <p className="text-[#666666] font-medium leading-relaxed text-[14px] opacity-80 max-w-[300px]">
+                      {item.deskripsi}
                     </p>
                   </div>
                 </div>
@@ -95,7 +107,6 @@ const PrestasiSiswa = () => {
             ))}
           </Swiper>
 
-          {/* Custom Styles untuk Dots Pagination sesuai Gambar */}
           <style jsx global>{`
             .prestasi-slider-container .swiper-pagination {
               bottom: 0px !important;
@@ -109,7 +120,7 @@ const PrestasiSiswa = () => {
               transition: all 0.3s ease;
             }
             .prestasi-slider-container .swiper-pagination-bullet-active {
-              background: #00B4D8; /* Warna Biru SMAN 14 Samarinda */
+              background: #00B4D8;
               width: 14px;
               border-radius: 50%;
             }

@@ -1,45 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper/modules';
 import { useNavigate } from 'react-router-dom';
+import { fetchBerita, urlFor } from '../lib/sanity';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
 
 const LatestNews = () => {
   const navigate = useNavigate();
-  const newsData = [
-    {
-      id: 1,
-      date: 'Monday 31 August 2021',
-      title: 'Lorem ipsum dolor sit amet consectetur adipiscing elit...',
-      image: '/news1.png' 
-    },
-    {
-      id: 2,
-      date: 'Tuesday 01 September 2021',
-      title: 'Quisque faucibus ex sapien vitae pellentesque sem placerat...',
-      image: '/news2.png'
-    },
-    {
-      id: 3,
-      date: 'Wednesday 02 September 2021',
-      title: 'In id cursus mi. Donec efficitur, urna a pelentesque...',
-      image: '/news3.png'
-    },
-    {
-      id: 4,
-      date: 'Thursday 03 September 2021',
-      title: 'Maecenas nec sem quis magna efficitur vulputate...',
-      image: '/news4.png'
-    },
-    {
-      id: 5,
-      date: 'Friday 04 September 2021',
-      title: 'Persiapan Ujian Sekolah SMAN 14 Samarinda Tahun Ajaran 2026...',
-      image: '/news5.png'
-    }
-  ];
+  const [newsData, setNewsData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const loadNews = async () => {
+      try {
+        const data = await fetchBerita();
+        setNewsData(data);
+      } catch (error) {
+        console.error('Gagal memuat berita:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadNews();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <section className="py-16 bg-white font-urbanist overflow-hidden">
+        <div className="text-center">
+          <p className="text-gray-500 font-medium">Memuat berita terbaru...</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-16 bg-white font-urbanist overflow-hidden">
@@ -73,29 +69,48 @@ const LatestNews = () => {
             className="!pb-20" 
           >
             {newsData.map((news) => (
-              <SwiperSlide key={news.id} className="h-auto">
+              <SwiperSlide key={news._id} className="h-auto">
                 <div className="bg-white rounded-[20px] overflow-hidden shadow-xl border border-gray-100 flex flex-col h-full mb-8 mx-2">
                   
-                  <div className="h-[240px] bg-[#E5E7EB] relative group overflow-hidden">
-                    <img 
-                      src={news.image} 
-                      alt="News" 
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
-                      onError={(e) => e.target.src = 'https://via.placeholder.com/400x300?text=News+Image'}
-                    />
+                  {/* Image Container */}
+                  <div className="relative h-[200px] overflow-hidden bg-gray-100">
+                    {news.foto ? (
+                      <img 
+                        src={urlFor(news.foto).width(400).height(300).url()}
+                        alt={news.judul} 
+                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center">
+                        <span className="text-gray-400">Foto Berita</span>
+                      </div>
+                    )}
+                    <div className="absolute top-4 left-4">
+                      <span className="px-3 py-1 bg-[#587F93]/90 text-white text-[10px] font-black uppercase tracking-widest rounded">
+                        {news.kategori}
+                      </span>
+                    </div>
                   </div>
 
-                  <div className="p-7 flex flex-col flex-grow text-left">
-                    <span className="text-[12px] text-gray-400 italic font-semibold mb-3 block">
-                      ~{news.date}
-                    </span>
-                    <h3 className="text-[15px] lg:text-[16px] font-bold text-gray-800 leading-relaxed mb-6 line-clamp-3">
-                      {news.title}
+                  {/* Content Container */}
+                  <div className="p-6 flex flex-col flex-grow">
+                    <p className="text-[12px] text-gray-400 font-bold uppercase tracking-widest mb-3">
+                      {new Date(news.tanggal).toLocaleDateString('id-ID', { 
+                        weekday: 'long', 
+                        year: 'numeric', 
+                        month: 'long', 
+                        day: 'numeric' 
+                      })}
+                    </p>
+                    <h3 className="text-[16px] lg:text-[18px] font-[800] text-gray-900 leading-tight mb-4 line-clamp-3">
+                      {news.judul}
                     </h3>
-                    
+                    <p className="text-gray-500 text-[14px] leading-relaxed mb-6 line-clamp-3 font-medium flex-grow">
+                      {news.excerpt}
+                    </p>
                     <button 
-                      onClick={() => navigate(`/berita/${news.id}`)}
-                      className="mt-auto w-fit bg-[#587F93] text-white px-7 py-2.5 rounded-full text-[12px] font-[900] hover:bg-[#587F93] transition-all active:scale-95 shadow-sm"
+                      onClick={() => navigate(`/berita/${news._id}`)}
+                      className="mt-auto w-fit bg-[#587F93] text-white px-7 py-2.5 rounded-full text-[12px] font-[900] hover:bg-[#466575] transition-all active:scale-95 shadow-sm"
                     >
                       Lanjutkan Baca
                     </button>

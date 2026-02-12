@@ -1,53 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, ArrowRight, ChevronRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { fetchBerita, urlFor } from '../lib/sanity';
 
 const BeritaTerbaru = () => {
   const navigate = useNavigate();
+  const [newsData, setNewsData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const newsData = [
-    {
-      id: 1,
-      date: '12 Feb 2026',
-      category: 'Kegiatan',
-      title: 'Pelaksanaan Ujian Praktik Kelas XII Tahun Ajaran 2025/2026',
-      excerpt: 'Siswa kelas XII mulai melaksanakan ujian praktik sebagai salah satu syarat kelulusan dengan penuh antusiasme...',
-      image: '/news1.png'
-    },
-    {
-      id: 2,
-      date: '10 Feb 2026',
-      category: 'Prestasi',
-      title: 'SMAN 14 Samarinda Meraih Juara 1 Lomba Debat Bahasa Inggris Tingkat Provinsi',
-      excerpt: 'Tim debat sekolah berhasil menyisihkan puluhan sekolah lainnya dalam ajang bergengsi tahun ini...',
-      image: '/news2.png'
-    },
-    {
-      id: 3,
-      date: '08 Feb 2026',
-      category: 'Pengumuman',
-      title: 'Sosialisasi Program Go-Green: Menuju Sekolah Adiwiyata Mandiri',
-      excerpt: 'Langkah nyata sekolah dalam menjaga kelestarian lingkungan melalui program pemilahan sampah dan penghijauan...',
-      image: '/news3.png'
-    },
-    {
-      id: 4,
-      date: '05 Feb 2026',
-      category: 'Kegiatan',
-      title: 'Workshop Jurnalistik Siswa: Mengembangkan Bakat Menulis di Era Digital',
-      excerpt: 'Menghadirkan narasumber profesional untuk membekali siswa kemampuan menulis berita yang etis dan menarik...',
-      image: '/news4.png'
-    },
-    {
-      id: 5,
-      date: '01 Feb 2026',
-      category: 'Akademik',
-      title: 'Penerapan Kurikulum Merdeka: Inovasi Pembelajaran Berbasis Proyek',
-      excerpt: 'Bagaimana SMAN 14 mengimplementasikan P5 untuk membentuk karakter profil pelajar pancasila...',
-      image: '/news5.png'
-    }
-  ];
+  useEffect(() => {
+    const loadNews = async () => {
+      try {
+        const data = await fetchBerita();
+        setNewsData(data);
+      } catch (error) {
+        console.error('Gagal memuat berita:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadNews();
+  }, []);
 
   // Animasi Variants
   const containerVariants = {
@@ -66,6 +41,16 @@ const BeritaTerbaru = () => {
       transition: { duration: 0.6, ease: "easeOut" }
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="pt-32 lg:pt-44 pb-24 font-urbanist bg-[#FDFDFD] min-h-screen">
+        <div className="max-w-[1440px] mx-auto px-5 lg:px-[60px] text-center">
+          <p className="text-gray-500 font-medium">Memuat berita...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="pt-32 lg:pt-44 pb-24 font-urbanist bg-[#FDFDFD] min-h-screen">
@@ -97,21 +82,26 @@ const BeritaTerbaru = () => {
         >
           {newsData.map((news) => (
             <motion.div 
-              key={news.id}
+              key={news._id}
               variants={cardVariants}
               whileHover={{ y: -10 }}
               className="group bg-white rounded-3xl overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.04)] border border-gray-100 flex flex-col h-full transition-all duration-300 hover:shadow-[0_20px_50px_rgba(88,127,147,0.15)]"
             >
               {/* Image Container */}
               <div className="relative h-[240px] overflow-hidden">
-                <img 
-                  src={news.image} 
-                  alt={news.title} 
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  onError={(e) => e.target.src = 'https://via.placeholder.com/600x400?text=SMAN14+News'}
-                />
+                {news.foto ? (
+                  <img 
+                    src={urlFor(news.foto).width(600).height(400).url()} 
+                    alt={news.judul} 
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                    <span className="text-gray-400">Foto Berita</span>
+                  </div>
+                )}
                 <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-4 py-1.5 rounded-full shadow-sm">
-                  <span className="text-[11px] font-black text-[#587F93] uppercase tracking-wider">{news.category}</span>
+                  <span className="text-[11px] font-black text-[#587F93] uppercase tracking-wider">{news.kategori}</span>
                 </div>
               </div>
 
@@ -119,11 +109,13 @@ const BeritaTerbaru = () => {
               <div className="p-8 flex flex-col flex-grow">
                 <div className="flex items-center gap-2 text-gray-400 mb-4">
                   <Calendar size={14} />
-                  <span className="text-[12px] font-bold uppercase tracking-wide">{news.date}</span>
+                  <span className="text-[12px] font-bold uppercase tracking-wide">
+                    {new Date(news.tanggal).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}
+                  </span>
                 </div>
                 
                 <h3 className="text-[20px] font-[800] text-gray-900 leading-tight mb-4 group-hover:text-[#587F93] transition-colors line-clamp-2">
-                  {news.title}
+                  {news.judul}
                 </h3>
                 
                 <p className="text-gray-500 text-[15px] leading-relaxed mb-8 line-clamp-3 font-medium">
@@ -131,7 +123,7 @@ const BeritaTerbaru = () => {
                 </p>
 
                 <button 
-                  onClick={() => navigate(`/berita/${news.id}`)}
+                  onClick={() => navigate(`/berita/${news._id}`)}
                   className="mt-auto flex items-center gap-3 text-[#587F93] font-black text-[13px] uppercase tracking-widest group/btn"
                 >
                   Baca Selengkapnya

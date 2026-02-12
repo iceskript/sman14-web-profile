@@ -1,15 +1,44 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ChevronDown, ArrowRight, ArrowLeft, Download, ChevronRight } from 'lucide-react'; 
+import { ChevronDown, ArrowRight, ArrowLeft, Download, ChevronRight, Award } from 'lucide-react'; 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { fetchSaranaPrasarana, fetchSertifikat, urlFor } from '../lib/sanity';
 
 const ProfilSekolah = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isExpanded, setIsExpanded] = useState(false);
+  const [saranaPrasaranaData, setSaranaPrasaranaData] = useState([]);
+  const [sertifikatData, setSertifikatData] = useState([]);
+  const [isLoadingFacilities, setIsLoadingFacilities] = useState(true);
+  const [isLoadingSertifikat, setIsLoadingSertifikat] = useState(true);
   
   // State untuk Tab Aktif di Section Organisasi
   const [activeTab, setActiveTab] = useState("Struktur Organisasi");
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const facilities = await fetchSaranaPrasarana();
+        setSaranaPrasaranaData(facilities);
+        setIsLoadingFacilities(false);
+      } catch (error) {
+        console.error('Gagal memuat sarana prasarana:', error);
+        setIsLoadingFacilities(false);
+      }
+
+      try {
+        const sertifikat = await fetchSertifikat();
+        setSertifikatData(sertifikat);
+        setIsLoadingSertifikat(false);
+      } catch (error) {
+        console.error('Gagal memuat sertifikat:', error);
+        setIsLoadingSertifikat(false);
+      }
+    };
+
+    loadData();
+  }, []);
 
   // Logika Scroll ke Section berdasarkan Hash (#)
   useEffect(() => {
@@ -264,22 +293,28 @@ const ProfilSekolah = () => {
               </div>
               <h2 className="text-[36px] lg:text-[48px] font-[900] text-black uppercase leading-[1.1] mb-6 tracking-tight">Sarana & <br/> Prasarana</h2>
               <p className="text-gray-500 text-[16px] leading-relaxed mb-10 max-w-md">Kami menyediakan lingkungan belajar yang kondusif dengan fasilitas modern untuk mendukung pengembangan potensi siswa secara maksimal.</p>
-              <button onClick={() => navigate('/galeri', { state: { filter: 'Fasilitas' } })} className="group flex items-center gap-4 text-black font-[800] text-[14px] uppercase tracking-wider hover:text-[#587F93] transition-colors">
+              <button onClick={() => navigate('/galeri', { state: { filter: 'fasilitas' } })} className="group flex items-center gap-4 text-black font-[800] text-[14px] uppercase tracking-wider hover:text-[#587F93] transition-colors">
                 <span className="border-b-2 border-black group-hover:border-[#587F93] pb-1 transition-colors">Lihat Selengkapnya</span>
                 <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform duration-300" />
               </button>
             </div>
             <div className="w-full lg:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-6">
-              {facilities.map((item, index) => (
-                <motion.div key={item.id} initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.2, duration: 0.6 }} className="group relative h-[280px] lg:h-[360px] overflow-hidden cursor-pointer bg-gray-100 shadow-lg">
-                  <img src={item.img} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#587F93]/90 via-[#587F93]/40 to-transparent transition-opacity duration-300 flex flex-col justify-center items-center p-8 text-center">
-                    <span className="text-white/70 text-xs font-bold uppercase tracking-[0.2em] mb-3 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">{item.category}</span>
-                    <h3 className="text-white text-2xl font-[900] uppercase mb-4 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75">{item.title}</h3>
-                    <p className="text-white/90 text-sm leading-relaxed max-w-[250px] translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">{item.desc}</p>
-                  </div>
-                </motion.div>
-              ))}
+              {isLoadingFacilities ? (
+                <p className="col-span-2 text-gray-500">Memuat data fasilitas...</p>
+              ) : (
+                saranaPrasaranaData.slice(0, 4).map((item, index) => (
+                  <motion.div key={item._id} initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.2, duration: 0.6 }} className="group relative h-[280px] lg:h-[360px] overflow-hidden cursor-pointer bg-gray-100 shadow-lg">
+                    {item.foto && (
+                      <img src={urlFor(item.foto).width(600).height(500).url()} alt={item.nama} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#587F93]/90 via-[#587F93]/40 to-transparent transition-opacity duration-300 flex flex-col justify-center items-center p-8 text-center">
+                      <span className="text-white/70 text-xs font-bold uppercase tracking-[0.2em] mb-3 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">{item.kategori}</span>
+                      <h3 className="text-white text-2xl font-[900] uppercase mb-4 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75">{item.nama}</h3>
+                      <p className="text-white/90 text-sm leading-relaxed max-w-[250px] translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">{item.deskripsi}</p>
+                    </div>
+                  </motion.div>
+                ))
+              )}
             </div>
           </div>
         </div>
@@ -409,7 +444,6 @@ const ProfilSekolah = () => {
 
       {/* 9. SECTION SERTIFIKAT / AKREDITASI */}
       <motion.section 
-        variants={itemVariants} 
         className="w-full mb-24 lg:mb-40"
       >
         <div className="relative w-full py-20 lg:py-28 bg-[#3D5A6A] rounded-none rounded-bl-[80px] lg:rounded-bl-[150px] flex flex-col items-center justify-center overflow-hidden shadow-2xl">
@@ -423,27 +457,53 @@ const ProfilSekolah = () => {
             <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(white 2px, transparent 2px)', backgroundSize: '30px 30px' }}></div>
           </div>
 
-          {/* Box Sertifikat (Ukuran A4 Landscape) */}
-          <div className="relative group">
-            <div className="relative w-[280px] sm:w-[420px] lg:w-[650px] aspect-[297/210] bg-white shadow-[0_20px_50px_rgba(0,0,0,0.15)] rounded-sm overflow-hidden border-[6px] lg:border-[10px] border-white transition-all duration-500 group-hover:shadow-[0_30px_60px_rgba(88,127,147,0.3)]">
-              <img 
-                src="/sertifikat-akreditasi.webp" 
-                alt="Sertifikat Akreditasi" 
-                className="w-full h-full object-cover transition-all duration-700 group-hover:blur-md group-hover:scale-105"
-              />
-              
-              {/* Hover Overlay dengan Tombol Kecil */}
-              <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
-                <button className="bg-[#587F93] text-white px-6 py-3 rounded-full font-bold text-[13px] uppercase tracking-widest shadow-2xl transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 flex items-center gap-2 hover:bg-[#466575] active:scale-95">
-                  <Download size={18} />
-                  Unduh PDF
-                </button>
-              </div>
+          {/* Sertifikat Grid */}
+          <div className="relative z-10 w-full max-w-[1440px] mx-auto px-5 lg:px-[60px]">
+            <div className="text-center mb-16">
+              <h2 className="text-[32px] lg:text-[42px] font-[900] text-white mb-4 uppercase tracking-tight flex items-center justify-center gap-3">
+                <Award size={36} />
+                Akreditasi & Sertifikat
+              </h2>
+              <p className="text-white/70 max-w-2xl mx-auto text-lg">
+                Penghargaan dan pengakuan yang kami terima sebagai komitmen terhadap keunggulan pendidikan
+              </p>
             </div>
-            
-            {/* Aksen Sudut Dekoratif */}
-            <div className="absolute -top-4 -left-4 lg:-top-6 lg:-left-6 w-8 h-8 lg:w-12 lg:h-12 border-t-2 border-l-2 border-white/20"></div>
-            <div className="absolute -bottom-4 -right-4 lg:-bottom-6 lg:-right-6 w-8 h-8 lg:w-12 lg:h-12 border-b-2 border-r-2 border-white/20"></div>
+
+            {isLoadingSertifikat ? (
+              <p className="text-white text-center">Memuat sertifikat...</p>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+                {sertifikatData.map((item) => (
+                  <motion.div
+                    key={item._id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="group bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 hover:border-white/40 transition-all duration-300 flex flex-col items-center text-center text-white"
+                  >
+                    {item.logo && (
+                      <div className="w-24 h-24 mb-4 rounded-lg overflow-hidden bg-white/10 flex items-center justify-center">
+                        <img 
+                          src={urlFor(item.logo).width(200).height(200).url()} 
+                          alt={item.nama}
+                          className="w-full h-full object-contain"
+                        />
+                      </div>
+                    )}
+                    <h3 className="text-[16px] font-[800] mb-2 uppercase tracking-wider">{item.nama}</h3>
+                    <p className="text-[12px] text-white/60 mb-3 font-semibold tracking-widest uppercase">{item.tipe}</p>
+                    {item.deskripsi && (
+                      <p className="text-[13px] text-white/70 leading-relaxed">{item.deskripsi}</p>
+                    )}
+                    {item.tahunKadaluarsa && (
+                      <p className="text-[11px] text-white/50 mt-auto pt-4 border-t border-white/10">
+                        Berlaku sampai: {item.tahunKadaluarsa}
+                      </p>
+                    )}
+                  </motion.div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </motion.section>

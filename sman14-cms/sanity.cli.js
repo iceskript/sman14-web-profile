@@ -5,11 +5,11 @@ export default defineCliConfig({
     projectId: 'vn9r43ot',
     dataset: 'production'
   },
+  // Tambahkan bagian vite ini
+  vite: {
+    publicDir: 'static'
+  },
   deployment: {
-    /**
-     * Enable auto-updates for studios.
-     * Learn more at https://www.sanity.io/docs/studio/latest-version-of-sanity#k47faf43faf56
-     */
     autoUpdates: true,
   }
 })

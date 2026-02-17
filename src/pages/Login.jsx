@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { User, Lock, Eye, EyeOff, LogIn, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { client } from '../client'; // Pastikan file client.js sudah ada di folder src
+import { client } from '../client'; 
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -20,21 +20,25 @@ const Login = () => {
 
     try {
       // 1. Query ke Sanity mencari dokumen admin berdasarkan username
-      // Menggunakan GROQ Query untuk mengambil data yang sesuai
       const query = `*[_type == "admin" && username == $username][0]`;
       const params = { username: username };
       const admin = await client.fetch(query, params);
 
       // 2. Validasi kecocokan data
       if (admin && admin.password === password) {
-        // Jika login berhasil
         setTimeout(() => {
           setIsLoading(false);
-          // Mengarahkan ke Sanity Studio (External Port 3333)
-          window.location.href = 'http://localhost:3333'; 
+
+          // LOGIKA SMART REDIRECT:
+          // Jika sedang di localhost, arahkan ke port 3333
+          // Jika sudah online (Vercel), arahkan ke Sanity Studio yang sudah dideploy
+          const studioUrl = window.location.hostname === 'localhost' 
+            ? 'http://localhost:3333' 
+            : 'https://www.sanity.io/@o0E0wSMrR/studio/akrnc8fvvm7nlcn2kmneu402/default/structure'; // <--- GANTI dengan link hasil 'npx sanity deploy' kamu
+
+          window.location.href = studioUrl; 
         }, 1500);
       } else {
-        // Jika data tidak ditemukan atau password salah
         setIsLoading(false);
         setError('Username atau Password salah!');
       }

@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Phone, Mail, Search, LogIn, ChevronDown, Menu, X } from 'lucide-react';
+import { client, urlFor } from '../lib/sanity';
 
 const Navbar = () => {
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -8,38 +9,12 @@ const Navbar = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const searchRef = useRef(null);
 
-  const handleNavigation = (path) => {
-    navigate(path);
-    if (!path.includes('#')) {
-      window.scrollTo(0, 0);
-    }
-  };
-
-  // Logika Deteksi Scroll (Utility Bar tetap terlihat saat scroll ke atas)
-  useEffect(() => {
-    const controlNavbar = () => {
-      if (typeof window !== 'undefined') {
-        if (window.innerWidth < 1024) {
-          setIsVisible(true);
-          return;
-        }
-
-        if (!isMobileMenuOpen) {
-          if (window.scrollY > lastScrollY && window.scrollY > 42) {
-            setIsVisible(false); // Sembunyikan Utility Bar
-          } else {
-            setIsVisible(true);  // Munculkan kembali
-          }
-        }
-        setLastScrollY(window.scrollY);
-      }
-    };
-
-    window.addEventListener('scroll', controlNavbar);
-    return () => window.removeEventListener('scroll', controlNavbar);
-  }, [lastScrollY, isMobileMenuOpen]);
-
+  // --- 1. DEFINISI MENU (Dipindah ke atas agar bisa diakses Search Engine) ---
   const menuItems = [
     { name: 'BERANDA', dropdown: false, path: '/' },
     { 
@@ -71,6 +46,175 @@ const Navbar = () => {
     { name: 'GALERI', dropdown: false, path: '/galeri' },
   ];
 
+  // --- 2. KATA KUNCI KONTEN & BAGIAN WEBSITE (Static Shortcuts) ---
+  const staticShortcuts = [
+    // Sinonim & Bagian Halaman
+    { keys: ['sambutan', 'kepala', 'kepsek', 'syawal'], url: '/profil#sambutan', title: 'Sambutan Kepala Sekolah', type: 'Profil' },
+    { keys: ['lokasi', 'alamat', 'telepon', 'map', 'peta'], url: '/#kontak', title: 'Kontak & Lokasi', type: 'Kontak' },
+    { keys: ['program', 'unggulan', 'teknologi', 'life skill'], url: '/#program', title: 'Program Unggulan', type: 'Program' },
+    { keys: ['prestasi', 'juara', 'lomba', 'pemenang'], url: '/#prestasi', title: 'Prestasi Siswa', type: 'Prestasi' },
+    { keys: ['testimoni', 'alumni', 'kata mereka'], url: '/#testimoni', title: 'Testimoni Alumni', type: 'Alumni' },
+    { keys: ['statistik', 'jumlah siswa', 'jumlah guru'], url: '/#statistik', title: 'Statistik Sekolah', type: 'Info' },
+    { keys: ['ppdb', 'masuk', 'registrasi', 'daftar'], url: '/pendaftaran', title: 'Info Pendaftaran (PPDB)', type: 'Pendaftaran' },
+  ];
+
+  // Logika Live Search (Autocomplete)
+  useEffect(() => {
+    const fetchSuggestions = async () => {
+      if (searchQuery.trim().length < 2) {
+        setSuggestions([]);
+        return;
+      }
+
+      const trimmedQuery = searchQuery.trim().toLowerCase();
+
+      // A. Cari di MENU NAVIGASI (Otomatis)
+      const menuMatches = [];
+      menuItems.forEach(menu => {
+        // Cek Menu Utama
+        if (menu.name.toLowerCase().includes(trimmedQuery)) {
+           if (!menu.dropdown) {
+             menuMatches.push({ _id: `menu-${menu.name}`, title: menu.name, path: menu.path, _type: 'static', typeLabel: 'Menu' });
+           }
+        }
+        // Cek Sub Menu
+        if (menu.items) {
+           menu.items.forEach(sub => {
+              if (sub.label.toLowerCase().includes(trimmedQuery)) {
+                 menuMatches.push({ _id: `menu-${sub.label}`, title: sub.label, path: sub.path, _type: 'static', typeLabel: 'Menu' });
+              }
+           });
+        }
+      });
+
+      // B. Cari di STATIC SHORTCUTS (Konten Halaman)
+      const staticMatches = staticShortcuts.filter(item => 
+        item.keys.some(key => key.includes(trimmedQuery)) || 
+        item.title.toLowerCase().includes(trimmedQuery)
+      ).map(item => ({
+        _id: `static-${item.url}`,
+        _type: 'static',
+        title: item.title,
+        path: item.url,
+        typeLabel: item.type
+      }));
+
+      try {
+        const groqQuery = `*[
+          (_type in ["berita", "galeri", "saranaPrasarana", "pendaftaran", "strukturOrganisasi"]) && 
+          (judul match $searchTerm || nama match $searchTerm || posisi match $searchTerm)
+        ][0...5] {
+          _id, _type,
+          "title": coalesce(judul, nama),
+          foto,
+          "path": select(
+            _type == "berita" => "/berita/" + _id,
+            _type == "galeri" => "/galeri",
+            _type == "saranaPrasarana" => "/profil#sarana-prasarana",
+            _type == "pendaftaran" => "/pendaftaran",
+            _type == "strukturOrganisasi" => "/data-guru"
+          )
+        }`;
+        const data = await client.fetch(groqQuery, { searchTerm: `${searchQuery}*` });
+        // Gabungkan hasil: Pintasan Halaman (Static) + Konten Database (Sanity)
+        setSuggestions([...menuMatches, ...staticMatches, ...data]);
+      } catch (err) {
+        console.error("Search error:", err);
+      }
+    };
+
+    const timer = setTimeout(fetchSuggestions, 300); // Debounce 300ms
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
+
+  // Menutup dropdown saat klik di luar area search
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setShowSuggestions(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const handleSearch = (e) => {
+    if (e.key === 'Enter' && searchQuery.trim()) {
+      const trimmedQuery = searchQuery.trim().toLowerCase();
+      
+      // Cek kecocokan langsung dengan Shortcut
+      let directMatch = staticShortcuts.find(item => 
+        item.keys.some(key => key === trimmedQuery || (trimmedQuery.length > 3 && key.startsWith(trimmedQuery)))
+      );
+
+      // Jika tidak ada di shortcut, cek di Menu Items
+      if (!directMatch) {
+        menuItems.forEach(menu => {
+          if (menu.name.toLowerCase() === trimmedQuery && !menu.dropdown) directMatch = { url: menu.path };
+          if (menu.items) {
+            const sub = menu.items.find(s => s.label.toLowerCase() === trimmedQuery);
+            if (sub) directMatch = { url: sub.path };
+          }
+        });
+      }
+
+      const shortcut = directMatch;
+
+      if (shortcut) {
+        // Jika cocok dengan pintasan, langsung buka halamannya
+        handleNavigation(shortcut.url);
+      } else {
+        // Jika tidak, buka halaman hasil pencarian umum
+        navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+      }
+
+      setSearchQuery('');
+      setIsMobileMenuOpen(false);
+      setShowSuggestions(false);
+    }
+  };
+
+  const handleNavigation = (path) => {
+    if (path.includes('#')) {
+      const [pathname, hash] = path.split('#');
+      navigate(pathname);
+      // Beri jeda sedikit agar halaman termuat sebelum scroll ke elemen
+      setTimeout(() => {
+        const element = document.getElementById(hash);
+        if (element) element.scrollIntoView({ behavior: 'smooth' });
+      }, 500);
+    } else {
+      navigate(path);
+      window.scrollTo(0, 0);
+    }
+    setIsMobileMenuOpen(false);
+    setShowSuggestions(false);
+  };
+
+  // Logika Deteksi Scroll (Utility Bar tetap terlihat saat scroll ke atas)
+  useEffect(() => {
+    const controlNavbar = () => {
+      if (typeof window !== 'undefined') {
+        if (window.innerWidth < 1024) {
+          setIsVisible(true);
+          return;
+        }
+
+        if (!isMobileMenuOpen) {
+          if (window.scrollY > lastScrollY && window.scrollY > 42) {
+            setIsVisible(false); // Sembunyikan Utility Bar
+          } else {
+            setIsVisible(true);  // Munculkan kembali
+          }
+        }
+        setLastScrollY(window.scrollY);
+      }
+    };
+
+    window.addEventListener('scroll', controlNavbar);
+    return () => window.removeEventListener('scroll', controlNavbar);
+  }, [lastScrollY, isMobileMenuOpen]);
+
   return (
     <>
       {/* --- HEADER UTAMA --- */}
@@ -96,13 +240,57 @@ const Navbar = () => {
 
             <div className="flex items-center gap-4">
               {/* --- SEARCH BAR DIKEMBALIKAN --- */}
-              <div className="relative group">
+              <div className="relative group" ref={searchRef}>
                 <input 
                   type="text" 
                   placeholder="search..." 
+                  value={searchQuery}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value);
+                    setShowSuggestions(true);
+                  }}
+                  onKeyDown={handleSearch}
+                  onFocus={() => searchQuery.length >= 2 && setShowSuggestions(true)}
                   className="w-[180px] h-[28px] bg-white border border-gray-300 rounded-full px-4 pl-9 text-[11px] focus:outline-none focus:border-[#587F93] transition-all"
                 />
                 <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+
+                {/* Suggestions Dropdown Desktop */}
+                {showSuggestions && searchQuery.length >= 2 && (
+                  <div className="absolute top-full right-0 w-[280px] bg-white shadow-2xl rounded-xl mt-2 py-2 border border-gray-100 z-[110] overflow-hidden">
+                    {suggestions.length > 0 ? (
+                      suggestions.map((item) => (
+                        <div 
+                          key={item._id}
+                          onClick={() => {
+                            handleNavigation(item.path);
+                            setSearchQuery('');
+                            setShowSuggestions(false);
+                          }}
+                          className="px-4 py-2.5 hover:bg-gray-50 cursor-pointer flex items-center gap-3 transition-colors border-b border-gray-50 last:border-none"
+                        >
+                          <div className="w-8 h-8 rounded bg-gray-100 flex-shrink-0 overflow-hidden">
+                            {item.foto ? (
+                              <img src={urlFor(item.foto).width(50).height(50).url()} className="w-full h-full object-cover" />
+                            ) : (
+                              <Search size={12} className="m-auto text-gray-400" />
+                            )}
+                          </div>
+                          <div className="text-left overflow-hidden">
+                            <p className="text-[11px] font-bold text-gray-800 truncate">{item.title}</p>
+                            <p className="text-[9px] text-[#587F93] font-black uppercase tracking-tighter">
+                              {item._type === 'static' ? item.typeLabel : (item._type === 'saranaPrasarana' ? 'Fasilitas' : item._type)}
+                            </p>
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="px-4 py-3 text-[11px] text-gray-400 font-bold text-center">
+                        Tidak ada hasil...
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
               <button 
                 onClick={() => navigate('/login')}
@@ -190,6 +378,52 @@ const Navbar = () => {
         </div>
 
         <div className="flex-grow overflow-y-auto p-5">
+           {/* Mobile Search Bar */}
+           <div className="relative mb-6">
+             <input 
+               type="text" 
+               placeholder="Cari sesuatu..." 
+               value={searchQuery}
+               onChange={(e) => {
+                 setSearchQuery(e.target.value);
+                 setShowSuggestions(true);
+               }}
+               onKeyDown={handleSearch}
+               className="w-full h-[45px] bg-gray-50 border border-gray-200 rounded-xl px-5 pl-12 text-sm focus:outline-none focus:border-[#587F93] transition-all font-bold"
+             />
+             <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+
+             {/* Mobile Suggestions */}
+             {showSuggestions && searchQuery.length >= 2 && suggestions.length > 0 && (
+               <div className="absolute top-full left-0 w-full bg-white shadow-xl rounded-xl mt-2 py-1 border border-gray-100 z-[110] overflow-hidden">
+                 {suggestions.map((item) => (
+                   <div 
+                     key={item._id}
+                     onClick={() => {
+                       handleNavigation(item.path);
+                       setSearchQuery('');
+                     }}
+                     className="px-4 py-3 hover:bg-gray-50 cursor-pointer flex items-center gap-4 transition-colors border-b border-gray-50 last:border-none"
+                   >
+                     <div className="w-10 h-10 rounded-lg bg-gray-100 flex-shrink-0 overflow-hidden">
+                        {item.foto ? (
+                          <img src={urlFor(item.foto).width(80).height(80).url()} className="w-full h-full object-cover" />
+                        ) : (
+                          <Search size={16} className="m-auto text-gray-400" />
+                        )}
+                     </div>
+                     <div className="text-left overflow-hidden">
+                       <p className="text-sm font-bold text-gray-800 truncate">{item.title}</p>
+                       <p className="text-[10px] text-[#587F93] font-black uppercase tracking-widest">
+                         {item._type === 'static' ? item.typeLabel : (item._type === 'saranaPrasarana' ? 'Fasilitas' : item._type)}
+                       </p>
+                     </div>
+                   </div>
+                 ))}
+               </div>
+             )}
+           </div>
+
            <ul className="flex flex-col gap-1">
              {menuItems.map((menu) => (
                <li key={menu.name} className="border-b border-gray-50 last:border-none">

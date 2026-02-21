@@ -89,7 +89,7 @@ const ProfilSekolah = () => {
       subtitle: "Pimpinan Bidang Satuan Pendidikan",
       desc: "Tim pimpinan yang berdedikasi dalam mengelola kurikulum, kesiswaan, serta sarana dan prasarana sekolah.",
       members: [
-        { name: "Waka Kurikulum", img: "/waka1.png", link: "/waka" },
+        { name: "Waka Kurikulum", img: "/waka1.webp", link: "/waka" },
         { name: "Waka Kesiswaan", img: "/waka2.png", link: "/waka" },
         { name: "Waka Sarana Prasarana", img: "/waka3.png", link: "/waka" },
       ]
@@ -188,20 +188,37 @@ const ProfilSekolah = () => {
       </motion.section>
 
       {/* 3. SECTION SAMBUTAN */}
-      <motion.div variants={itemVariants} className="max-w-[1440px] mx-auto px-5 lg:px-[60px] relative z-20">
-        <div className="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-24 mt-8">
-          <div className="relative shrink-0 pt-24 isolate">
-            <div className="relative w-[300px] h-[340px] lg:w-[450px] lg:h-[420px]">
-              <div className="absolute inset-0 bg-[#587F93] rounded-t-[220px] rounded-bl-[120px] rounded-br-none border-b-4 border-black/10 z-0 shadow-lg"></div>
-              <div className="absolute bottom-0 left-0 w-full h-[160%] flex justify-center z-10 pointer-events-none">
-                <img src="/" alt="" className="h-full w-auto object-contain object-bottom ml-[4%]" />
-              </div>
-              <div className="absolute bottom-10 right-[-15px] bg-white text-[#587F93] px-8 py-2.5 rounded-l-full border-y border-l border-black/10 z-20 shadow-md">
-                <h3 className="text-[18px] lg:text-[24px] font-[900] uppercase tracking-tighter">SAMBUTAN</h3>
+      <motion.div variants={itemVariants} className="max-w-[1140px] mx-auto px-5 lg:px-0 relative z-20 mt-32 lg:mt-56">
+        {/* Row: justify-content-center align-items-center */}
+        <div className="flex flex-col lg:flex-row justify-center items-center gap-12 lg:gap-16 min-h-[376px]">
+          
+          {/* Column: col-md-5 col-12 */}
+          <div className="w-full lg:w-5/12 flex justify-center lg:justify-end">
+            {/* Card: about-itk-rektor-card (490x376) */}
+            <div className="relative w-full max-w-[400px] aspect-[864/1184] bg-[#587F93] rounded-[40px] shadow-2xl flex-shrink-0 border-[12px] border-white overflow-hidden group">
+              
+              {/* Dekorasi Background Card */}
+              <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(white 2px, transparent 2px)', backgroundSize: '20px 20px' }}></div>
+              
+              {/* Foto Kepala Sekolah - Dibuat object-cover agar memenuhi frame tanpa terpotong aneh */}
+              <img 
+                src="/kepsek1.webp" 
+                alt="Kepala Sekolah" 
+                className="absolute inset-0 w-full h-full object-contain object-bottom transition-transform duration-700 group-hover:scale-105"
+              />
+
+              {/* Overlay Gradient: Memberikan efek kedalaman dan menghaluskan bagian bawah foto */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#3D5A6A]/40 via-transparent to-transparent pointer-events-none"></div>
+
+              {/* Badge Sambutan */}
+              <div className="absolute top-8 left-0 bg-white text-[#587F93] px-6 py-2 rounded-r-full shadow-lg z-20">
+                <span className="text-[14px] font-black uppercase tracking-widest">SAMBUTAN</span>
               </div>
             </div>
           </div>
-          <div className="flex flex-col items-start max-w-2xl pt-10">
+
+          {/* Column: col-md-7 (Remaining space for text) */}
+          <div className="w-full lg:w-7/12 flex flex-col items-start">
             <span className="text-[#587F93] text-[120px] font-serif leading-none h-[60px] opacity-30">“</span>
             <p className="text-[18px] lg:text-[24px] text-[#334155] mb-10 leading-snug font-medium">
               "Sebagai pimpinan SMAN 14 Samarinda, saya mengajak seluruh elemen sekolah untuk bersinergi mewujudkan visi sekolah yang unggul dan berakhlak mulia."
@@ -232,31 +249,7 @@ const ProfilSekolah = () => {
         )}
       </AnimatePresence>
 
-      {/* 5. SECTION PIMPINAN */}
-      <motion.section variants={itemVariants} className="w-full mt-32">
-        <div className="max-w-[1440px] mx-auto px-5 lg:px-[60px] text-center mb-16">
-          <h2 className="text-[32px] lg:text-[42px] font-[900] text-black mb-3 uppercase tracking-tight">Pimpinan SMA Negeri 14 Samarinda</h2>
-          <div className="w-16 h-1.5 bg-[#587F93] mx-auto rounded-full"></div>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 w-full gap-0 shadow-lg">
-          {[
-            { nama: "Waka Kurikulum", foto: "/waka1.png", dark: true },
-            { nama: "Kepala Sekolah", foto: "/kepsek.png", dark: false },
-            { nama: "Waka Kesiswaan", foto: "/waka2.png", dark: true }
-          ].map((staf, index) => (
-            <div key={index} className="group relative h-[500px] lg:h-[650px] overflow-hidden bg-[#587F93]">
-              <img src={staf.foto} alt={staf.nama} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
-              <div className={`absolute inset-0 transition-opacity duration-500 group-hover:opacity-0 z-10 ${staf.dark ? 'bg-black/45' : 'bg-[#587F93]/70'}`}></div>
-              <div className="absolute bottom-12 left-0 w-full px-8 z-30 text-center transition-transform duration-500 group-hover:-translate-y-3">
-                <h4 className="text-white text-[20px] lg:text-[26px] font-[800] drop-shadow-lg">{staf.nama}</h4>
-                <div className="w-12 h-1 bg-white mx-auto mt-4 opacity-0 group-hover:opacity-100 group-hover:w-24 transition-all duration-700"></div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </motion.section>
-
-      {/* 6. BOTTOM SHAPE SECTION (VISI MISI) */}
+      {/* 5. BOTTOM SHAPE SECTION (VISI MISI) */}
       <motion.section id="visi-misi" variants={itemVariants} className="relative w-full pt-20 lg:pt-32 pb-24 lg:pb-80 flex flex-col items-center scroll-mt-32">
         <div className="relative z-20 w-full max-w-[1440px] mx-auto px-5 lg:px-[60px]">
             <div className="relative w-full flex flex-col lg:block">
@@ -282,7 +275,7 @@ const ProfilSekolah = () => {
         </div>
       </motion.section>
 
-      {/* 7. SECTION SARANA PRASARANA */}
+      {/* 6. SECTION SARANA PRASARANA */}
       <section id="sarana-prasarana" className="py-24 bg-white font-urbanist border-t border-gray-100 -mt-10 lg:-mt-20 relative z-20 scroll-mt-32">
         <div className="max-w-[1440px] mx-auto px-5 lg:px-[60px]">
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start">
@@ -320,7 +313,7 @@ const ProfilSekolah = () => {
         </div>
       </section>
 
-      {/* 8. SECTION ORGANISASI */}
+      {/* 7. SECTION ORGANISASI */}
       <section id="organisasi" className="w-full py-16 bg-white font-urbanist overflow-hidden scroll-mt-32">
         
         {/* Menu Pills */}
@@ -407,7 +400,7 @@ const ProfilSekolah = () => {
                                  <img 
                                    src={member.img} 
                                    alt={member.name} 
-                                   className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
+                                   className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
                                  />
                               </div>
                               <span className="text-white font-[800] text-[11px] lg:text-xs uppercase tracking-wider text-center">

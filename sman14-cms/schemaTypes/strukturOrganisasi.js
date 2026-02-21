@@ -10,7 +10,7 @@ export default {
       options: {
         list: [
           { title: 'Kepala Sekolah', value: 'kepala' },
-          { title: 'Wakil Kepala Bidang Akademik', value: 'wakilAkademik' },
+          { title: 'Wakil Kepala Bidang Kurikulum', value: 'wakilKuriulum' },
           { title: 'Wakil Kepala Bidang Sarana & Prasarana', value: 'wakilSarana' },
           { title: 'Wakil Kepala Bidang Hubungan Masyarakat', value: 'wakilHumas' },
           { title: 'Wakil Kepala Bidang Kesiswaan', value: 'wakilKesiswaan' },

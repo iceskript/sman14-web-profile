@@ -7,17 +7,17 @@ const VisiMisi = () => {
     {
       title: "Unggul Berprestasi",
       desc: "Menghasilkan lulusan yang kompetitif di bidang akademik maupun non-akademik di tingkat nasional.",
-      img: "/visi-1.png", 
+      img: "/unggul.webp", 
     },
     {
       title: "Berwawasan Lingkungan",
       desc: "Menciptakan budaya sekolah yang peduli dan berbudaya lingkungan hidup secara berkelanjutan.",
-      img: "/visi-2.jpg",
+      img: "/berwawasan.webp",
     },
     {
       title: "Berkarakter",
       desc: "Membentuk kepribadian siswa yang beriman, bertaqwa, dan menjunjung tinggi nilai luhur budi pekerti.",
-      img: "/visi-3.jpg",
+      img: "/berkarakter.webp",
     },
   ];
 
@@ -39,7 +39,7 @@ const VisiMisi = () => {
             initial={{ width: 0 }}
             whileInView={{ width: 60 }}
             viewport={{ once: true }}
-            className="h-1 bg-[#00B4D8] mx-auto mt-4 rounded-full" 
+            className="h-1 bg-[#587F93] mx-auto mt-4 rounded-full" 
           />
         </div>
 
@@ -67,12 +67,19 @@ const VisiMisi = () => {
                   className="w-full h-full object-cover"
                   style={{ 
                     transform: hoveredIndex === index ? 'scale(1.05)' : 'scale(1.1)',
-                    filter: hoveredIndex === index ? 'brightness(0.5)' : 'brightness(0.3)',
+                    filter: hoveredIndex === index ? 'brightness(1) grayscale(0%)' : 'brightness(0.9) grayscale(10%)',
                     transition: 'transform 1.2s ease-out, filter 0.8s ease-in-out'
                   }}
                 />
-                {/* Overlay yang lebih pekat di bawah agar teks putih "Pop-out" */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/100 via-black/20 to-transparent" />
+                {/* Overlay Gradasi Biru Khas Sekolah */}
+                <div 
+                  className="absolute inset-0 transition-opacity duration-700" 
+                  style={{ 
+                    background: 'linear-gradient(to bottom, rgba(88, 127, 147, 0.5), rgba(0, 0, 0, 0.7))',
+                    opacity: hoveredIndex === index ? 0 : 1
+                  }} 
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
               </div>
 
               {/* Content Layer */}

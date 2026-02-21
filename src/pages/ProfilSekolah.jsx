@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ChevronDown, ArrowRight, ArrowLeft, Download, ChevronRight, Award } from 'lucide-react'; 
+import { ChevronDown, ArrowRight, ArrowLeft, Download, ChevronRight, Award, FileText } from 'lucide-react'; 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { fetchSaranaPrasarana, fetchSertifikat, urlFor } from '../lib/sanity';
@@ -86,12 +86,13 @@ const ProfilSekolah = () => {
     "Wakil Kepala Satuan Pendidikan": {
       type: "grid",
       title: "WAKIL KEPALA",
-      subtitle: "Pimpinan Bidang Satuan Pendidikan",
+      subtitle: "Bidang Pendidikan",
       desc: "Tim pimpinan yang berdedikasi dalam mengelola kurikulum, kesiswaan, serta sarana dan prasarana sekolah.",
       members: [
-        { name: "Waka Kurikulum", img: "/waka1.webp", link: "/waka" },
-        { name: "Waka Kesiswaan", img: "/waka2.png", link: "/waka" },
-        { name: "Waka Sarana Prasarana", img: "/waka3.png", link: "/waka" },
+        { name: "Waka Kurikulum", img: "/waka1.webp", link: "/waka1" },
+        { name: "Waka Kesiswaan", img: "/waka2.jpeg", link: "/waka2" },
+        { name: "Waka Sarana Prasarana", img: "/waka3.jpeg", link: "/waka3" },
+        { name: "Koordinator Humas", img: "/waka4.jpeg", link: "/waka4" },
       ]
     },
     "Tenaga Administrasi Sekolah": {
@@ -100,8 +101,8 @@ const ProfilSekolah = () => {
       subtitle: "Unit Tata Usaha SMAN 14 Samarinda",
       desc: "Mendukung operasional sekolah melalui layanan administrasi yang profesional, cepat, dan transparan.",
       members: [
-        { name: "Kepala TAS", img: "/tas1.png", link: "/tas" },
-        { name: "Staf Administrasi", img: "/tas2.png", link: "/tas" },
+        { name: "Kepala TAS", img: "/tas1.jpeg", link: "/tas1" },
+        { name: "Bendahara", img: "/bendahara.jpeg", link: "/tas2" },
       ]
     },
     "Komite Sekolah": {
@@ -110,8 +111,7 @@ const ProfilSekolah = () => {
       subtitle: "Mitra Strategis Pengembangan Sekolah",
       desc: "Wadah partisipasi masyarakat dan orang tua siswa dalam meningkatkan mutu pelayanan pendidikan.",
       members: [
-        { name: "Ketua Komite", img: "/komite1.png", link: "/komite" },
-        { name: "Sekretaris", img: "/komite2.png", link: "/komite" },
+        { name: "Komite Sekolah", img: "/komite1.png", link: "/komite" },
       ]
     },
   };
@@ -345,7 +345,7 @@ const ProfilSekolah = () => {
           >
             {/* Background Layer */}
             <div 
-                className="absolute inset-y-0 bg-[#587F93] rounded-r-lg lg:rounded-r-[40px] shadow-2xl overflow-hidden transition-none [--right-gap:50px] lg:[--right-gap:60px]"
+                className="absolute inset-y-0 bg-[#587F93] rounded-r-none lg:rounded-r-[40px] shadow-2xl overflow-hidden transition-none [--right-gap:0px] lg:[--right-gap:60px]"
                 style={{ 
                     left: 'max(0px, 50vw - 1100px)',
                     right: 'calc(max(0px, 50vw - 720px) + var(--right-gap))' 
@@ -382,7 +382,10 @@ const ProfilSekolah = () => {
                       
                       {organizationContent[activeTab].type === "text" && (
                         <button 
-                          onClick={() => navigate(organizationContent[activeTab].link)}
+                          onClick={() => {
+                            navigate(organizationContent[activeTab].link);
+                            window.scrollTo(0, 0);
+                          }}
                           className="group flex items-center gap-4 text-white font-bold text-sm uppercase tracking-widest border-b-2 border-white/30 pb-1 hover:border-white transition-all mt-2 ml-2"
                         >
                           Selengkapnya 
@@ -439,7 +442,7 @@ const ProfilSekolah = () => {
       <motion.section 
         className="w-full mb-24 lg:mb-40"
       >
-        <div className="relative w-full py-20 lg:py-28 bg-[#3D5A6A] rounded-none rounded-bl-[80px] lg:rounded-bl-[150px] flex flex-col items-center justify-center overflow-hidden shadow-2xl">
+        <div className="relative w-full py-24 lg:py-32 bg-[#3D5A6A] rounded-none rounded-bl-[80px] lg:rounded-bl-[150px] flex flex-col items-center justify-center overflow-hidden shadow-2xl">
           {/* Background Image Layer (Subtle) */}
           <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none">
             <img src="/gedung2.webp" alt="" className="w-full h-full object-cover grayscale" />
@@ -452,47 +455,75 @@ const ProfilSekolah = () => {
 
           {/* Sertifikat Grid */}
           <div className="relative z-10 w-full max-w-[1440px] mx-auto px-5 lg:px-[60px]">
-            <div className="text-center mb-16">
-              <h2 className="text-[32px] lg:text-[42px] font-[900] text-white mb-4 uppercase tracking-tight flex items-center justify-center gap-3">
-                <Award size={36} />
-                Akreditasi & Sertifikat
-              </h2>
-              <p className="text-white/70 max-w-2xl mx-auto text-lg">
-                Penghargaan dan pengakuan yang kami terima sebagai komitmen terhadap keunggulan pendidikan
-              </p>
-            </div>
 
             {isLoadingSertifikat ? (
               <p className="text-white text-center">Memuat sertifikat...</p>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+              <div className="flex flex-wrap justify-center gap-8 lg:gap-10">
                 {sertifikatData.map((item) => (
                   <motion.div
                     key={item._id}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="group bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 hover:border-white/40 transition-all duration-300 flex flex-col items-center text-center text-white"
+                    className="group relative w-full max-w-[650px] aspect-[297/210] bg-[#FFFCF5] rounded-xl shadow-2xl overflow-hidden cursor-pointer transition-all duration-500 hover:-translate-y-2 border border-gray-200"
                   >
-                    {item.logo && (
-                      <div className="w-24 h-24 mb-4 rounded-lg overflow-hidden bg-white/10 flex items-center justify-center">
+                    {/* Content Layer (Paper Look) */}
+                    {item.foto ? (
+                      <div className="absolute inset-0 transition-all duration-500 group-hover:blur-[2px] group-hover:opacity-60">
                         <img 
-                          src={urlFor(item.logo).width(200).height(200).url()} 
-                          alt={item.nama}
-                          className="w-full h-full object-contain"
+                          src={urlFor(item.foto).width(600).height(420).url()} 
+                          alt={item.nama} 
+                          className="w-full h-full object-cover"
                         />
                       </div>
+                    ) : (
+                      <div className="absolute inset-0 flex flex-col items-center justify-center p-6 lg:p-10 text-center transition-all duration-500 group-hover:blur-[2px] group-hover:opacity-60">
+                          
+                          {/* Decorative Border (Certificate Frame) */}
+                          <div className="absolute inset-3 border-[3px] border-double border-[#3D5A6A]/20 pointer-events-none"></div>
+                          <div className="absolute inset-2 border border-[#3D5A6A]/10 pointer-events-none"></div>
+
+                          {/* Decorative Header */}
+                          <div className="w-14 h-14 lg:w-16 lg:h-16 mb-4 rounded-full bg-[#3D5A6A]/10 flex items-center justify-center text-[#3D5A6A]">
+                              <Award size={32} strokeWidth={1.5} />
+                          </div>
+                          
+                          <h3 className="text-[#3D5A6A] font-[900] text-lg lg:text-2xl uppercase tracking-widest leading-tight mb-2 line-clamp-2 px-8">
+                              {item.nama}
+                          </h3>
+                          
+                          <div className="w-20 h-1 bg-[#3D5A6A]/20 rounded-full my-4"></div>
+
+                          {/* Fake Text Lines for Document Feel */}
+                          <div className="w-full max-w-[70%] space-y-3 opacity-10 mt-2">
+                              <div className="h-2 bg-black rounded-full w-full mx-auto"></div>
+                              <div className="h-2 bg-black rounded-full w-5/6 mx-auto"></div>
+                          </div>
+                          
+                          {/* Watermark/Icon Bottom Right */}
+                          <div className="absolute bottom-4 right-6 opacity-5 rotate-[-15deg]">
+                              <Award size={64} />
+                          </div>
+                      </div>
                     )}
-                    <h3 className="text-[16px] font-[800] mb-2 uppercase tracking-wider">{item.nama}</h3>
-                    <p className="text-[12px] text-white/60 mb-3 font-semibold tracking-widest uppercase">{item.tipe}</p>
-                    {item.deskripsi && (
-                      <p className="text-[13px] text-white/70 leading-relaxed">{item.deskripsi}</p>
-                    )}
-                    {item.tahunKadaluarsa && (
-                      <p className="text-[11px] text-white/50 mt-auto pt-4 border-t border-white/10">
-                        Berlaku sampai: {item.tahunKadaluarsa}
-                      </p>
-                    )}
+                    
+                    {/* Hover Overlay Layer */}
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 z-20 bg-[#3D5A6A]/20 backdrop-blur-[2px]">
+                        {item.fileUrl ? (
+                            <a 
+                                href={`${item.fileUrl}?dl=`}
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 bg-[#3D5A6A] text-white px-8 py-3 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-[#2c424e] shadow-xl flex items-center gap-2"
+                            >
+                                <Download size={18} />
+                                Unduh PDF
+                            </a>
+                        ) : (
+                            <span className="bg-gray-500 text-white px-4 py-2 rounded-full text-xs font-bold">Tidak Tersedia</span>
+                        )}
+                    </div>
                   </motion.div>
                 ))}
               </div>

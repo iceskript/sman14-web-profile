@@ -40,7 +40,10 @@ const Navbar = () => {
     { 
       name: 'DATA', 
       dropdown: true, 
-      items: [{ label: 'Data Guru', path: '/data-guru' }] 
+      items: [
+        { label: 'Dewan Guru', path: '/dewan-guru' },
+        { label: 'Tenaga Kependidikan', path: '/tenaga-kependidikan' }
+      ] 
     },
     { name: 'EKSTRAKURIKULER', dropdown: false, path: '/ekstrakurikuler' },
     { name: 'GALERI', dropdown: false, path: '/galeri' },
@@ -56,6 +59,8 @@ const Navbar = () => {
     { keys: ['testimoni', 'alumni', 'kata mereka'], url: '/#testimoni', title: 'Testimoni Alumni', type: 'Alumni' },
     { keys: ['statistik', 'jumlah siswa', 'jumlah guru'], url: '/#statistik', title: 'Statistik Sekolah', type: 'Info' },
     { keys: ['ppdb', 'masuk', 'registrasi', 'daftar'], url: '/pendaftaran', title: 'Info Pendaftaran (PPDB)', type: 'Pendaftaran' },
+    { keys: ['guru', 'pengajar', 'nip'], url: '/dewan-guru', title: 'Dewan Guru', type: 'Halaman' },
+    { keys: ['staf', 'pegawai', 'tu', 'tata usaha', 'admin'], url: '/tenaga-kependidikan', title: 'Tenaga Kependidikan', type: 'Halaman' },
   ];
 
   // Logika Live Search (Autocomplete)
@@ -101,8 +106,8 @@ const Navbar = () => {
 
       try {
         const groqQuery = `*[
-          (_type in ["berita", "galeri", "saranaPrasarana", "pendaftaran", "strukturOrganisasi"]) && 
-          (judul match $searchTerm || nama match $searchTerm || posisi match $searchTerm)
+          (_type in ["berita", "galeri", "saranaPrasarana", "pendaftaran", "tenagaKependidikan", "dewanGuru"]) && 
+          (judul match $searchTerm || nama match $searchTerm || posisi match $searchTerm || bidang match $searchTerm)
         ][0...5] {
           _id, _type,
           "title": coalesce(judul, nama),
@@ -112,7 +117,8 @@ const Navbar = () => {
             _type == "galeri" => "/galeri",
             _type == "saranaPrasarana" => "/profil#sarana-prasarana",
             _type == "pendaftaran" => "/pendaftaran",
-            _type == "strukturOrganisasi" => "/data-guru"
+            _type == "tenagaKependidikan" => "/tenaga-kependidikan",
+            _type == "dewanGuru" => "/dewan-guru"
           )
         }`;
         const data = await client.fetch(groqQuery, { searchTerm: `${searchQuery}*` });
@@ -279,7 +285,7 @@ const Navbar = () => {
                           <div className="text-left overflow-hidden">
                             <p className="text-[11px] font-bold text-gray-800 truncate">{item.title}</p>
                             <p className="text-[9px] text-[#587F93] font-black uppercase tracking-tighter">
-                              {item._type === 'static' ? item.typeLabel : (item._type === 'saranaPrasarana' ? 'Fasilitas' : item._type)}
+                              {item._type === 'static' ? item.typeLabel : (item._type === 'saranaPrasarana' ? 'Fasilitas' : item._type === 'tenagaKependidikan' ? 'Tenaga Kependidikan' : item._type === 'dewanGuru' ? 'Dewan Guru' : item._type)}
                             </p>
                           </div>
                         </div>
@@ -415,7 +421,7 @@ const Navbar = () => {
                      <div className="text-left overflow-hidden">
                        <p className="text-sm font-bold text-gray-800 truncate">{item.title}</p>
                        <p className="text-[10px] text-[#587F93] font-black uppercase tracking-widest">
-                         {item._type === 'static' ? item.typeLabel : (item._type === 'saranaPrasarana' ? 'Fasilitas' : item._type)}
+                         {item._type === 'static' ? item.typeLabel : (item._type === 'saranaPrasarana' ? 'Fasilitas' : item._type === 'tenagaKependidikan' ? 'Tenaga Kependidikan' : item._type === 'dewanGuru' ? 'Dewan Guru' : item._type)}
                        </p>
                      </div>
                    </div>
@@ -454,6 +460,19 @@ const Navbar = () => {
                </li>
              ))}
            </ul>
+        </div>
+
+        {/* Tombol Login Mobile di Bagian Bawah */}
+        <div className="p-5 border-t border-gray-100 shrink-0">
+          <button 
+            onClick={() => {
+              navigate('/login');
+              setIsMobileMenuOpen(false);
+            }}
+            className="w-full bg-[#587F93] text-white h-[50px] rounded-xl font-[900] text-[14px] flex items-center justify-center gap-3 active:scale-95 shadow-lg transition-all uppercase tracking-widest"
+          >
+            <LogIn size={20} /> Login Admin
+          </button>
         </div>
       </div>
     </>

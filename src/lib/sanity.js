@@ -67,6 +67,34 @@ export const fetchStrukturOrganisasi = async () => {
   return await client.fetch(query);
 };
 
+export const fetchTenagaKependidikan = async () => {
+  const query = `*[_type == "tenagaKependidikan"] | order(urutan asc) {
+    _id,
+    posisi,
+    nama,
+    foto,
+    nip,
+    gelar,
+    email,
+    nomorTelepon
+  }`;
+  return await client.fetch(query);
+};
+
+export const fetchDewanGuru = async () => {
+  const query = `*[_type == "dewanGuru"] | order(urutan asc) {
+    _id,
+    nama,
+    foto,
+    nip,
+    bidang,
+    gelar,
+    email,
+    nomorTelepon
+  }`;
+  return await client.fetch(query);
+};
+
 export const fetchPendaftaran = async () => {
   const query = `*[_type == "pendaftaran"] {
     _id,
@@ -100,14 +128,11 @@ export const fetchSaranaPrasarana = async () => {
 };
 
 export const fetchSertifikat = async () => {
-  const query = `*[_type == "sertifikat"] | order(urutan asc) {
+  const query = `*[_type == "sertifikat"] {
     _id,
     nama,
-    tipe,
-    logo,
-    deskripsi,
-    tanggalPemerolehan,
-    tahunKadaluarsa
+    foto,
+    "fileUrl": file.asset->url
   }`;
   return await client.fetch(query);
 };

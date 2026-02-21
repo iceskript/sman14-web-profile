@@ -15,14 +15,16 @@ import VisiMisi from './components/VisiMisi';
 import ProgramUnggulan from './components/ProgramUnggulan';
 import PrestasiSiswa from './components/PrestasiSiswa';
 import Testimoni from './components/Testimoni';
-import DataGuru from './components/DataGuru';
+import DewanGuru from './components/DewanGuru';
 import StatCounter from './components/StatCounter';
 import BeritaTerbaru from './pages/BeritaTerbaru';
 import NewsDetail from './pages/NewsDetail';
-import DataGuruPage from './pages/DataGuruPage';
+import TenagaKependidikanPage from './pages/TenagaKependidikanPage';
+import DewanGuruPage from './pages/DewanGuruPage';
 import Ekstrakurikuler from './pages/Ekstrakurikuler';
 import Galeri from './pages/Galeri';
 import Pendaftaran from './pages/Pendaftaran';
+import StrukturOrganisasiPage from './pages/StrukturOrganisasiPage';
 
 const AppContent = () => {
   const location = useLocation();
@@ -56,13 +58,15 @@ const AppContent = () => {
               <ProgramUnggulan />
               <PrestasiSiswa />
               <Testimoni />
-              <DataGuru />
+              <DewanGuru />
             </>
           } />
           <Route path="/profil" element={<ProfilSekolah />} />
           <Route path="/berita" element={<BeritaTerbaru />} />
           <Route path="/berita/:id" element={<NewsDetail />} />
-          <Route path="/data-guru" element={<DataGuruPage />} />
+          <Route path="/tenaga-kependidikan" element={<TenagaKependidikanPage />} />
+          <Route path="/dewan-guru" element={<DewanGuruPage />} />
+          <Route path="/struktur-organisasi" element={<StrukturOrganisasiPage />} />
           <Route path="/ekstrakurikuler" element={<Ekstrakurikuler />} />
           <Route path="/galeri" element={<Galeri />} />
           <Route path="/pendaftaran" element={<Pendaftaran />} />

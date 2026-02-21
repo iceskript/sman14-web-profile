@@ -7,7 +7,7 @@ const ProgramUnggulan = () => {
       id: 1,
       title: "Pembelajaran berbasis Teknologi",
       desc: "Proses pembelajaran berbasis teknologi dapat menciptakan siswa yang mampu bereksplorasi, berkreatifitas, menyesuaikan diri dengan perkembangan zaman, dan tentunya menambah wawasan dan ilmu pengetahuan.",
-      img: "/program-1.jpg", 
+      img: "/program-1.webp", 
     },
     {
       id: 2,

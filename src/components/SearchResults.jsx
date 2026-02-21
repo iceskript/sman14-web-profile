@@ -29,19 +29,21 @@ const SearchResults = () => {
           (_type == "galeri" && (judul match $searchTerm || deskripsi match $searchTerm)) ||
           (_type == "saranaPrasarana" && (nama match $searchTerm || deskripsi match $searchTerm)) ||
           (_type == "pendaftaran" && (judul match $searchTerm || deskripsi match $searchTerm)) ||
-          (_type == "strukturOrganisasi" && (nama match $searchTerm || posisi match $searchTerm))
+          (_type == "tenagaKependidikan" && (nama match $searchTerm || posisi match $searchTerm)) ||
+          (_type == "dewanGuru" && (nama match $searchTerm || bidang match $searchTerm))
         ] {
           _id,
           _type,
           "title": coalesce(judul, nama),
-          "description": coalesce(excerpt, deskripsi, posisi),
+          "description": coalesce(excerpt, deskripsi, posisi, bidang),
           foto,
           "path": select(
             _type == "berita" => "/berita/" + _id,
             _type == "galeri" => "/galeri",
             _type == "saranaPrasarana" => "/profil#sarana-prasarana",
             _type == "pendaftaran" => "/pendaftaran",
-            _type == "strukturOrganisasi" => "/data-guru"
+            _type == "tenagaKependidikan" => "/tenaga-kependidikan",
+            _type == "dewanGuru" => "/dewan-guru"
           )
         }`;
 
@@ -63,7 +65,8 @@ const SearchResults = () => {
       'galeri': 'Galeri',
       'saranaPrasarana': 'Fasilitas',
       'pendaftaran': 'PPDB',
-      'strukturOrganisasi': 'Guru & Staf'
+      'tenagaKependidikan': 'Tenaga Kependidikan',
+      'dewanGuru': 'Dewan Guru'
     };
     return labels[type] || 'Informasi';
   };

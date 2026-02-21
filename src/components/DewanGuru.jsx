@@ -1,27 +1,35 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules'; 
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { fetchDewanGuru, urlFor } from '../lib/sanity';
 
 import 'swiper/css';
 
 const DataGuru = () => {
   const navigate = useNavigate();
   const swiperRef = useRef(null);
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const rawData = [
-    { id: 1, nama: "Nama Guru, S.Pd.", jabatan: "Kepala Sekolah", img: "/guru-1.jpg" },
-    { id: 2, nama: "Nama Guru, M.Pd.", jabatan: "Wakil Kepala Sekolah", img: "/guru-2.jpg" },
-    { id: 3, nama: "Nama Guru, S.T.", jabatan: "Guru Mata Pelajaran", img: "/guru-3.jpg" },
-    { id: 4, nama: "Nama Guru, S.Kom.", jabatan: "Guru Mata Pelajaran", img: "/guru-4.jpg" },
-    { id: 5, nama: "Nama Guru, M.Si.", jabatan: "Guru Mata Pelajaran", img: "/guru-5.jpg" },
-    { id: 6, nama: "Nama Guru, S.Si.", jabatan: "Guru Mata Pelajaran", img: "/guru-6.jpg" },
-  ];
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const result = await fetchDewanGuru();
+        setData(result);
+      } catch (error) {
+        console.error('Gagal memuat data guru:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    loadData();
+  }, []);
 
   // Gandakan data agar looping marquee tetap mulus tanpa jeda
-  const guruData = [...rawData, ...rawData.map(item => ({...item, id: item.id + 100}))]; 
+  const guruData = data.length > 0 ? [...data, ...data.map(item => ({...item, _id: item._id + '_dup'}))] : [];
 
   // Logika Manual Arrow dengan override speed
   const handlePrev = () => {
@@ -41,6 +49,14 @@ const DataGuru = () => {
       setTimeout(() => { swiper.autoplay.start(); }, 700);
     }
   };
+
+  if (isLoading) {
+    return (
+      <section className="py-24 bg-[#F9F9F9] font-urbanist text-center">
+        <p className="text-gray-500 font-medium">Memuat data guru...</p>
+      </section>
+    );
+  }
 
   return (
     <section className="py-24 bg-[#F9F9F9] font-urbanist overflow-hidden">
@@ -79,17 +95,16 @@ const DataGuru = () => {
             className="marquee-swiper !pb-12"
           >
             {guruData.map((guru, index) => (
-              <SwiperSlide key={`${guru.id}-${index}`}>
+              <SwiperSlide key={`${guru._id}-${index}`}>
                 <motion.div
                   whileHover={{ y: -10 }}
                   className="flex flex-col items-center p-2"
                 >
                   <div className="w-full aspect-[4/5] bg-white rounded-2xl shadow-[0_25px_50px_-15px_rgba(0,0,0,0.15)] border border-white overflow-hidden mb-6 relative group/img">
                     <img 
-                      src={guru.img} 
+                      src={guru.foto ? urlFor(guru.foto).width(400).height(500).url() : 'https://via.placeholder.com/400x500?text=Guru'} 
                       alt={guru.nama}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover/img:scale-110"
-                      onError={(e) => { e.target.src = 'https://via.placeholder.com/400x500?text=Guru'; }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity duration-500" />
                   </div>
@@ -99,7 +114,12 @@ const DataGuru = () => {
                       {guru.nama}
                     </h3>
                     <p className="text-[#587F93] font-semibold text-[14px] uppercase tracking-widest">
-                      {guru.jabatan}
+                      {guru.bidang 
+                        ? guru.bidang
+                            .replace(/admSarana|Adm\. Sarana & Prasarana/gi, 'Admin Sarpras')
+                            .replace(/wakaSarana|Waka Sarana & Prasarana/gi, 'Waka Sarpras')
+                        : "Guru"
+                      }
                     </p>
                   </div>
                 </motion.div>
@@ -126,7 +146,7 @@ const DataGuru = () => {
         {/* --- TOMBOL SELENGKAPNYA --- */}
         <div className="relative z-10 flex justify-center">
           <motion.button
-            onClick={() => navigate('/data-guru')}
+            onClick={() => navigate('/dewan-guru')}
             whileHover={{ 
               scale: 1.05, 
               boxShadow: "0 15px 30px rgba(0,0,0,0.15)" // Drop shadow standar (bukan glow biru)

@@ -22,15 +22,15 @@ const StatCounter = () => {
     {
       id: 2,
       label: "Guru & Staff",
-      value: 75,
-      suffix: "+",
+      value: 48,
+      suffix: "",
       icon: <Presentation size={36} className="text-[#587F93]" strokeWidth={1.2} />,
       minWidth: "min-w-[80px] lg:min-w-[100px]"
     },
     {
       id: 3,
       label: "Ruang Kelas",
-      value: 25,
+      value: 20,
       suffix: "",
       icon: <School size={36} className="text-[#587F93]" strokeWidth={1.2} />,
       minWidth: "min-w-[60px] lg:min-w-[80px]"

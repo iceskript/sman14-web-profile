@@ -135,7 +135,7 @@ const Footer = () => {
                     />
                   </a>
                   {/* Facebook */}
-                  <a href="#" className="w-10 h-10 flex items-center justify-center bg-gray-50 rounded-full transition-all duration-300 shadow-sm group hover:bg-[#1877F2]">
+                  <a href="#https://www.instagram.com/sman14samarinda/" className="w-10 h-10 flex items-center justify-center bg-gray-50 rounded-full transition-all duration-300 shadow-sm group hover:bg-[#1877F2]">
                     <img 
                       src="/fb-logo.svg" 
                       alt="Facebook" 

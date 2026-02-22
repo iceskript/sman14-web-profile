@@ -16,7 +16,7 @@ const Ekstrakurikuler = () => {
     { id: 4, nama: "Futsal", kategori: "Olahraga", img: "/ekskul-futsal.jpg", desc: "Wadah bagi siswa untuk mengasah bakat sepak bola dalam skala lapangan kecil." },
     { id: 5, nama: "Seni Tari", kategori: "Seni", img: "/ekskul-tari.jpg", desc: "Melestarikan budaya melalui tarian tradisional dan kreasi modern." },
     { id: 6, nama: "Paduan Suara", kategori: "Seni", img: "/ekskul-padus.jpg", desc: "Mengolah vokal dan harmoni dalam grup musik sekolah." },
-    { id: 7, nama: "Karya Ilmiah Remaja", kategori: "Sains & Hobi", img: "/ekskul-kir.jpg", desc: "Eksplorasi dunia sains melalui penelitian dan inovasi kreatif." },
+    { id: 7, nama: "Karate", kategori: "Olahraga", img: "/ekskul-karate.jpg", desc: "Mengembangkan keterampilan bela diri dan disiplin diri melalui latihan." },
     { id: 8, nama: "English Club", kategori: "Sains & Hobi", img: "/ekskul-english.jpg", desc: "Meningkatkan kemampuan bahasa Inggris melalui debat dan storytelling." },
   ];
 

@@ -13,13 +13,13 @@ const ProgramUnggulan = () => {
       id: 2,
       title: "Ekstrakurikuler",
       desc: "Sebagai wadah untuk mengembangkan minat dan bakat, memperluas pengalaman bersosialisasi, praktik keterampilan berkomunikasi, dan internalisasi nilai-nilai karakter.",
-      img: "/program-2.jpg",
+      img: "/basket1.webp",
     },
     {
       id: 3,
       title: "Life Skills",
       desc: "Meningkatkan keterampilan, pengetahuan dan sikap belajar di bidang pekerjaan/usaha tertentu sesuai dengan minat dan bakat. perkembangan fisik dan jiwa serta potensi lingkungannya, sehingga diharapkan siswa memiliki bekal dimasa depan.",
-      img: "/program-3.jpg",
+      img: "/lab1.webp",
     },
   ];
 

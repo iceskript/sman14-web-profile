@@ -260,16 +260,24 @@ const NewsDetail = () => {
               </div>
               <div className="flex items-center gap-4 ml-auto">
                 <span className="text-gray-400">Bagikan:</span>
-                <Facebook 
-                  size={18} 
-                  className="hover:text-[#1877F2] cursor-pointer transition-colors" 
+                <a 
+                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#1877F2] cursor-pointer transition-colors"
                   title="Bagikan ke Facebook"
-                />
-                <MessageCircle 
-                  size={18} 
-                  className="hover:text-[#25D366] cursor-pointer transition-colors" 
+                >
+                  <Facebook size={18} />
+                </a>
+                <a 
+                  href={`https://api.whatsapp.com/send?text=${encodeURIComponent(article?.judul + " - Baca selengkapnya di: " + window.location.href)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#25D366] cursor-pointer transition-colors"
                   title="Bagikan ke WhatsApp"
-                />
+                >
+                  <MessageCircle size={18} />
+                </a>
                 <LinkIcon 
                   size={18} 
                   className="hover:text-[#587F93] cursor-pointer transition-colors" 

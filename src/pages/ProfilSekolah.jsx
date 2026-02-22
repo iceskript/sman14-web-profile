@@ -83,7 +83,7 @@ const ProfilSekolah = () => {
       desc: "Menampilkan bagan kepemimpinan dan tata kelola sekolah yang transparan dan akuntabel untuk mewujudkan visi sekolah.",
       link: "/struktur-organisasi"
     },
-    "Wakil Kepala Satuan Pendidikan": {
+    "Wakil Kepala Bidang Pendidikan": {
       type: "grid",
       title: "WAKIL KEPALA",
       subtitle: "Bidang Pendidikan",
@@ -172,12 +172,12 @@ const ProfilSekolah = () => {
 
       {/* 2. HERO SECTION */}
       <motion.section variants={itemVariants} className="relative w-full mb-24 lg:mb-40">
-        <div className="w-full h-[350px] lg:h-[600px] overflow-hidden relative z-0 bg-gray-100 rounded-tr-[60px] lg:rounded-tr-[150px]">
+        <div className="w-full h-[350px] lg:h-[600px] overflow-hidden relative z-0 bg-gray-100 rounded-br-[60px] lg:rounded-br-[150px]">
           <img src="/gedung2.webp" alt="Gedung SMAN 14 Samarinda" className="w-full h-full object-cover" />
         </div>
         <div className="absolute inset-0 pointer-events-none">
           <div className="max-w-[1440px] mx-auto h-full px-5 lg:px-[60px] relative">
-            <div className="absolute -bottom-16 lg:-bottom-24 left-5 lg:left-[60px] w-[90%] lg:w-[51%] bg-[#587F93] text-white p-8 lg:p-14 rounded-tr-[40px] lg:rounded-tr-[100px] z-10 pointer-events-auto antialiased">
+            <div className="absolute -bottom-16 lg:-bottom-24 left-5 lg:left-[60px] w-[90%] lg:w-[51%] bg-[#587F93] text-white p-8 lg:p-14 rounded-br-[40px] lg:rounded-br-[100px] z-10 pointer-events-auto antialiased">
               <h2 className="text-[22px] lg:text-[32px] font-[800] mb-4 lg:mb-6 uppercase tracking-wider leading-tight">SMA Negeri 14 Samarinda</h2>
               <p className="text-[14px] lg:text-[16px] leading-relaxed opacity-95 text-justify font-medium">
                 SMA Negeri 14 Samarinda adalah lembaga pendidikan menengah atas yang berdedikasi untuk mencetak generasi penerus bangsa yang cerdas, berkarakter, dan kompetitif.
@@ -220,8 +220,8 @@ const ProfilSekolah = () => {
           {/* Column: col-md-7 (Remaining space for text) */}
           <div className="w-full lg:w-7/12 flex flex-col items-start">
             <span className="text-[#587F93] text-[120px] font-serif leading-none h-[60px] opacity-30">“</span>
-            <p className="text-[18px] lg:text-[24px] text-[#334155] mb-10 leading-snug font-medium">
-              "Sebagai pimpinan SMAN 14 Samarinda, saya mengajak seluruh elemen sekolah untuk bersinergi mewujudkan visi sekolah yang unggul dan berakhlak mulia."
+            <p className="text-sm lg:text-base text-[#334155] mb-10 leading-relaxed font-medium">
+              Sebagai bagian dari upaya berkelanjutan dalam meningkatkan mutu pendidikan, saya memiliki misi agar kita sebagai pendidik senantiasa melakukan kolaborasi melalui berbagi pengetahuan (knowledge sharing). Saya yakin bahwa dengan saling bertukar data, metode pembelajaran, dan pengalaman, kita dapat bersama-sama meratakan kualitas pendidikan, tidak hanya di lingkungan SMA Negeri 14 Samarinda, tetapi juga sebagai kontribusi nyata bagi pendidikan di Indonesia.
             </p>
             <button onClick={() => setIsExpanded(!isExpanded)} className="bg-[#587F93] hover:bg-[#466575] text-white px-6 py-2.5 rounded-md font-bold flex items-center gap-4 active:scale-95 text-[14px] transition-all">
               {isExpanded ? 'Sembunyikan' : 'Selengkapnya'}
@@ -234,16 +234,46 @@ const ProfilSekolah = () => {
       {/* 4. EXPANDED CONTENT */}
       <AnimatePresence>
         {isExpanded && (
-          <motion.section initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }} className="overflow-hidden bg-[#587F93] text-white mt-32">
-            <div className="max-w-[1440px] mx-auto px-5 lg:px-[60px] py-20 grid grid-cols-1 lg:grid-cols-2 gap-12">
-              <div>
-                <h3 className="text-[28px] lg:text-[36px] font-[900] mb-10 uppercase">Visi Besar SMAN 14</h3>
-                <p className="text-[16px] lg:text-[18px] leading-[2] text-justify opacity-90 font-medium">Melalui program Internal Enhancement, kami bertransformasi menjadi pusat keunggulan pendidikan yang adaptif.</p>
+          <motion.section 
+            initial={{ height: 0, opacity: 0 }} 
+            animate={{ height: 'auto', opacity: 1 }} 
+            exit={{ height: 0, opacity: 0 }} 
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }} 
+            className="overflow-hidden bg-[#587F93] text-white mt-16 lg:mt-32"
+          >
+            <div className="max-w-[1440px] mx-auto px-5 lg:px-[60px] py-16 lg:py-20 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
+              
+              {/* Kolom Kiri */}
+              <div className="flex flex-col gap-6">
+                <h3 className="text-[20px] lg:text-[24px] font-[800] tracking-tight">
+                  Sambutan Kepala SMA Negeri 14 Samarinda
+                </h3>
+                <p className="text-[14px] lg:text-[16px] leading-relaxed font-medium opacity-95 text-justify">
+                  Sebagai bagian dari upaya berkelanjutan dalam meningkatkan mutu pendidikan, saya memiliki misi agar kita sebagai pendidik senantiasa melakukan kolaborasi melalui berbagi pengetahuan (knowledge sharing) dalam rangka meratakan kualitas pendidikan yang ada di Indonesia.
+                </p>
+                <p className="text-[14px] lg:text-[16px] leading-relaxed font-medium opacity-95 text-justify">
+                  Adapun program yang menjadi rencana besar bagi SMAN 14 Samarinda mencakup peningkatan kualitas akademik, inovasi pembelajaran berbasis teknologi, penguatan karakter siswa, dan penanaman wawasan lingkungan. Secara garis besar, rencana pembangunan sekolah kita dirancang untuk menciptakan ekosistem pendidikan yang unggul, adaptif, dan berprestasi.
+                </p>
               </div>
-              <div className="flex flex-col justify-end">
-                <p className="text-[16px] lg:text-[18px] leading-[2] opacity-90 mb-12 text-justify font-medium">Sinergi antara tenaga pendidik, siswa, dan orang tua adalah kunci keberhasilan kami.</p>
-                <div className="border-t border-white/30 pt-8"><p className="font-[900] text-[22px]">Kepala Sekolah SMAN 14,</p></div>
+
+              {/* Kolom Kanan */}
+              <div className="flex flex-col gap-6 lg:pt-14">
+                <p className="text-[14px] lg:text-[16px] leading-relaxed font-medium opacity-95 text-justify">
+                  Saya melihat potensi besar yang ada di SMA Negeri 14 Samarinda sebagai salah satu pilar pendidikan menengah. Ini merupakan kesempatan emas bagi kita untuk menjadi lembaga penghasil SDM yang bermanfaat dan membanggakan. Untuk itu, kami memohon dukungan dan kerjasama semua stakeholder untuk ikut membangun SMAN 14 Samarinda demi kemajuan pendidikan di masa depan.
+                </p>
+                <p className="text-[14px] lg:text-[16px] leading-relaxed font-medium opacity-95">
+                  Beriman, Berakhlak, dan Berprestasi.
+                </p>
+                <div className="mt-6 flex flex-col pt-4">
+                  <p className="font-[800] text-[15px] lg:text-[17px]">
+                    Kepala SMA Negeri 14 Samarinda,
+                  </p>
+                  <p className="font-[800] text-[15px] lg:text-[17px]">
+                    Syawal Arifin, S.S., M.Pd.
+                  </p>
+                </div>
               </div>
+
             </div>
           </motion.section>
         )}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
@@ -41,14 +41,22 @@ const NewsDetail = () => {
     loadArticle();
   }, [id]);
 
-  const portableTextComponents = {
+  // Komponen PortableText standar untuk konten utama
+  const portableTextComponents = useMemo(() => ({
     types: {
       image: ({ value }) => (
-        <img
-          src={urlFor(value).width(800).height(500).url()}
-          alt={value.alt || 'Article image'}
-          className="w-full rounded-xl my-8 shadow-lg"
-        />
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="my-10 clear-both"
+        >
+          <img
+            src={urlFor(value).width(800).url()}
+            alt={value.alt || 'Article image'}
+            className="w-full rounded-2xl shadow-xl border-4 border-white"
+          />
+        </motion.div>
       ),
     },
     block: {
@@ -71,7 +79,117 @@ const NewsDetail = () => {
         </a>
       ),
     },
-  };
+  }), []);
+
+  /**
+   * Fungsi untuk menyisipkan foto dari galeri ke dalam array konten Portable Text
+   * agar muncul berselang-seling di antara paragraf.
+   */
+  const interspersedContent = useMemo(() => {
+    if (!article?.konten) return [];
+    const gallery = article?.galeri || [];
+    
+    if (gallery.length === 0) return article.konten;
+
+    const result = [];
+    // Salin array galeri agar bisa dimanipulasi (diambil itemnya)
+    const pendingGallery = [...gallery];
+    
+    // Fungsi untuk mengambil item galeri berdasarkan posisi
+    const popImagesForPosition = (pos) => {
+      const matches = [];
+      // Loop backwards agar aman saat splice
+      for (let i = pendingGallery.length - 1; i >= 0; i--) {
+        if (pendingGallery[i].posisi === pos) {
+          matches.unshift(pendingGallery[i]);
+          pendingGallery.splice(i, 1);
+        }
+      }
+      return matches;
+    };
+
+    // 1. Sisipkan posisi 'top' (Sebelum teks utama)
+    const topImages = popImagesForPosition('top');
+    topImages.forEach((img, idx) => {
+      result.push({
+        _type: 'injectedGalleryImage',
+        _key: img._key || `injected-top-${idx}`,
+        ...img
+      });
+    });
+
+    let pCount = 0;
+    article.konten.forEach((block) => {
+      result.push(block);
+      
+      // 2. Sisipkan di antara blok konten teks (paragraf, heading, list, dll.)
+      // Kondisi ini memastikan pCount bertambah untuk setiap blok yang mengandung teks,
+      // bukan hanya paragraf 'normal', sehingga lebih akurat.
+      if (block._type === 'block' && block.children && block.children.length > 0) {
+        pCount++;
+        const pImages = popImagesForPosition(`p${pCount}`);
+        pImages.forEach((img, idx) => {
+          result.push({
+            _type: 'injectedGalleryImage',
+            _key: img._key || `injected-p${pCount}-${idx}`,
+            ...img
+          });
+        });
+      }
+    });
+
+    // 3. Final Pass: Sisipkan sisa foto (posisi 'bottom' atau yang slot paragrafnya tidak tersedia)
+    pendingGallery.forEach((img, idx) => {
+      result.push({
+        _type: 'injectedGalleryImage',
+        _key: img._key || `injected-bottom-${idx}`,
+        ...img
+      });
+    });
+
+    return result;
+  }, [article?.konten, article?.galeri]);
+
+  // Komponen tambahan untuk merender gambar yang disisipkan
+  const extendedComponents = useMemo(() => ({
+    ...portableTextComponents,
+    types: {
+      ...portableTextComponents.types,
+      injectedGalleryImage: ({ value }) => {
+        // Pastikan mengambil field 'image' dari objek galeri
+        const imageData = value.image;
+        if (!imageData || !imageData.asset) return null;
+
+        // Logika CSS berdasarkan layout (Full, Left, Right)
+        let containerClass = "my-10 clear-both";
+        if (value.layout === 'left') {
+          containerClass = "md:float-left md:mr-8 mb-6 mt-2 w-full md:w-1/2 lg:w-2/5 clear-none";
+        } else if (value.layout === 'right') {
+          containerClass = "md:float-right md:ml-8 mb-6 mt-2 w-full md:w-1/2 lg:w-2/5 clear-none";
+        }
+
+        return (
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className={containerClass}
+          >
+            <img
+              src={urlFor(imageData).width(800).url()}
+              alt={value.caption || "Gambar Berita"}
+              className="w-full rounded-2xl shadow-xl border-4 border-white"
+            />
+            {value.caption && (
+              <p className="mt-3 text-sm text-gray-500 italic text-center font-medium">
+                {value.caption}
+              </p>
+            )}
+          </motion.div>
+        );
+      },
+    }
+  }), [portableTextComponents]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -182,7 +300,7 @@ const NewsDetail = () => {
             {/* Article Body */}
             {article?.konten && (
               <div className="text-gray-700 leading-[1.8] font-medium">
-                <PortableText value={article.konten} components={portableTextComponents} />
+                <PortableText value={interspersedContent} components={extendedComponents} />
               </div>
             )}
 

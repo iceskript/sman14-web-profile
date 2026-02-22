@@ -78,8 +78,8 @@ const DataGuru = () => {
           <Swiper
             ref={swiperRef}
             modules={[Autoplay]}
-            spaceBetween={30}
-            slidesPerView={1}
+            spaceBetween={20}
+            slidesPerView={2}
             loop={true}
             allowTouchMove={true}
             speed={5000} 
@@ -89,8 +89,9 @@ const DataGuru = () => {
               pauseOnMouseEnter: true, 
             }}
             breakpoints={{
-              640: { slidesPerView: 2 },
-              1024: { slidesPerView: 4 },
+              640: { slidesPerView: 3 },
+              768: { slidesPerView: 4 },
+              1024: { slidesPerView: 5 },
             }}
             className="marquee-swiper !pb-12"
           >
@@ -110,10 +111,10 @@ const DataGuru = () => {
                   </div>
 
                   <div className="text-center">
-                    <h3 className="text-[19px] lg:text-[21px] font-bold text-[#1A1A1A] leading-tight mb-1">
+                    <h3 className="text-[15px] lg:text-[21px] font-bold text-[#1A1A1A] leading-tight mb-1">
                       {guru.nama}
                     </h3>
-                    <p className="text-[#587F93] font-semibold text-[14px] uppercase tracking-widest">
+                    <p className="text-[#587F93] font-semibold text-[11px] lg:text-[14px] uppercase tracking-widest">
                       {guru.bidang 
                         ? guru.bidang
                             .replace(/admSarana|Adm\. Sarana & Prasarana/gi, 'Admin Sarpras')

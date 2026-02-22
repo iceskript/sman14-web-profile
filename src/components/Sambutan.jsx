@@ -42,29 +42,25 @@ const Sambutan = () => {
             transition={{ ...fadeInUp.transition, delay: 0.3 }} // Sedikit jeda setelah foto muncul
             className="w-full lg:w-1/2 flex flex-col justify-center text-left"
           >
-            <h2 className="text-[30px] lg:text-[42px] font-[900] text-gray-900 leading-tight mb-2 uppercase tracking-tight">
+            <h2 className="text-[30px] lg:text-[42px] font-[900] text-gray-900 leading-tight mb-2 capitalize tracking-tight">
               Syawal Arifin, S.S., M.Pd.
             </h2>
             
             <div className="w-16 h-1.5 bg-[#587F93] mb-6 rounded-full" />
             
-            <p className="text-[#587F93] font-bold text-sm lg:text-base uppercase tracking-[0.2em] mb-8">
+            <p className="text-[#587F93] font-bold text-sm lg:text-base uppercase tracking-normal mb-8">
               Kepala SMA Negeri 14 Samarinda
             </p>
 
             <div className="space-y-5">
-              <p className="text-gray-500 text-lg leading-relaxed italic">
+              <p className="text-gray-500 text-sm lg:text-base leading-relaxed italic">
                 "Assalamu’alaikum Warahmatullahi Wabarakatuh,"
               </p>
-              <p className="text-gray-700 text-base lg:text-lg leading-relaxed">
-                Selamat datang di website resmi SMA Negeri 14 Samarinda. Melalui media pembelajaran 
-                berbasis teknologi ini, kami berharap dapat meningkatkan motivasi belajar siswa 
-                dan memberikan informasi yang transparan kepada seluruh masyarakat.
+              <p className="text-gray-700 text-sm lg:text-base leading-relaxed">
+                Selamat datang di website resmi SMA Negeri 14 Samarinda. Platform ini hadir sebagai langkah nyata digitalisasi pendidikan kami untuk memberikan layanan informasi yang transparan, akurat, dan mudah diakses oleh seluruh masyarakat.
               </p>
-              <p className="text-gray-700 text-base lg:text-lg leading-relaxed">
-                Pendidikan di era digital menuntut kita untuk terus beradaptasi. Website ini 
-                merupakan bagian dari komitmen kami dalam mewujudkan visi sekolah yang beriman, 
-                berakhlak, dan berprestasi.
+              <p className="text-gray-700 text-sm lg:text-base leading-relaxed">
+                Di era transformasi digital ini, kami berkomitmen mengintegrasikan teknologi dalam setiap proses pembelajaran guna memotivasi siswa dan membekali mereka dengan kompetensi yang relevan. Website ini adalah jendela utama untuk mengenal lebih jauh komitmen kami dalam mencetak generasi yang beriman, berakhlak, dan unggul dalam prestasi.
               </p>
             </div>
 

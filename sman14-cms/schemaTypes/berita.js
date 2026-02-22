@@ -49,6 +49,62 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
+      name: 'galeri',
+      title: 'Galeri Foto Berita (Opsional)',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          name: 'gambarBerita',
+          title: 'Gambar Berita',
+          fields: [
+            { name: 'image', type: 'image', title: 'Foto', options: { hotspot: true }, validation: Rule => Rule.required() },
+            {
+              name: 'posisi',
+              title: 'Posisi Muncul',
+              type: 'string',
+              options: {
+                list: [
+                  { title: 'Atas (Sebelum Teks)', value: 'top' },
+                  { title: 'Tengah (Setelah Paragraf 1)', value: 'p1' },
+                  { title: 'Tengah (Setelah Paragraf 2)', value: 'p2' },
+                  { title: 'Bawah (Setelah Paragraf 3)', value: 'p3' },
+                  { title: 'Akhir (Paling Bawah)', value: 'bottom' },
+                ],
+              },
+              initialValue: 'p1'
+            },
+            {
+              name: 'layout',
+              title: 'Gaya Tampilan',
+              type: 'string',
+              options: {
+                list: [
+                  { title: 'Lebar Penuh (Center)', value: 'full' },
+                  { title: 'Kiri (Text Wrap)', value: 'left' },
+                  { title: 'Kanan (Text Wrap)', value: 'right' },
+                ],
+              },
+              initialValue: 'full'
+            },
+            { name: 'caption', title: 'Keterangan Gambar (Opsional)', type: 'string' }
+          ],
+          preview: {
+            select: { title: 'caption', subtitle: 'posisi', media: 'image' },
+            prepare({ title, subtitle, media }) {
+              return {
+                title: title || 'Gambar Berita',
+                subtitle: `Posisi: ${subtitle}`,
+                media
+              }
+            }
+          }
+        }
+      ],
+      validation: (Rule) => Rule.max(3),
+      description: 'Tambahkan foto tambahan dan atur posisinya di dalam artikel.',
+    },
+    {
       name: 'excerpt',
       title: 'Ringkasan Berita',
       type: 'text',
@@ -67,6 +123,12 @@ export default {
         },
       ],
       validation: (Rule) => Rule.required(),
+    },
+    {
+      name: 'penulis',
+      title: 'Penulis Berita',
+      type: 'string',
+      initialValue: 'Admin SMAN 14',
     },
     {
       name: 'hashtag',

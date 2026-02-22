@@ -47,6 +47,7 @@ export const fetchBerita = async () => {
     tanggal,
     excerpt,
     foto,
+    galeri,
     konten,
     hashtag
   }`;
@@ -171,6 +172,7 @@ export const fetchBeritaById = async (id) => {
     tanggal,
     excerpt,
     foto,
+    galeri,
     konten,
     hashtag,
     "author": coalesce(penulis, "Admin SMAN 14")

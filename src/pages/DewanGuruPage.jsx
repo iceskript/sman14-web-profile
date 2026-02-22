@@ -47,7 +47,7 @@ const DewanGuruPage = () => {
     const text = bidang.toLowerCase();
 
     // 1. Sains & Teknologi (Matematika, Fisika, Biologi, Kimia, Informatika, KKA, dll)
-    if (text.match(/matematika|fisika|biologi|kimia|informatika|tik|komputer|ipa|kka|prakarya|teknologi|sains/)) {
+    if (text.match(/matematika|fisika|biologi|kimia|informatika|tik|komputer|ipa|kka|teknologi|sains/)) {
       return 'saintek';
     }
 

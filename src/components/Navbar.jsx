@@ -30,7 +30,7 @@ const Navbar = () => {
     { 
       name: 'BERITA', 
       dropdown: true, 
-      items: [{ label: 'Berita Terbaru', path: '/berita' }] 
+      items: [{ label: 'Daftar Berita', path: '/berita' }] 
     },
     { 
       name: 'INFORMASI', 

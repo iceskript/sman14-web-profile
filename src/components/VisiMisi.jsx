@@ -54,7 +54,7 @@ const VisiMisi = () => {
               key={index}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
-              className="relative h-full overflow-hidden border-r border-white/10 last:border-none cursor-pointer transition-[flex] duration-700 ease-[0.32,0.72,0,1]"
+              className="relative h-full overflow-hidden border-b lg:border-b-0 lg:border-r border-white/10 last:border-none cursor-pointer transition-[flex] duration-700 ease-[0.32,0.72,0,1]"
               style={{
                 flex: hoveredIndex === index ? 5 : 1, 
               }}
@@ -83,24 +83,23 @@ const VisiMisi = () => {
               </div>
 
               {/* Content Layer */}
-              <div className="absolute inset-0 p-10 lg:p-14 flex flex-col justify-end text-white pointer-events-none">
+              <div className="absolute inset-0 p-6 sm:p-10 lg:p-14 flex flex-col justify-end text-white pointer-events-none">
                 
-                {/* min-w-max mengunci teks agar tidak goyang/wrap saat transisi lebar */}
-                <div className="relative z-10 min-w-max">
+                <div className="relative z-10 w-full">
                   
                   {/* Judul: Tetap stabil dan tajam */}
                   <h3 
                     className={`font-[900] uppercase tracking-wider leading-tight transition-all duration-500 ${
                       hoveredIndex === index 
-                        ? 'text-[30px] lg:text-[38px] mb-4 text-white opacity-100' 
-                        : 'text-[18px] lg:text-[20px] mb-0 text-white/40'
+                        ? 'text-[24px] sm:text-[30px] lg:text-[38px] mb-2 lg:mb-4 text-white opacity-100' 
+                        : 'text-[16px] lg:text-[20px] mb-0 text-white/40'
                     }`}
                   >
                     {item.title}
                   </h3>
 
                   {/* Deskripsi */}
-                  <div className="h-24 overflow-hidden">
+                  <div className="h-32 sm:h-24 overflow-hidden">
                     <AnimatePresence>
                       {hoveredIndex === index && (
                         <motion.div
@@ -109,7 +108,7 @@ const VisiMisi = () => {
                           exit={{ opacity: 0 }}
                           transition={{ duration: 0.4, delay: 0.3 }}
                         >
-                          <p className="text-[15px] lg:text-[17px] font-medium leading-relaxed max-w-[450px] text-white/80 border-l-[3px] border-[#587F93] pl-5 py-1">
+                          <p className="text-[14px] sm:text-[15px] lg:text-[17px] font-medium leading-relaxed max-w-full lg:max-w-[450px] text-white/80 border-l-[3px] border-[#587F93] pl-4 sm:pl-5 py-1">
                             {item.desc}
                           </p>
                         </motion.div>

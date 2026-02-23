@@ -13,7 +13,7 @@ const StatCounter = () => {
     {
       id: 1,
       label: "Siswa Aktif",
-      value: 1400,
+      value: 711,
       suffix: "+",
       icon: <GraduationCap size={36} className="text-[#587F93]" strokeWidth={1.2} />,
       // Menambah min-width agar kontainer tidak berubah ukuran saat angka bergulir

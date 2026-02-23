@@ -21,6 +21,18 @@ const ProgramUnggulan = () => {
       desc: "Meningkatkan keterampilan, pengetahuan dan sikap belajar di bidang pekerjaan/usaha tertentu sesuai dengan minat dan bakat. perkembangan fisik dan jiwa serta potensi lingkungannya, sehingga diharapkan siswa memiliki bekal dimasa depan.",
       img: "/lab1.webp",
     },
+    {
+      id: 4,
+      title: "Green House",
+      desc: "Mengembangkan kesadaran lingkungan melalui praktik langsung budidaya tanaman dan pelestarian alam, menciptakan ekosistem sekolah yang asri dan edukatif.",
+      img: "/greenhouse.webp",
+    },
+    {
+      id: 5,
+      title: "Bilingual Class",
+      desc: "Mempersiapkan siswa menghadapi tantangan global melalui penguasaan bahasa asing dalam interaksi pembelajaran sehari-hari di kelas.",
+      img: "/bilingual.webp",
+    },
   ];
 
   return (

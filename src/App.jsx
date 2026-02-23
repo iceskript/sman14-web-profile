@@ -25,6 +25,7 @@ import Ekstrakurikuler from './pages/Ekstrakurikuler';
 import Galeri from './pages/Galeri';
 import Pendaftaran from './pages/Pendaftaran';
 import StrukturOrganisasiPage from './pages/StrukturOrganisasiPage';
+import ChatCS from './components/ChatCS';
 
 const AppContent = () => {
   const location = useLocation();
@@ -75,6 +76,7 @@ const AppContent = () => {
         </Routes>
       </main>
       {!isLoginPage && <Footer />}
+      {!isLoginPage && <ChatCS />}
       <ScrollToTop />
     </div>
   );

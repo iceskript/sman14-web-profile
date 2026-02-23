@@ -25,6 +25,7 @@ import Ekstrakurikuler from './pages/Ekstrakurikuler';
 import Galeri from './pages/Galeri';
 import Pendaftaran from './pages/Pendaftaran';
 import StrukturOrganisasiPage from './pages/StrukturOrganisasiPage';
+import Kontak from './pages/Kontak';
 import ChatCS from './components/ChatCS';
 
 const AppContent = () => {
@@ -71,6 +72,7 @@ const AppContent = () => {
           <Route path="/ekstrakurikuler" element={<Ekstrakurikuler />} />
           <Route path="/galeri" element={<Galeri />} />
           <Route path="/pendaftaran" element={<Pendaftaran />} />
+          <Route path="/kontak" element={<Kontak />} />
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

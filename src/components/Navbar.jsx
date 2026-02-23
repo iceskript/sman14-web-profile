@@ -35,7 +35,10 @@ const Navbar = () => {
     { 
       name: 'INFORMASI', 
       dropdown: true, 
-      items: [{ label: 'Pendaftaran', path: '/pendaftaran' }] 
+      items: [
+        { label: 'Pendaftaran', path: '/pendaftaran' },
+        { label: 'Kontak', path: '/kontak' }
+      ] 
     },
     { 
       name: 'DATA', 

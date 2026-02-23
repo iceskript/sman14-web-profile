@@ -40,7 +40,7 @@ const ChatCS = () => {
             {/* Tooltip Label */}
             <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 hidden group-hover:block">
               <div className="bg-white text-[#587F93] px-4 py-2 rounded-xl shadow-xl border border-gray-100 whitespace-nowrap text-sm font-bold">
-                CS Support
+                Chat Admin SMAPAS
                 <div className="absolute top-1/2 -right-1 -translate-y-1/2 w-2 h-2 bg-white border-r border-t border-gray-100 rotate-45"></div>
               </div>
             </div>

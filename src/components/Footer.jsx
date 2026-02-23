@@ -11,7 +11,7 @@ const Footer = () => {
   const location = useLocation();
   // MENGGUNAKAN API EMBED MODE "PLACE" AGAR MUNCUL PIN MERAH
   // "q" diisi nama tempat spesifik + koordinat untuk akurasi maksimal
-  const mapUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.688863677334!2d117.10098037497746!3d-0.5002820994939023!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2df67f08c3d9804b%3A0x6b2e126284699564!2sSMA%20Negeri%2014%20Samarinda!5e0!3m2!1sid!2sid!4v1709228945620!5m2!1sid!2sid";
+  const mapUrl = "https://maps.google.com/maps?q=SMA%20Negeri%2014%20Samarinda&t=&z=15&ie=UTF8&iwloc=&output=embed";
 
   // Filter warna abu-abu gelap agar ikon terlihat jelas di bg putih saat diam
   const iconBaseFilter = 'invert(30%) sepia(10%) saturate(500%) hue-rotate(180deg) brightness(95%) contrast(90%)';

@@ -1,6 +1,6 @@
 export default {
   name: 'sertifikat',
-  title: 'Sertifikat & Akreditasi',
+  title: 'Sertifikat',
   type: 'document',
   fields: [
     {
@@ -20,7 +20,7 @@ export default {
       description: 'Upload gambar sertifikat (JPG/PNG) untuk ditampilkan langsung di website.',
     },
     {
-      name: 'file',
+      name: 'filePDF',
       title: 'File PDF',
       type: 'file',
       options: {

@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { ChevronDown, ArrowRight, ArrowLeft, Download, ChevronRight, Award, FileText } from 'lucide-react'; 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { fetchSaranaPrasarana, fetchSertifikat, urlFor } from '../lib/sanity';
+import { fetchSaranaPrasarana, fetchSertifikat, urlFor, client } from '../lib/sanity';
 
 const ProfilSekolah = () => {
   const navigate = useNavigate();
@@ -28,7 +28,12 @@ const ProfilSekolah = () => {
       }
 
       try {
-        const sertifikat = await fetchSertifikat();
+        // Menggunakan query langsung agar file URL ter-dereference untuk sertifikat
+        const query = `*[_type == "sertifikat"]{
+          ...,
+          "fileUrl": filePDF.asset->url
+        }`;
+        const sertifikat = await client.fetch(query);
         setSertifikatData(sertifikat);
         setIsLoadingSertifikat(false);
       } catch (error) {

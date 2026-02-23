@@ -12,7 +12,15 @@ const Pendaftaran = () => {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const data = await fetchPendaftaran();
+        // Menggunakan query langsung agar file URL ter-dereference dengan benar dari Sanity
+        const query = `*[_type == "pendaftaran"]{
+          ...,
+          berkasInformasi[]{
+            ...,
+            "fileUrl": file.asset->url
+          }
+        }`;
+        const data = await client.fetch(query);
         setPendaftaranData(data);
       } catch (error) {
         console.error('Gagal memuat data pendaftaran:', error);
@@ -176,11 +184,11 @@ const Pendaftaran = () => {
                   {pInfo.berkasInformasi.map((doc, idx) => (
                     <a
                       key={idx}
-                      href={doc.file?.asset?.url}
-                      download
+                      href={doc.fileUrl ? `${doc.fileUrl}?dl=` : '#'}
+                      download={doc.nama || 'dokumen-juknis'}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group bg-white p-3 sm:p-4 lg:p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:border-[#587F93]/30 transition-all flex items-center justify-between gap-3 sm:gap-4"
+                      className={`group bg-white p-3 sm:p-4 lg:p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:border-[#587F93]/30 transition-all flex items-center justify-between gap-3 sm:gap-4 ${!doc.fileUrl ? 'opacity-50 cursor-not-allowed pointer-events-none' : ''}`}
                     >
                       <div className="flex-1 flex items-center gap-3 overflow-hidden">
                         <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gray-50 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-[#587F93] transition-colors">
@@ -193,9 +201,9 @@ const Pendaftaran = () => {
                           </div>
                         </div>
                       </div>
-                      <button className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-200 text-gray-400 hover:bg-[#587F93] hover:text-white hover:border-[#587F93] transition-all shrink-0">
+                      <div className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-200 text-gray-400 group-hover:bg-[#587F93] group-hover:text-white group-hover:border-[#587F93] transition-all shrink-0">
                         <Download size={20} />
-                      </button>
+                      </div>
                     </a>
                   ))}
                 </div>

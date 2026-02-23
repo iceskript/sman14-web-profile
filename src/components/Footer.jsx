@@ -56,13 +56,17 @@ const Footer = () => {
                 {['Beranda', 'Kontak', 'Sosmed', 'Fasilitas'].map((item) => (
                   <li key={item}>
                     <a 
-                      href={item === 'Beranda' ? "/" : item === 'Fasilitas' ? "/profil#sarana-prasarana" : `#${item.toLowerCase()}`} 
+                      href={item === 'Beranda' ? "/" : item === 'Kontak' ? "/kontak" : item === 'Fasilitas' ? "/profil#sarana-prasarana" : `#${item.toLowerCase()}`} 
                       onClick={(e) => {
                         if (item === 'Beranda') {
                           e.preventDefault();
                           navigate('/');
                           // Memastikan scroll ke paling atas (0,0) dengan transisi halus.
                           // Timeout 0 memastikan ini berjalan setelah siklus navigasi dimulai.
+                          setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 0);
+                        } else if (item === 'Kontak') {
+                          e.preventDefault();
+                          navigate('/kontak');
                           setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 0);
                         } else if (item === 'Fasilitas') {
                           e.preventDefault();

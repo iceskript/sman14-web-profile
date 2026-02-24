@@ -31,7 +31,7 @@ const ProgramUnggulan = () => {
       id: 5,
       title: "Bilingual Class",
       desc: "Mempersiapkan siswa menghadapi tantangan global melalui penguasaan bahasa asing dalam interaksi pembelajaran sehari-hari di kelas.",
-      img: "/bilingual.webp",
+      img: "/billingual.webp",
     },
   ];
 

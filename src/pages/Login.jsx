@@ -36,7 +36,7 @@ const Login = () => {
             ? 'http://localhost:3333' 
             : 'https://www.sanity.io/@o0E0wSMrR/studio/akrnc8fvvm7nlcn2kmneu402/default/structure'; // <--- GANTI dengan link hasil 'npx sanity deploy' kamu
 
-          window.location.href = studioUrl; 
+          window.open(studioUrl, '_blank');
         }, 1500);
       } else {
         setIsLoading(false);

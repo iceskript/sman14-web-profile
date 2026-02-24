@@ -183,7 +183,7 @@ const Footer = () => {
       <div className="bg-gray-50 py-6 text-center border-t border-gray-100">
         <div className="max-w-[1440px] mx-auto px-5">
           <p className="text-gray-400 text-[14px] font-medium tracking-wide">
-            © Copyright <span className="font-bold uppercase tracking-tight text-gray-600">SMA NEGERI 14 SAMARINDA</span>. All Rights Reserved
+            © Copyright <span className="font-bold uppercase tracking-tight text-gray-600">SMA NEGERI 14 SAMARINDA</span>.All Rights Reserved. Developed by Iceskript
           </p>
         </div>
       </div>

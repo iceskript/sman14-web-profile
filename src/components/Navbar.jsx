@@ -302,8 +302,8 @@ const Navbar = () => {
                 )}
               </div>
               <button 
-                onClick={() => navigate('/login')}
-                className="bg-[#587F93] text-white px-4 h-[28px] rounded-full font-extrabold text-[11px] flex items-center gap-1.5 active:scale-95 shadow-sm hover:bg-[#587F93] transition-all"
+                onClick={() => window.open('/login', '_blank')}
+                className="bg-[#587F93] text-white px-4 h-[28px] rounded-full font-extrabold text-[11px] flex items-center gap-1.5 active:scale-95 shadow-sm hover:bg-[#587F93] transition-all cursor-pointer"
               >
                 <LogIn size={13} /> LOGIN
               </button>
@@ -469,10 +469,10 @@ const Navbar = () => {
         <div className="p-5 border-t border-gray-100 shrink-0">
           <button 
             onClick={() => {
-              navigate('/login');
+              window.open('/login', '_blank');
               setIsMobileMenuOpen(false);
             }}
-            className="w-full bg-[#587F93] text-white h-[50px] rounded-xl font-[900] text-[14px] flex items-center justify-center gap-3 active:scale-95 shadow-lg transition-all uppercase tracking-widest"
+            className="w-full bg-[#587F93] text-white h-[50px] rounded-xl font-[900] text-[14px] flex items-center justify-center gap-3 active:scale-95 shadow-lg transition-all uppercase tracking-widest cursor-pointer"
           >
             <LogIn size={20} /> Login Admin
           </button>

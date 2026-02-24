@@ -303,7 +303,6 @@ const Navbar = () => {
               </div>
               <Link 
                 to="/login"
-                target="_blank"
                 className="bg-[#587F93] text-white px-4 h-[28px] rounded-full font-extrabold text-[11px] flex items-center gap-1.5 active:scale-95 shadow-sm hover:bg-[#587F93] transition-all cursor-pointer no-underline inline-flex items-center"
               >
                 <LogIn size={13} /> LOGIN
@@ -470,7 +469,6 @@ const Navbar = () => {
         <div className="p-5 border-t border-gray-100 shrink-0">
           <Link 
             to="/login"
-            target="_blank"
             onClick={() => setIsMobileMenuOpen(false)}
             className="w-full bg-[#587F93] text-white h-[50px] rounded-xl font-[900] text-[14px] flex items-center justify-center gap-3 active:scale-95 shadow-lg transition-all uppercase tracking-widest cursor-pointer no-underline"
           >

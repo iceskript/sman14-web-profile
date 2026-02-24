@@ -26,18 +26,16 @@ const Login = () => {
 
       // 2. Validasi kecocokan data
       if (admin && admin.password === password) {
-        setTimeout(() => {
-          setIsLoading(false);
+        setIsLoading(false);
 
-          // LOGIKA SMART REDIRECT:
-          // Jika sedang di localhost, arahkan ke port 3333
-          // Jika sudah online (Vercel), arahkan ke Sanity Studio yang sudah dideploy
-          const studioUrl = window.location.hostname === 'localhost' 
-            ? 'http://localhost:3333' 
-            : 'https://www.sanity.io/@o0E0wSMrR/studio/akrnc8fvvm7nlcn2kmneu402/default/structure'; // <--- GANTI dengan link hasil 'npx sanity deploy' kamu
+        // LOGIKA SMART REDIRECT:
+        // Jika sedang di localhost, arahkan ke port 3333
+        // Jika sudah online (Vercel), arahkan ke Sanity Studio yang sudah dideploy
+        const studioUrl = window.location.hostname === 'localhost' 
+          ? 'http://localhost:3333' 
+          : 'https://www.sanity.io/@o0E0wSMrR/studio/akrnc8fvvm7nlcn2kmneu402/default/structure'; 
 
-          window.open(studioUrl, '_blank');
-        }, 1500);
+        window.location.replace(studioUrl);
       } else {
         setIsLoading(false);
         setError('Username atau Password salah!');

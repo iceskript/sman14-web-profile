@@ -2,7 +2,16 @@ import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemaTypes'
+import { MyLogoComponent } from './components/MyLogo';
 import React from 'react'
+
+const LogoSekolah = () => (
+  <img 
+    src="/static/logo-smapas.svg" 
+    alt="Logo SMAN 14" 
+    style={{ width: '25px', height: '25px', borderRadius: '4px' }} 
+  />
+);
 
 export default defineConfig({
   name: 'default',
@@ -10,6 +19,8 @@ export default defineConfig({
 
   projectId: 'vn9r43ot',
   dataset: 'production',
+
+  icon: LogoSekolah,
 
   plugins: [structureTool(), visionTool()],
 

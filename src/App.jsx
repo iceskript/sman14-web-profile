@@ -46,7 +46,7 @@ const AppContent = () => {
 
   return (
     // 'scroll-auto' memastikan perilaku scroll kembali ke standar browser yang stabil
-    <div className="flex flex-col min-h-screen bg-white font-urbanist overflow-x-hidden select-none scroll-auto">
+    <div className="flex flex-col min-h-screen bg-white font-urbanist overflow-x-hidden scroll-auto">
       {!isLoginPage && <Navbar />}
       <main className="flex-grow">
         <Routes>

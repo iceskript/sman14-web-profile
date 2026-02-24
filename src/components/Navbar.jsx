@@ -304,7 +304,7 @@ const Navbar = () => {
               <Link 
                 to="/login"
                 target="_blank"
-                className="bg-[#587F93] text-white px-4 h-[28px] rounded-full font-extrabold text-[11px] flex items-center gap-1.5 active:scale-95 shadow-sm hover:bg-[#587F93] transition-all cursor-pointer no-underline"
+                className="bg-[#587F93] text-white px-4 h-[28px] rounded-full font-extrabold text-[11px] flex items-center gap-1.5 active:scale-95 shadow-sm hover:bg-[#587F93] transition-all cursor-pointer no-underline inline-flex items-center"
               >
                 <LogIn size={13} /> LOGIN
               </Link>

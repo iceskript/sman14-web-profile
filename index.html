@@ -36,4 +36,20 @@
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
+
+  <script>
+  window.addEventListener('load', function() {
+    const style = document.createElement('style');
+    style.innerHTML = '*{user-select: text !important; -webkit-user-select: text !important;}';
+    document.head.appendChild(style);
+
+    document.addEventListener('contextmenu', (e) => e.stopPropagation(), true);
+    document.addEventListener('copy', (e) => e.stopPropagation(), true);
+    document.addEventListener('selectstart', (e) => e.stopPropagation(), true);
+    
+    document.body.oncontextmenu = null;
+    document.body.onselectstart = null;
+    document.body.oncopy = null;
+  }, true);
+</script>
 </html>

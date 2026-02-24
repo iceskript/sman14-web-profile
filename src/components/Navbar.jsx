@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Phone, Mail, Search, LogIn, ChevronDown, Menu, X } from 'lucide-react';
 import { client, urlFor } from '../lib/sanity';
 
@@ -301,12 +301,13 @@ const Navbar = () => {
                   </div>
                 )}
               </div>
-              <button 
-                onClick={() => window.open('/login', '_blank')}
-                className="bg-[#587F93] text-white px-4 h-[28px] rounded-full font-extrabold text-[11px] flex items-center gap-1.5 active:scale-95 shadow-sm hover:bg-[#587F93] transition-all cursor-pointer"
+              <Link 
+                to="/login"
+                target="_blank"
+                className="bg-[#587F93] text-white px-4 h-[28px] rounded-full font-extrabold text-[11px] flex items-center gap-1.5 active:scale-95 shadow-sm hover:bg-[#587F93] transition-all cursor-pointer no-underline"
               >
                 <LogIn size={13} /> LOGIN
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -467,15 +468,14 @@ const Navbar = () => {
 
         {/* Tombol Login Mobile di Bagian Bawah */}
         <div className="p-5 border-t border-gray-100 shrink-0">
-          <button 
-            onClick={() => {
-              window.open('/login', '_blank');
-              setIsMobileMenuOpen(false);
-            }}
-            className="w-full bg-[#587F93] text-white h-[50px] rounded-xl font-[900] text-[14px] flex items-center justify-center gap-3 active:scale-95 shadow-lg transition-all uppercase tracking-widest cursor-pointer"
+          <Link 
+            to="/login"
+            target="_blank"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="w-full bg-[#587F93] text-white h-[50px] rounded-xl font-[900] text-[14px] flex items-center justify-center gap-3 active:scale-95 shadow-lg transition-all uppercase tracking-widest cursor-pointer no-underline"
           >
             <LogIn size={20} /> Login Admin
-          </button>
+          </Link>
         </div>
       </div>
     </>

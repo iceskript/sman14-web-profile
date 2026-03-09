@@ -116,7 +116,7 @@ Features:
 
 ### Homepage
 
-![Homepage](images/homepage.png)
+![Homepage](public/homepage.png)
 
 ---
 
@@ -130,8 +130,6 @@ Features:
 
 ![Gallery](images/gallery.png)
 
-
-### Contact Page
 
 ![Contact](images/contact.png)
 

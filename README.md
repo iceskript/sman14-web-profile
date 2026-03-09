@@ -8,7 +8,7 @@ The purpose of this website is to provide information about the school such as p
 
 ## Official Website
 
-🌐 [https://your-website-link.com](https://www.sman14samarinda.sch.id/)
+🌐 https://www.sman14samarinda.sch.id/
 
 ---
 

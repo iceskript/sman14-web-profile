@@ -122,17 +122,17 @@ Features:
 
 ### School Profile
 
-![Profile](images/profile.png)
+![Profile](public/profile.png)
 
 ---
 
 ### Gallery Page
 
-![Gallery](images/gallery.png)
+![Gallery](public/galeri.png)
 
 
 ### Contact Page
-![Contact](images/contact.png)
+![Contact](public/contact.png)
 
 ---
 

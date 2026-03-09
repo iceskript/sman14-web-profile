@@ -130,7 +130,6 @@ Features:
 
 ![Gallery](images/gallery.png)
 
----
 
 ### Contact Page
 

@@ -1,16 +1,138 @@
-# React + Vite
+# School Profile Website of SMA Negeri 14 Samarinda
 
-a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a **School Profile Website** developed as part of my undergraduate thesis.
 
-Currently, two official plugins are available:
+The purpose of this website is to provide information about the school such as profile, announcements, teachers, classes, gallery, and contact information in a modern and responsive web interface.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## Official Website
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+🌐 https://www.sman14samarinda.sch.id/
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Tech Stack
+
+This project is built using:
+
+- React + Vite
+- Tailwind CSS
+- Sanity Studio
+
+---
+
+## Main Features
+
+### Home Page
+The homepage provides a general overview of the school.
+
+Features:
+- School introduction
+- Principal welcome message
+- Latest announcements
+- Quick navigation to other pages
+- School gallery preview
+
+---
+
+### School Profile
+Displays basic information about the school.
+
+Features:
+- School introduction
+- Vision and mission
+- Principal welcome message
+- School identity
+
+---
+
+### Announcements
+Displays important announcements from the school.
+
+Features:
+- Academic announcements
+- School event announcements
+- Registration announcements
+
+---
+
+### Teachers Page
+Displays information about teachers and school staff.
+
+Features:
+- Teacher list
+- Teacher profiles
+- Teacher identification information
+
+---
+
+### Class Information
+Provides information about school classes.
+
+Features:
+- Class X
+- Class XI
+- Class XII
+- Homeroom teacher information
+
+---
+
+### Extracurricular Activities
+Displays extracurricular activities available in the school.
+
+Examples:
+- Paskibra
+- Futsal
+- Badminton
+- Other student activities
+
+---
+
+### Gallery
+Displays documentation of school activities.
+
+Features:
+- School events
+- Student activities
+- Extracurricular activities
+- School facilities
+
+---
+
+### Contact Page
+Displays school contact information.
+
+Features:
+- School address
+- Phone number
+- Email
+- Google Maps location
+- Contact form (optional)
+
+---
+
+## Screenshots
+
+### Homepage
+
+![Homepage](public/homepage.png)
+
+---
+
+### School Profile
+
+![Profile](public/profile.png)
+
+---
+
+### Gallery Page
+
+![Gallery](public/galeri.png)
+
+
+### Contact Page
+![Contact](public/contact.png)
+
+---
+

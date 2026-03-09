@@ -131,8 +131,8 @@ Features:
 ![Gallery](images/gallery.png)
 
 
+### Contact Page
 ![Contact](images/contact.png)
 
 ---
 
-## Project Structure

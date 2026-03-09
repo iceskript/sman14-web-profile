@@ -25,19 +25,20 @@ const ScrollToTop = () => {
   }, []);
 
   return (
-    <div className="fixed bottom-4 right-4 z-[100]"> 
+    <aside className="fixed bottom-4 right-4 z-[100]" aria-label="Scroll to top">
       <button
         type="button"
         onClick={scrollToTop}
+        aria-label="Back to top"
         className={`
           ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}
           bg-[#587F93] hover:bg-[#587F93] text-white p-2 rounded-full shadow-md 
           transition-all duration-300 ease-in-out active:scale-90 flex items-center justify-center
         `}
       >
-        <ChevronUp size={20} strokeWidth={3} />
+        <ChevronUp size={20} strokeWidth={3} aria-hidden="true" />
       </button>
-    </div>
+    </aside>
   );
 };
 

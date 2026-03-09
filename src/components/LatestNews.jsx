@@ -41,12 +41,12 @@ const LatestNews = () => {
     <section className="py-16 bg-white font-urbanist overflow-hidden">
       <div className="max-w-[1440px] mx-auto px-5 lg:px-[60px]">
         
-        <div className="text-center mb-12">
+        <header className="text-center mb-12">
           <h2 className="text-[28px] lg:text-[36px] font-[900] text-black uppercase tracking-tight">
             SMAPAS Latest News
           </h2>
-          <div className="w-[80px] h-[3px] bg-[#587F93] mx-auto mt-2"></div>
-        </div>
+          <div className="w-[80px] h-[3px] bg-[#587F93] mx-auto mt-2" aria-hidden="true"></div>
+        </header>
 
         <div className="relative news-slider-container">
           <Swiper
@@ -70,7 +70,7 @@ const LatestNews = () => {
           >
             {newsData.map((news) => (
               <SwiperSlide key={news._id} className="h-auto flex">
-                <div className="bg-white rounded-[20px] overflow-hidden shadow-xl border border-gray-100 flex flex-col flex-1 mb-8 mx-2">
+                <article className="bg-white rounded-[20px] overflow-hidden shadow-xl border border-gray-100 flex flex-col flex-1 mb-8 mx-2">
                   
                   {/* Image Container */}
                   <div className="relative h-[200px] overflow-hidden bg-gray-100">
@@ -94,14 +94,17 @@ const LatestNews = () => {
 
                   {/* Content Container */}
                   <div className="p-6 flex flex-col flex-grow">
-                    <p className="text-[12px] text-gray-400 font-bold uppercase tracking-widest mb-3">
+                    <time 
+                      dateTime={news.tanggal}
+                      className="text-[12px] text-gray-400 font-bold uppercase tracking-widest mb-3 block"
+                    >
                       {new Date(news.tanggal).toLocaleDateString('id-ID', { 
                         weekday: 'long', 
                         year: 'numeric', 
                         month: 'long', 
                         day: 'numeric' 
                       })}
-                    </p>
+                    </time>
                     <h3 className="text-[16px] lg:text-[18px] font-[800] text-gray-900 leading-tight mb-4 line-clamp-3">
                       {news.judul}
                     </h3>
@@ -125,7 +128,7 @@ const LatestNews = () => {
                       Lanjutkan Baca
                     </button>
                   </div>
-                </div>
+                </article>
               </SwiperSlide>
             ))}
           </Swiper>

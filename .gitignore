@@ -45,3 +45,4 @@ db.crypt
 # Jika kamu melakukan build sanity studio secara manual
 /studio/dist
 /studio/node_modules
+node_modules/

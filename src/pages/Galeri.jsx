@@ -77,31 +77,31 @@ const Galeri = () => {
   }
 
   return (
-    <div className="pt-32 lg:pt-44 pb-24 font-urbanist bg-[#FDFDFD] min-h-screen">
+    <main className="pt-32 lg:pt-44 pb-24 font-urbanist bg-[#FDFDFD] min-h-screen">
       <div className="max-w-[1440px] mx-auto px-5 lg:px-[60px]">
         
         {/* Header & Breadcrumbs */}
-        <motion.div 
+        <motion.header 
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           className="mb-12"
         >
-          <div className="flex items-center gap-2 text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">
+          <nav className="flex items-center gap-2 text-sm font-bold text-gray-400 uppercase tracking-widest mb-4" aria-label="Breadcrumb">
             <span className="hover:text-[#587F93] cursor-pointer" onClick={() => navigate('/')}>Beranda</span>
             <ChevronRight size={14} />
             <span className="text-[#587F93]">Galeri Foto</span>
-          </div>
+          </nav>
           <h1 className="text-[40px] lg:text-[56px] font-[900] text-black leading-none tracking-tight">
             Galeri <span className="text-[#587F93]">Sekolah</span>
           </h1>
-          <div className="w-20 h-1.5 bg-[#587F93] mt-6 rounded-full"></div>
+          <div className="w-20 h-1.5 bg-[#587F93] mt-6 rounded-full" aria-hidden="true" />
           <p className="mt-8 text-gray-500 max-w-2xl font-medium text-lg">
             Dokumentasi momen berharga, fasilitas unggulan, dan berbagai pencapaian civitas akademika SMAN 14 Samarinda.
           </p>
-        </motion.div>
+        </motion.header>
 
         {/* Filter Tabs */}
-        <div className="flex flex-wrap gap-3 mb-12">
+        <nav className="flex flex-wrap gap-3 mb-12" aria-label="Gallery filters">
           {categories.map((cat) => (
             <button
               key={cat}
@@ -115,7 +115,7 @@ const Galeri = () => {
               {cat === 'Semua' ? 'Semua' : categoryLabels[cat]}
             </button>
           ))}
-        </div>
+        </nav>
 
         {/* Gallery Grid */}
         <motion.div 
@@ -134,6 +134,7 @@ const Galeri = () => {
                   transition={{ duration: 0.4 }}
                   onClick={() => handleImageClick(album, fotoIdx)}
                   className="group relative aspect-[4/3] rounded-none overflow-hidden bg-gray-200 shadow-xl cursor-pointer"
+                  as="figure"
                 >
                   {/* Image */}
                   <img 
@@ -143,7 +144,7 @@ const Galeri = () => {
                   />
                   
                   {/* Overlay on Hover */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-8">
+                  <figcaption className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-8">
                     <div className="translate-y-8 group-hover:translate-y-0 transition-transform duration-500">
                       <div className="flex items-center gap-2 mb-3">
                         <span className="px-3 py-1 bg-[#587F93] text-white text-[10px] font-black uppercase tracking-widest">
@@ -159,7 +160,7 @@ const Galeri = () => {
                         </p>
                       )}
                     </div>
-                  </div>
+                  </figcaption>
 
                   {/* Floating Icon Decor */}
                   <div className="absolute top-6 right-6 w-10 h-10 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500">
@@ -253,7 +254,7 @@ const Galeri = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </main>
   );
 };
 

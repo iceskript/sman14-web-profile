@@ -40,18 +40,18 @@ const PrestasiSiswa = () => {
       <div className="max-w-[1440px] mx-auto px-5 lg:px-[100px]">
         
         {/* --- HEADER SECTION --- */}
-        <div className="flex flex-col items-start mb-16">
+        <header className="flex flex-col items-start mb-16">
           <div className="flex items-center gap-6 mb-2">
             <span className="text-[#888888] font-[900] tracking-[0.3em] uppercase text-[18px] lg:text-[20px] whitespace-nowrap">
               ACHIEVEMENT
             </span>
-            <div className="w-24 lg:w-32 h-[3px] bg-[#BCBCBC] rounded-full" />
+            <div className="w-24 lg:w-32 h-[3px] bg-[#BCBCBC] rounded-full" aria-hidden="true" />
           </div>
           
           <h2 className="text-[28px] lg:text-[36px] font-[900] text-black uppercase tracking-tight -ml-[1px] lg:-ml-[2px]">
             PRESTASI SISWA/I
           </h2>
-        </div>
+        </header>
 
         {/* --- SLIDER PRESTASI --- */}
         <div className="relative prestasi-slider-container">
@@ -70,10 +70,10 @@ const PrestasiSiswa = () => {
           >
             {prestasiData.map((item) => (
               <SwiperSlide key={item._id} className="h-auto flex">
-                <div className="bg-white rounded-[40px] overflow-hidden flex flex-col flex-1 border border-[#F5F5F5] shadow-2xl drop-shadow-[0_20px_20px_rgba(0,0,0,0.05)] mb-10">
+                <article className="bg-white rounded-[40px] overflow-hidden flex flex-col flex-1 border border-[#F5F5F5] shadow-2xl drop-shadow-[0_20px_20px_rgba(0,0,0,0.05)] mb-10">
                   
                   {/* Image Area */}
-                  <div className="relative h-[300px] bg-[#F8F8F8] overflow-hidden">
+                  <figure className="relative h-[300px] bg-[#F8F8F8] overflow-hidden">
                     {item.foto ? (
                       <img 
                         src={urlFor(item.foto).width(600).height(400).url()}
@@ -85,10 +85,10 @@ const PrestasiSiswa = () => {
                         <span className="text-gray-400">Foto Prestasi</span>
                       </div>
                     )}
-                  </div>
+                  </figure>
 
                   {/* Content Area */}
-                  <div className="p-10 text-center flex flex-col flex-grow items-center">
+                  <figcaption className="p-10 text-center flex flex-col flex-grow items-center">
                     <span className="text-[12px] font-black text-[#587F93] uppercase tracking-widest mb-3 px-3 py-1 bg-[#587F93]/10 rounded-full">
                       {item.tingkatPrestasi}
                     </span>
@@ -101,8 +101,8 @@ const PrestasiSiswa = () => {
                     <p className="text-[#666666] font-medium leading-relaxed text-[14px] opacity-80 max-w-[300px] line-clamp-3">
                       {item.deskripsi}
                     </p>
-                  </div>
-                </div>
+                  </figcaption>
+                </article>
               </SwiperSlide>
             ))}
           </Swiper>

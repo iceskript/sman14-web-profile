@@ -38,13 +38,13 @@ const StatCounter = () => {
   ];
 
   return (
-    <div className="relative w-full flex justify-center z-20 -mt-10 lg:-mt-12 px-5 font-urbanist">
-      <div 
+    <section className="relative w-full flex justify-center z-20 -mt-10 lg:-mt-12 px-5 font-urbanist" aria-label="School Statistics">
+      <div
         ref={ref}
         className="bg-white rounded-2xl py-8 lg:py-10 px-10 lg:px-20 flex flex-wrap justify-center gap-10 lg:gap-32 border border-white/50 shadow-[0_30px_60px_rgba(0,0,0,0.12)] backdrop-blur-sm"
       >
         {stats.map((stat) => (
-          <div key={stat.id} className="flex items-center gap-6">
+          <div key={stat.id} className="flex items-center gap-6" role="status">
             <div className="flex-shrink-0 opacity-90">
               {stat.icon}
             </div>
@@ -66,7 +66,7 @@ const StatCounter = () => {
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 

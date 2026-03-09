@@ -29,7 +29,7 @@ const Footer = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 items-start">
             
             {/* 1. LOGO & ALAMAT */}
-            <div className="space-y-6">
+            <section className="space-y-6">
               <div className="flex items-center gap-4">
                 <img 
                   src="/logo-smapas.svg" 
@@ -42,52 +42,54 @@ const Footer = () => {
                   </h2>
                 </div>
               </div>
-              <p className="text-gray-500 text-sm leading-relaxed max-w-[280px]">
+              <address className="text-gray-500 text-sm leading-relaxed max-w-[280px] not-italic">
                 Jl. Rapak Indah, Karang Asam Ilir <br />
                 Kec. Sungai Kunjang, Kota Samarinda, <br />
                 Kalimantan Timur
-              </p>
-            </div>
+              </address>
+            </section>
 
             {/* 2. LINK ALTERNATIF */}
-            <div>
+            <section>
               <h3 className="text-lg font-bold mb-6 text-gray-900">Link Alternatif</h3>
-              <ul className="space-y-4">
-                {['Beranda', 'Kontak', 'Sosmed', 'Fasilitas'].map((item) => (
-                  <li key={item}>
-                    <a 
-                      href={item === 'Beranda' ? "/" : item === 'Kontak' ? "/kontak" : item === 'Fasilitas' ? "/profil#sarana-prasarana" : `#${item.toLowerCase()}`} 
-                      onClick={(e) => {
-                        if (item === 'Beranda') {
-                          e.preventDefault();
-                          navigate('/');
-                          // Memastikan scroll ke paling atas (0,0) dengan transisi halus.
-                          // Timeout 0 memastikan ini berjalan setelah siklus navigasi dimulai.
-                          setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 0);
-                        } else if (item === 'Kontak') {
-                          e.preventDefault();
-                          navigate('/kontak');
-                          setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 0);
-                        } else if (item === 'Fasilitas') {
-                          e.preventDefault();
-                          navigate('/profil');
-                          setTimeout(() => {
-                            const element = document.getElementById('sarana-prasarana');
-                            if (element) element.scrollIntoView({ behavior: 'smooth' });
-                          }, 100);
-                        }
-                      }}
-                      className="flex items-center gap-2 text-gray-500 hover:text-[#587F93] transition-all group cursor-pointer">
-                      <ChevronRight size={18} className="text-gray-400 group-hover:translate-x-1 transition-transform" />
-                      <span>{item}</span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
+              <nav aria-label="Footer Navigation">
+                <ul className="space-y-4">
+                  {['Beranda', 'Kontak', 'Sosmed', 'Fasilitas'].map((item) => (
+                    <li key={item}>
+                      <a 
+                        href={item === 'Beranda' ? "/" : item === 'Kontak' ? "/kontak" : item === 'Fasilitas' ? "/profil#sarana-prasarana" : `#${item.toLowerCase()}`} 
+                        onClick={(e) => {
+                          if (item === 'Beranda') {
+                            e.preventDefault();
+                            navigate('/');
+                            // Memastikan scroll ke paling atas (0,0) dengan transisi halus.
+                            // Timeout 0 memastikan ini berjalan setelah siklus navigasi dimulai.
+                            setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 0);
+                          } else if (item === 'Kontak') {
+                            e.preventDefault();
+                            navigate('/kontak');
+                            setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 0);
+                          } else if (item === 'Fasilitas') {
+                            e.preventDefault();
+                            navigate('/profil');
+                            setTimeout(() => {
+                              const element = document.getElementById('sarana-prasarana');
+                              if (element) element.scrollIntoView({ behavior: 'smooth' });
+                            }, 100);
+                          }
+                        }}
+                        className="flex items-center gap-2 text-gray-500 hover:text-[#587F93] transition-all group cursor-pointer">
+                        <ChevronRight size={18} className="text-gray-400 group-hover:translate-x-1 transition-transform" />
+                        <span>{item}</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </section>
 
             {/* 3. KONTAK & IKUTI KAMI */}
-            <div className="space-y-8">
+            <section className="space-y-8">
               <div id="kontak">
                 <h3 className="text-lg font-bold mb-6 text-gray-900">Kontak</h3>
                 <div className="space-y-4">
@@ -151,10 +153,10 @@ const Footer = () => {
                   </a>
                 </div>
               </div>
-            </div>
+            </section>
 
-            {/* 4. GOOGLE MAPS (DIPERBESAR & ADA PIN) */}
-            <div className="w-full lg:pl-4">
+            {/* 4. LOKASI */}
+            <section className="w-full lg:pl-4">
               <div className="flex flex-col items-start w-full">
                 <h3 className="text-[13px] font-[800] uppercase tracking-wider mb-4 text-gray-900 leading-none">
                   LOKASI SMA NEGERI 14 SAMARINDA
@@ -173,7 +175,7 @@ const Footer = () => {
                   ></iframe>
                 </div>
               </div>
-            </div>
+            </section>
 
           </div>
         </div>

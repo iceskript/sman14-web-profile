@@ -57,33 +57,33 @@ const StrukturOrganisasiPage = () => {
   };
 
   return (
-    <div className="pt-32 lg:pt-44 pb-24 font-urbanist bg-[#FDFDFD] min-h-screen">
+    <main className="pt-32 lg:pt-44 pb-24 font-urbanist bg-[#FDFDFD] min-h-screen">
       <div className="max-w-[1440px] mx-auto px-5 lg:px-[60px]">
         
         {/* Header & Breadcrumbs */}
-        <motion.div 
+        <motion.header 
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           className="mb-12"
         >
-          <div className="flex items-center gap-2 text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">
+          <nav className="flex items-center gap-2 text-sm font-bold text-gray-400 uppercase tracking-widest mb-4" aria-label="Breadcrumb">
             <span className="hover:text-[#587F93] cursor-pointer" onClick={() => navigate('/')}>Beranda</span>
             <ChevronRight size={14} />
             <span className="hover:text-[#587F93] cursor-pointer" onClick={() => navigate('/profil')}>Profil</span>
             <ChevronRight size={14} />
             <span className="text-[#587F93]">Struktur Organisasi</span>
-          </div>
+          </nav>
           <h1 className="text-[40px] lg:text-[56px] font-[900] text-black leading-none tracking-tight uppercase">
             {displayData.judul}
           </h1>
-          <div className="w-20 h-1.5 bg-[#587F93] mt-6 rounded-full"></div>
+          <div className="w-20 h-1.5 bg-[#587F93] mt-6 rounded-full" aria-hidden="true" />
           <p className="mt-8 text-gray-500 max-w-3xl font-medium text-lg leading-relaxed">
             {displayData.deskripsiSingkat}
           </p>
-        </motion.div>
+        </motion.header>
 
         {/* Content Section */}
-        <div className="flex flex-col gap-10">
+        <section className="flex flex-col gap-10">
           
           {/* Keterangan Text */}
           <motion.div 
@@ -96,7 +96,7 @@ const StrukturOrganisasiPage = () => {
           </motion.div>
 
           {/* Image Viewer Section */}
-          <motion.div 
+          <motion.figure 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
@@ -145,11 +145,11 @@ const StrukturOrganisasiPage = () => {
                 <p className="font-bold">Belum ada gambar struktur organisasi</p>
               </div>
             )}
-          </motion.div>
+          </motion.figure>
 
-        </div>
+        </section>
       </div>
-    </div>
+    </main>
   );
 };
 

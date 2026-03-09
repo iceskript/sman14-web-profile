@@ -47,6 +47,7 @@ const Hero = () => {
         variants={backgroundVariants}
         initial="hidden"
         animate="visible"
+        aria-hidden="true"
         className="absolute inset-0"
         style={{ 
           backgroundImage: `url('/gedung-smapas.webp')`,
@@ -59,6 +60,7 @@ const Hero = () => {
       {/* 2. Overlay Gradasi Figma */}
       <div 
         className="absolute inset-0 opacity-80" 
+        aria-hidden="true"
         style={{ 
           background: 'linear-gradient(90deg, #000000 0%, #00B0F1 100%)',
           mixBlendMode: 'multiply' 
@@ -66,7 +68,7 @@ const Hero = () => {
       />
 
       {/* 3. Konten Teks dengan Animasi */}
-      <motion.div 
+      <motion.header 
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -84,16 +86,17 @@ const Hero = () => {
           </motion.h1>
           
           <motion.div variants={itemVariants}>
-            <a href="#sambutan" className="inline-block">
-              <button className="group bg-transparent hover:bg-[#587F93] border-2 border-white hover:border-[#587F93] text-white px-6 py-3 lg:px-10 lg:py-3.5 rounded-full font-bold text-[14px] lg:text-[16px] flex items-center gap-2 transition-all duration-300 shadow-lg active:scale-95 cursor-pointer">
-                Selengkapnya
-                <ChevronDown size={20} className="group-hover:translate-y-1 transition-transform duration-300" />
-              </button>
+            <a 
+              href="#sambutan" 
+              className="inline-flex items-center gap-2 group bg-transparent hover:bg-[#587F93] border-2 border-white hover:border-[#587F93] text-white px-6 py-3 lg:px-10 lg:py-3.5 rounded-full font-bold text-[14px] lg:text-[16px] transition-all duration-300 shadow-lg active:scale-95 cursor-pointer no-underline"
+            >
+              Selengkapnya
+              <ChevronDown size={20} className="group-hover:translate-y-1 transition-transform duration-300" aria-hidden="true" />
             </a>
           </motion.div>
 
         </div>
-      </motion.div>
+      </motion.header>
 
     </section>
   );

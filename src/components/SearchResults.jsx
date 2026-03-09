@@ -72,22 +72,22 @@ const SearchResults = () => {
   };
 
   return (
-    <div className="pt-32 lg:pt-44 pb-24 font-urbanist bg-[#FDFDFD] min-h-screen">
+    <main className="pt-32 lg:pt-44 pb-24 font-urbanist bg-[#FDFDFD] min-h-screen">
       <div className="max-w-[1440px] mx-auto px-5 lg:px-[60px]">
-        <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="mb-12">
-          <div className="flex items-center gap-2 text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">
+        <motion.header initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="mb-12">
+          <nav className="flex items-center gap-2 text-sm font-bold text-gray-400 uppercase tracking-widest mb-4" aria-label="Breadcrumb">
             <span className="hover:text-[#587F93] cursor-pointer" onClick={() => navigate('/')}>Beranda</span>
-            <ChevronRight size={14} />
+            <ChevronRight size={14} aria-hidden="true" />
             <span className="text-[#587F93]">Hasil Pencarian</span>
-          </div>
+          </nav>
           <h1 className="text-[40px] lg:text-[56px] font-[900] text-black leading-none tracking-tight">
             Hasil untuk <span className="text-[#587F93]">"{query}"</span>
           </h1>
-          <div className="w-20 h-1.5 bg-[#587F93] mt-6 rounded-full"></div>
+          <div className="w-20 h-1.5 bg-[#587F93] mt-6 rounded-full" aria-hidden="true" />
           <p className="mt-8 text-gray-500 font-medium text-lg">
             Ditemukan {results.length} hasil yang relevan.
           </p>
-        </motion.div>
+        </motion.header>
 
         <div className="space-y-6">
           {isLoading ? (
@@ -97,7 +97,7 @@ const SearchResults = () => {
             </div>
           ) : results.length > 0 ? (
             results.map((item, index) => (
-              <motion.div 
+              <motion.article 
                 key={item._id} 
                 initial={{ opacity: 0, x: -20 }} 
                 animate={{ opacity: 1, x: 0 }} 
@@ -105,7 +105,7 @@ const SearchResults = () => {
                 onClick={() => navigate(item.path)} 
                 className="group bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:border-[#587F93]/30 transition-all cursor-pointer flex flex-col md:flex-row gap-6 items-center"
               >
-                <div className="w-full md:w-32 h-32 rounded-xl overflow-hidden bg-gray-50 shrink-0">
+                <figure className="w-full md:w-32 h-32 rounded-xl overflow-hidden bg-gray-50 shrink-0">
                   {item.foto ? (
                     <img src={urlFor(item.foto).width(200).height(200).url()} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                   ) : (
@@ -113,7 +113,7 @@ const SearchResults = () => {
                       <Search size={24} />
                     </div>
                   )}
-                </div>
+                </figure>
                 <div className="flex-1">
                   <span className="px-2 py-0.5 bg-[#587F93]/10 text-[#587F93] text-[10px] font-black uppercase tracking-widest rounded mb-2 inline-block">
                     {getTypeLabel(item._type)}
@@ -126,7 +126,7 @@ const SearchResults = () => {
                     <ArrowRight size={20} />
                   </div>
                 </div>
-              </motion.div>
+              </motion.article>
             ))
           ) : (
             <div className="py-20 text-center bg-white rounded-3xl border border-dashed border-gray-200">
@@ -137,7 +137,7 @@ const SearchResults = () => {
           )}
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

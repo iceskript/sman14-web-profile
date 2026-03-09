@@ -26,7 +26,7 @@ const VisiMisi = () => {
       <div className="max-w-[1440px] mx-auto px-5 lg:px-[60px]">
         
         {/* Header Section */}
-        <div className="text-center mb-16">
+        <header className="text-center mb-16">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -39,9 +39,9 @@ const VisiMisi = () => {
             initial={{ width: 0 }}
             whileInView={{ width: 60 }}
             viewport={{ once: true }}
-            className="h-1 bg-[#587F93] mx-auto mt-4 rounded-full" 
+            className="h-1 bg-[#587F93] mx-auto mt-4 rounded-full" aria-hidden="true"
           />
-        </div>
+        </header>
 
         {/* Container Utama: 
             - Menggunakan rounded-[40px] agar lebih elegan
@@ -50,7 +50,7 @@ const VisiMisi = () => {
         */}
         <div className="flex flex-col lg:flex-row h-[600px] w-full bg-gray-900 rounded-[40px] overflow-hidden">
           {dataVisiMisi.map((item, index) => (
-            <div
+            <article
               key={index}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
@@ -60,7 +60,7 @@ const VisiMisi = () => {
               }}
             >
               {/* Image Layer */}
-              <div className="absolute inset-0">
+              <figure className="absolute inset-0">
                 <img 
                   src={item.img} 
                   alt={item.title}
@@ -79,15 +79,13 @@ const VisiMisi = () => {
                     opacity: hoveredIndex === index ? 0 : 1
                   }} 
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
-              </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" aria-hidden="true" />
+              </figure>
 
               {/* Content Layer */}
-              <div className="absolute inset-0 p-6 sm:p-10 lg:p-14 flex flex-col justify-end text-white pointer-events-none">
+              <figcaption className="absolute inset-0 p-6 sm:p-10 lg:p-14 flex flex-col justify-end text-white pointer-events-none">
                 
                 <div className="relative z-10 w-full">
-                  
-                  {/* Judul: Tetap stabil dan tajam */}
                   <h3 
                     className={`font-[900] uppercase tracking-wider leading-tight transition-all duration-500 ${
                       hoveredIndex === index 
@@ -117,8 +115,8 @@ const VisiMisi = () => {
                   </div>
                 </div>
 
-              </div>
-            </div>
+              </figcaption>
+            </article>
           ))}
         </div>
       </div>

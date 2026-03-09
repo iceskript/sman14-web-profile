@@ -251,12 +251,14 @@ const NewsDetail = () => {
             {/* Meta Info */}
             <div className="flex flex-wrap items-center gap-6 py-6 border-y border-gray-100 mb-10 text-gray-500 text-sm font-bold uppercase tracking-wide">
               <div className="flex items-center gap-2">
-                <User size={16} className="text-[#587F93]" />
+                <User size={16} className="text-[#587F93]" aria-hidden="true" />
                 <span>Oleh: {article?.author || 'Admin SMAN 14'}</span>
               </div>
               <div className="flex items-center gap-2">
-                <Calendar size={16} className="text-[#587F93]" />
-                <span>{new Date(article?.tanggal).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+                <Calendar size={16} className="text-[#587F93]" aria-hidden="true" />
+                <time dateTime={article?.tanggal}>
+                  {new Date(article?.tanggal).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
+                </time>
               </div>
               <div className="flex items-center gap-4 ml-auto">
                 <span className="text-gray-400">Bagikan:</span>
@@ -291,7 +293,7 @@ const NewsDetail = () => {
             </div>
 
             {/* Featured Image */}
-            <div className="w-full aspect-video rounded-3xl overflow-hidden mb-12 shadow-2xl">
+            <figure className="w-full aspect-video rounded-3xl overflow-hidden mb-12 shadow-2xl">
               {article?.foto ? (
                 <img 
                   src={urlFor(article.foto).width(1200).height(800).url()} 
@@ -303,7 +305,7 @@ const NewsDetail = () => {
                   <span className="text-gray-400">Foto Berita</span>
                 </div>
               )}
-            </div>
+            </figure>
 
             {/* Article Body */}
             {article?.konten && (
@@ -314,20 +316,21 @@ const NewsDetail = () => {
 
             {/* Hashtag */}
             {article?.hashtag && article.hashtag.length > 0 && (
-              <div className="mt-12 pt-8 border-t border-gray-100">
-                <div className="flex flex-wrap gap-2">
+              <section className="mt-12 pt-8 border-t border-gray-100" aria-label="Hashtags">
+                <ul className="flex flex-wrap gap-2">
                   {article.hashtag.map((tag, idx) => (
-                    <motion.a
-                      key={idx}
-                      href={`/berita?search=${tag.replace('#', '')}`}
-                      whileHover={{ scale: 1.05 }}
-                      className="px-4 py-2 bg-[#587F93]/10 text-[#587F93] rounded-full text-sm font-bold hover:bg-[#587F93] hover:text-white transition-all"
-                    >
-                      {tag.startsWith('#') ? tag : `#${tag}`}
-                    </motion.a>
+                    <li key={idx}>
+                      <motion.a
+                        href={`/berita?search=${tag.replace('#', '')}`}
+                        whileHover={{ scale: 1.05 }}
+                        className="px-4 py-2 bg-[#587F93]/10 text-[#587F93] rounded-full text-sm font-bold hover:bg-[#587F93] hover:text-white transition-all block"
+                      >
+                        {tag.startsWith('#') ? tag : `#${tag}`}
+                      </motion.a>
+                    </li>
                   ))}
-                </div>
-              </div>
+                </ul>
+              </section>
             )}
 
             {/* Back Button */}

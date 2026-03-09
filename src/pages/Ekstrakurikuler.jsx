@@ -25,31 +25,31 @@ const Ekstrakurikuler = () => {
     : ekskulData.filter(item => item.kategori === filter);
 
   return (
-    <div className="pt-32 lg:pt-44 pb-24 font-urbanist bg-[#FDFDFD] min-h-screen">
+    <main className="pt-32 lg:pt-44 pb-24 font-urbanist bg-[#FDFDFD] min-h-screen">
       <div className="max-w-[1440px] mx-auto px-5 lg:px-[60px]">
         
         {/* Header & Breadcrumbs */}
-        <motion.div 
+        <motion.header 
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           className="mb-12"
         >
-          <div className="flex items-center gap-2 text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">
+          <nav className="flex items-center gap-2 text-sm font-bold text-gray-400 uppercase tracking-widest mb-4" aria-label="Breadcrumb">
             <span className="hover:text-[#587F93] cursor-pointer" onClick={() => navigate('/')}>Beranda</span>
             <ChevronRight size={14} />
             <span className="text-[#587F93]">Ekstrakurikuler</span>
-          </div>
+          </nav>
           <h1 className="text-[40px] lg:text-[56px] font-[900] text-black leading-none tracking-tight">
             Ekstra<span className="text-[#587F93]">kurikuler</span>
           </h1>
-          <div className="w-20 h-1.5 bg-[#587F93] mt-6 rounded-full"></div>
+          <div className="w-20 h-1.5 bg-[#587F93] mt-6 rounded-full" aria-hidden="true" />
           <p className="mt-8 text-gray-500 max-w-2xl font-medium text-lg">
             Wadah pengembangan minat, bakat, dan karakter siswa SMAN 14 Samarinda melalui berbagai kegiatan positif.
           </p>
-        </motion.div>
+        </motion.header>
 
         {/* Filter Tabs */}
-        <div className="flex flex-wrap gap-3 mb-12">
+        <nav className="flex flex-wrap gap-3 mb-12" aria-label="Extracurricular filters">
           {categories.map((cat) => (
             <button
               key={cat}
@@ -63,7 +63,7 @@ const Ekstrakurikuler = () => {
               {cat}
             </button>
           ))}
-        </div>
+        </nav>
 
         {/* Ekskul Grid */}
         <motion.div 
@@ -72,7 +72,7 @@ const Ekstrakurikuler = () => {
         >
           <AnimatePresence mode='popLayout'>
             {filteredData.map((item) => (
-              <motion.div
+              <motion.article
                 key={item.id}
                 layout
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -83,7 +83,7 @@ const Ekstrakurikuler = () => {
                 className="group flex flex-col bg-white rounded-none overflow-hidden shadow-xl border border-gray-100 h-full"
               >
                 {/* Image Container - Landscape Orientation */}
-                <div className="relative w-full aspect-video overflow-hidden bg-gray-200">
+                <figure className="relative w-full aspect-video overflow-hidden bg-gray-200">
                   <img 
                     src={item.img} 
                     alt={item.nama} 
@@ -95,10 +95,10 @@ const Ekstrakurikuler = () => {
                       {item.kategori}
                     </span>
                   </div>
-                </div>
+                </figure>
 
                 {/* Content */}
-                <div className="p-6 flex flex-col flex-grow">
+                <figcaption className="p-6 flex flex-col flex-grow">
                   <h3 className="text-xl font-[900] uppercase tracking-tight mb-3 text-gray-900 group-hover:text-[#587F93] transition-colors">
                     {item.nama}
                   </h3>
@@ -115,8 +115,8 @@ const Ekstrakurikuler = () => {
                       <Trophy size={14} className="text-[#587F93]" /> 5 Prestasi
                     </div>
                   </div>
-                </div>
-              </motion.div>
+                </figcaption>
+              </motion.article>
             ))}
           </AnimatePresence>
         </motion.div>
@@ -128,7 +128,7 @@ const Ekstrakurikuler = () => {
           </div>
         )}
       </div>
-    </div>
+    </main>
   );
 };
 

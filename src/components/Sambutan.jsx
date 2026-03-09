@@ -17,11 +17,11 @@ const Sambutan = () => {
     <section id="sambutan" className="relative w-full py-16 lg:py-24 bg-[#F8FAFC] font-urbanist scroll-mt-24">
       <div className="max-w-[1440px] mx-auto px-5 lg:px-[80px]">
         
-        <div className="relative flex flex-col lg:flex-row items-center gap-10 lg:gap-16 p-8 lg:p-14 rounded-3xl bg-white shadow-[0_35px_60px_-15px_rgba(0,0,0,0.15)] border border-gray-100">
+        <article className="relative flex flex-col lg:flex-row items-center gap-10 lg:gap-16 p-8 lg:p-14 rounded-3xl bg-white shadow-[0_35px_60px_-15px_rgba(0,0,0,0.15)] border border-gray-100">
           
           {/* SISI KIRI: Foto Kepala Sekolah */}
-          <div className="relative w-full lg:w-1/2 flex justify-center">
-            <div className="absolute w-4/5 h-4/5 bg-[#00B0F1]/10 blur-[100px] rounded-full -z-10" />
+          <figure className="relative w-full lg:w-1/2 flex justify-center">
+            <div className="absolute w-4/5 h-4/5 bg-[#00B0F1]/10 blur-[100px] rounded-full -z-10" aria-hidden="true" />
             
             <motion.div 
               {...fadeInUp}
@@ -34,23 +34,25 @@ const Sambutan = () => {
                 onError={(e) => { e.target.src = "https://via.placeholder.com/600x800?text=Foto+Kepsek+SMA+14"; }}
               />
             </motion.div>
-          </div>
+          </figure>
 
           {/* SISI KANAN: Konten Teks Sambutan */}
-          <motion.div 
+          <motion.figcaption 
             {...fadeInUp}
             transition={{ ...fadeInUp.transition, delay: 0.3 }} // Sedikit jeda setelah foto muncul
             className="w-full lg:w-1/2 flex flex-col justify-center text-left"
           >
-            <h2 className="text-[30px] lg:text-[42px] font-[900] text-gray-900 leading-tight mb-2 capitalize tracking-tight">
-              Syawal Arifin, S.S., M.Pd.
-            </h2>
-            
-            <div className="w-16 h-1.5 bg-[#587F93] mb-6 rounded-full" />
-            
-            <p className="text-[#587F93] font-bold text-sm lg:text-base uppercase tracking-normal mb-8">
-              Kepala SMA Negeri 14 Samarinda
-            </p>
+            <header>
+              <h2 className="text-[30px] lg:text-[42px] font-[900] text-gray-900 leading-tight mb-2 capitalize tracking-tight">
+                Syawal Arifin, S.S., M.Pd.
+              </h2>
+              
+              <div className="w-16 h-1.5 bg-[#587F93] mb-6 rounded-full" aria-hidden="true" />
+              
+              <p className="text-[#587F93] font-bold text-sm lg:text-base uppercase tracking-normal mb-8">
+                Kepala SMA Negeri 14 Samarinda
+              </p>
+            </header>
 
             <div className="space-y-5">
               <p className="text-gray-500 text-sm lg:text-base leading-relaxed italic">
@@ -78,9 +80,9 @@ const Sambutan = () => {
                 →
               </span>
             </button>
-          </motion.div>
+          </motion.figcaption>
 
-        </div>
+        </article>
       </div>
     </section>
   );

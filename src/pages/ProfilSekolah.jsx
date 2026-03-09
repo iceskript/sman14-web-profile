@@ -155,7 +155,7 @@ const ProfilSekolah = () => {
   };
 
   return (
-    <motion.div 
+    <motion.main 
       variants={containerVariants}
       initial="hidden"
       animate="visible"
@@ -163,17 +163,17 @@ const ProfilSekolah = () => {
     >
       
       {/* 1. HEADER TITLE */}
-      <motion.div variants={itemVariants} className="max-w-[1440px] mx-auto px-5 lg:px-[60px] mb-12">
-        <div className="flex items-center gap-2 text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">
+      <motion.header variants={itemVariants} className="max-w-[1440px] mx-auto px-5 lg:px-[60px] mb-12">
+        <nav className="flex items-center gap-2 text-sm font-bold text-gray-400 uppercase tracking-widest mb-4" aria-label="Breadcrumb">
           <span className="hover:text-[#587F93] cursor-pointer" onClick={() => navigate('/')}>Beranda</span>
           <ChevronRight size={14} />
           <span className="text-[#587F93]">Profil Sekolah</span>
-        </div>
+        </nav>
         <h1 className="text-[40px] lg:text-[56px] font-[900] text-black leading-none tracking-tight">
           Profil <span className="text-[#587F93]">Sekolah</span>
         </h1>
-        <div className="w-20 h-1.5 bg-[#587F93] mt-6 rounded-full"></div>
-      </motion.div>
+        <div className="w-20 h-1.5 bg-[#587F93] mt-6 rounded-full" aria-hidden="true" />
+      </motion.header>
 
       {/* 2. HERO SECTION */}
       <motion.section variants={itemVariants} className="relative w-full mb-24 lg:mb-40">
@@ -193,12 +193,12 @@ const ProfilSekolah = () => {
       </motion.section>
 
       {/* 3. SECTION SAMBUTAN */}
-      <motion.div variants={itemVariants} className="max-w-[1140px] mx-auto px-5 lg:px-0 relative z-20 mt-32 lg:mt-56">
+      <motion.section id="sambutan" variants={itemVariants} className="max-w-[1140px] mx-auto px-5 lg:px-0 relative z-20 mt-32 lg:mt-56">
         {/* Row: justify-content-center align-items-center */}
-        <div className="flex flex-col lg:flex-row justify-center items-center gap-12 lg:gap-16 min-h-[376px]">
+        <article className="flex flex-col lg:flex-row justify-center items-center gap-12 lg:gap-16 min-h-[376px]">
           
           {/* Column: col-md-5 col-12 */}
-          <div className="w-full lg:w-5/12 flex justify-center lg:justify-end">
+          <figure className="w-full lg:w-5/12 flex justify-center lg:justify-end">
             {/* Card: about-itk-rektor-card (490x376) */}
             <div className="relative w-full max-w-[400px] aspect-[864/1184] bg-[#587F93] rounded-[40px] shadow-2xl flex-shrink-0 border-[12px] border-white overflow-hidden group">
               
@@ -220,10 +220,10 @@ const ProfilSekolah = () => {
                 <span className="text-[14px] font-black uppercase tracking-widest">SAMBUTAN</span>
               </div>
             </div>
-          </div>
+          </figure>
 
           {/* Column: col-md-7 (Remaining space for text) */}
-          <div className="w-full lg:w-7/12 flex flex-col items-start">
+          <figcaption className="w-full lg:w-7/12 flex flex-col items-start">
             <span className="text-[#587F93] text-[120px] font-serif leading-none h-[60px] opacity-30">“</span>
             <p className="text-sm lg:text-base text-[#334155] mb-10 leading-relaxed font-medium">
               Sebagai bagian dari upaya berkelanjutan dalam meningkatkan mutu pendidikan, saya memiliki misi agar kita sebagai pendidik senantiasa melakukan kolaborasi melalui berbagi pengetahuan (knowledge sharing). Saya yakin bahwa dengan saling bertukar data, metode pembelajaran, dan pengalaman, kita dapat bersama-sama meratakan kualitas pendidikan, tidak hanya di lingkungan SMA Negeri 14 Samarinda, tetapi juga sebagai kontribusi nyata bagi pendidikan di Indonesia.
@@ -232,9 +232,9 @@ const ProfilSekolah = () => {
               {isExpanded ? 'Sembunyikan' : 'Selengkapnya'}
               <motion.div animate={{ rotate: isExpanded ? 180 : 0 }} className="bg-white text-[#587F93] p-1 rounded-full"><ChevronDown size={18} /></motion.div>
             </button>
-          </div>
-        </div>
-      </motion.div>
+          </figcaption>
+        </article>
+      </motion.section>
 
       {/* 4. EXPANDED CONTENT */}
       <AnimatePresence>
@@ -313,7 +313,7 @@ const ProfilSekolah = () => {
       {/* 6. SECTION SARANA PRASARANA */}
       <section id="sarana-prasarana" className="py-24 bg-white font-urbanist border-t border-gray-100 -mt-10 lg:-mt-20 relative z-20 scroll-mt-32">
         <div className="max-w-[1440px] mx-auto px-5 lg:px-[60px]">
-          <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start">
+          <article className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start">
             <div className="w-full lg:w-1/3 flex flex-col items-start pt-4">
               <div className="flex items-center gap-4 mb-4">
                  <div className="w-12 h-[2px] bg-[#587F93]"></div>
@@ -331,7 +331,7 @@ const ProfilSekolah = () => {
                 <p className="col-span-2 text-gray-500">Memuat data fasilitas...</p>
               ) : (
                 saranaPrasaranaData.slice(0, 4).map((item, index) => (
-                  <motion.div key={item._id} initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.2, duration: 0.6 }} className="group relative h-[280px] lg:h-[360px] overflow-hidden cursor-pointer bg-gray-100 shadow-lg">
+                  <motion.figure key={item._id} initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.2, duration: 0.6 }} className="group relative h-[280px] lg:h-[360px] overflow-hidden cursor-pointer bg-gray-100 shadow-lg">
                     {item.foto && (
                       <img src={urlFor(item.foto).width(600).height(500).url()} alt={item.nama} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                     )}
@@ -340,11 +340,11 @@ const ProfilSekolah = () => {
                       <h3 className="text-white text-2xl font-[900] uppercase mb-4 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75">{item.nama}</h3>
                       <p className="text-white/90 text-sm leading-relaxed max-w-[250px] translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">{item.deskripsi}</p>
                     </div>
-                  </motion.div>
+                  </motion.figure>
                 ))
               )}
             </div>
-          </div>
+          </article>
         </div>
       </section>
 
@@ -352,7 +352,7 @@ const ProfilSekolah = () => {
       <section id="organisasi" className="w-full py-16 bg-white font-urbanist overflow-hidden scroll-mt-32">
         
         {/* Menu Pills */}
-        <div className="max-w-[1440px] mx-auto flex flex-wrap gap-3 lg:gap-4 mb-10 px-5 lg:px-[60px]">
+        <nav className="max-w-[1440px] mx-auto flex flex-wrap gap-3 lg:gap-4 mb-10 px-5 lg:px-[60px]" aria-label="Organization sections">
             {menuGrid.map((item) => (
                 <button 
                     key={item} 
@@ -366,7 +366,7 @@ const ProfilSekolah = () => {
                     {item}
                 </button>
             ))}
-        </div>
+        </nav>
 
         {/* Blue Block Container Wrapper */}
         <AnimatePresence mode="wait">
@@ -400,7 +400,7 @@ const ProfilSekolah = () => {
 
             {/* Content Layer */}
             <div className="relative z-20 w-full max-w-[1440px] mx-auto px-5 lg:px-[60px] py-16 lg:py-20">
-                <div className="flex flex-col lg:flex-row gap-10 lg:gap-20 items-start">
+                <article className="flex flex-col lg:flex-row gap-10 lg:gap-20 items-start">
                     <div className={`w-full ${organizationContent[activeTab].type === "text" ? "lg:w-2/3" : "lg:w-1/2"} flex flex-col items-start`}>
                       <h2 className="text-[28px] lg:text-[54px] font-[900] text-white leading-tight mb-4 uppercase tracking-tight">
                         {organizationContent[activeTab].title}
@@ -433,7 +433,7 @@ const ProfilSekolah = () => {
                       {organizationContent[activeTab].type === "grid" && (
                         <div ref={scrollRef} className="flex gap-6 overflow-x-auto no-scrollbar pb-6 pl-2 pr-10 lg:pr-32 scroll-smooth">
                           {organizationContent[activeTab].members.map((member, i) => (
-                            <div key={i} className="flex-shrink-0 flex flex-col items-center gap-4 group">
+                            <figure key={i} className="flex-shrink-0 flex flex-col items-center gap-4 group">
                               <div className="w-[180px] h-[220px] lg:w-[210px] lg:h-[270px] bg-white/10 backdrop-blur-md overflow-hidden relative rounded-sm">
                                  <img 
                                    src={member.img} 
@@ -444,12 +444,12 @@ const ProfilSekolah = () => {
                               <span className="text-white font-[800] text-[11px] lg:text-xs uppercase tracking-wider text-center">
                                 {member.name}
                               </span>
-                            </div>
+                            </figure>
                           ))}
                         </div>
                       )}
                     </div>
-                </div>
+                </article>
 
                 {/* --- NAVIGATION ARROWS (POJOK KANAN BAWAH) --- */}
                 {organizationContent[activeTab].type === "grid" && (
@@ -578,7 +578,7 @@ const ProfilSekolah = () => {
         }
       `}</style>
 
-    </motion.div>
+    </motion.main>
   );
 };
 

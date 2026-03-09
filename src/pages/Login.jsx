@@ -48,7 +48,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#F0F2F5] flex items-center justify-center p-4 sm:p-6 font-urbanist overflow-hidden">
+    <main className="min-h-screen bg-[#F0F2F5] flex items-center justify-center p-4 sm:p-6 font-urbanist overflow-hidden">
       
       <motion.div 
         initial={{ opacity: 0, y: 100 }}
@@ -63,16 +63,16 @@ const Login = () => {
         <div className="bg-white rounded-[25px] shadow-2xl overflow-hidden flex flex-col md:flex-row w-full md:h-[417px]">
           
           {/* SISI KIRI: ILUSTRASI */}
-          <div className="w-full md:w-1/2 h-[250px] md:h-full bg-white flex items-center justify-center p-6 overflow-hidden">
+          <figure className="w-full md:w-1/2 h-[250px] md:h-full bg-white flex items-center justify-center p-6 overflow-hidden">
             <img 
               src="/login-visual.webp" 
               alt="Visual SMAN 14" 
               className="w-full h-full object-contain"
             />
-          </div>
+          </figure>
 
           {/* SISI KANAN: FORM LOGIN */}
-          <div className="w-full md:w-1/2 bg-[#587F93] p-8 md:p-12 flex flex-col justify-center text-white">
+          <section className="w-full md:w-1/2 bg-[#587F93] p-8 md:p-12 flex flex-col justify-center text-white">
             <h2 className="text-[32px] md:text-[36px] font-black text-center mb-8 md:mb-10 tracking-[0.2em] uppercase leading-none">
               LOGIN
             </h2>
@@ -164,7 +164,7 @@ const Login = () => {
                 </motion.button>
               </div>
             </form>
-          </div>
+          </section>
         </div>
 
         <motion.p 
@@ -174,7 +174,7 @@ const Login = () => {
         </motion.p>
 
       </motion.div>
-    </div>
+    </main>
   );
 };
 

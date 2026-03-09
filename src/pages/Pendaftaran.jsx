@@ -72,28 +72,28 @@ const Pendaftaran = () => {
   const pInfo = pendaftaranData[0];
 
   return (
-    <div className="pt-32 lg:pt-44 pb-24 font-urbanist bg-[#FDFDFD] min-h-screen">
+    <main className="pt-32 lg:pt-44 pb-24 font-urbanist bg-[#FDFDFD] min-h-screen">
       <div className="max-w-[1440px] mx-auto px-5 lg:px-[60px]">
         
         {/* Header & Breadcrumbs */}
-        <motion.div 
+        <motion.header 
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           className="mb-12"
         >
-          <div className="flex items-center gap-2 text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">
+          <nav className="flex items-center gap-2 text-sm font-bold text-gray-400 uppercase tracking-widest mb-4" aria-label="Breadcrumb">
             <span className="hover:text-[#587F93] cursor-pointer" onClick={() => navigate('/')}>Beranda</span>
             <ChevronRight size={14} />
             <span className="text-[#587F93]">Informasi Pendaftaran</span>
-          </div>
+          </nav>
           <h1 className="text-[40px] lg:text-[56px] font-[900] text-black leading-none tracking-tight">
             {pInfo?.judul || 'Pendaftaran'} <span className="text-[#587F93]">{pInfo?.tahunAjaran}</span>
           </h1>
-          <div className="w-20 h-1.5 bg-[#587F93] mt-6 rounded-full"></div>
+          <div className="w-20 h-1.5 bg-[#587F93] mt-6 rounded-full" aria-hidden="true" />
           <p className="mt-8 text-gray-500 max-w-3xl font-medium text-lg leading-relaxed">
             {pInfo?.deskripsi || 'Informasi lengkap mengenai Penerimaan Peserta Didik Baru (PPDB) SMAN 14 Samarinda. Silakan unduh dokumen terkait di bawah ini.'}
           </p>
-        </motion.div>
+        </motion.header>
 
         <motion.div 
           variants={containerVariants}
@@ -104,7 +104,7 @@ const Pendaftaran = () => {
           
           {/* KOLOM KIRI: POSTER / VISUAL */}
           {pInfo?.posterNilai && (
-            <motion.div variants={itemVariants} className="w-full lg:w-5/12">
+            <motion.figure variants={itemVariants} className="w-full lg:w-5/12">
               <div className="bg-white p-4 rounded-[32px] shadow-2xl border border-gray-100 hover:shadow-3xl transition-all duration-500">
                 <div className="relative aspect-[3/4] rounded-[24px] overflow-hidden bg-gray-100">
                   <img 
@@ -117,11 +117,11 @@ const Pendaftaran = () => {
                   <p className="text-sm font-bold text-gray-400 uppercase tracking-widest">Poster Resmi Pendaftaran</p>
                 </div>
               </div>
-            </motion.div>
+            </motion.figure>
           )}
 
           {/* KOLOM KANAN: LIST DOKUMEN & INFO */}
-          <motion.div variants={itemVariants} className="w-full lg:w-7/12 space-y-10">
+          <motion.section variants={itemVariants} className="w-full lg:w-7/12 space-y-10">
             
             {/* Status Box */}
             <div className={`${getStatusBadge(pInfo?.status).bg} border-l-4 border-current p-6 rounded-r-xl`}>
@@ -175,7 +175,7 @@ const Pendaftaran = () => {
 
             {/* Document List */}
             {pInfo?.berkasInformasi && pInfo.berkasInformasi.length > 0 && (
-              <div>
+              <section>
                 <h3 className="text-2xl font-[900] text-gray-900 mb-6 flex items-center gap-3">
                   <FileText className="text-[#587F93]" />
                   Dokumen & Unduhan
@@ -207,13 +207,13 @@ const Pendaftaran = () => {
                     </a>
                   ))}
                 </div>
-              </div>
+              </section>
             )}
 
-          </motion.div>
+          </motion.section>
         </motion.div>
       </div>
-    </div>
+    </main>
   );
 };
 

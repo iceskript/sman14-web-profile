@@ -34,33 +34,33 @@ const Kontak = () => {
   ];
 
   return (
-    <div className="pt-32 lg:pt-44 pb-24 font-urbanist bg-[#FDFDFD] min-h-screen">
+    <main className="pt-32 lg:pt-44 pb-24 font-urbanist bg-[#FDFDFD] min-h-screen">
       <div className="max-w-[1440px] mx-auto px-5 lg:px-[60px]">
         
         {/* Header Section */}
-        <motion.div 
+        <motion.header 
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           className="mb-16"
         >
-          <div className="flex items-center gap-2 text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">
+          <nav className="flex items-center gap-2 text-sm font-bold text-gray-400 uppercase tracking-widest mb-4" aria-label="Breadcrumb">
             <span className="hover:text-[#587F93] cursor-pointer" onClick={() => navigate('/')}>Beranda</span>
             <ChevronRight size={14} />
             <span className="text-[#587F93]">Kontak</span>
-          </div>
+          </nav>
           <h1 className="text-[40px] lg:text-[56px] font-[900] text-black leading-none tracking-tight">
             Hubungi <span className="text-[#587F93]">Kami</span>
           </h1>
-          <div className="w-20 h-1.5 bg-[#587F93] mt-6 rounded-full"></div>
+          <div className="w-20 h-1.5 bg-[#587F93] mt-6 rounded-full" aria-hidden="true" />
           <p className="mt-8 text-gray-500 max-w-2xl font-medium text-lg">
             Kami siap melayani informasi dan pertanyaan Anda. Silakan hubungi kami melalui saluran resmi berikut untuk respon cepat.
           </p>
-        </motion.div>
+        </motion.header>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           
           {/* Left Column: Contact Cards & Info */}
-          <div className="lg:col-span-5 space-y-6">
+          <section className="lg:col-span-5 space-y-6">
             {contactInfo.map((item, index) => (
               <motion.a
                 key={index}
@@ -114,10 +114,10 @@ const Kontak = () => {
                 </div>
               </div>
             </motion.div>
-          </div>
+          </section>
 
           {/* Right Column: Google Maps Embed */}
-          <motion.div 
+          <motion.section 
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4 }}
@@ -144,11 +144,11 @@ const Kontak = () => {
               <p className="text-sm font-black text-gray-900 leading-tight">SMA Negeri 14 Samarinda</p>
               <p className="text-xs text-gray-500 mt-1">Jl. Rapak Indah, Sungai Kunjang</p>
             </div>
-          </motion.div>
+          </motion.section>
 
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

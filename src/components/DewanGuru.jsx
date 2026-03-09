@@ -63,15 +63,15 @@ const DataGuru = () => {
       <div className="max-w-[1440px] mx-auto px-5 lg:px-[100px]">
         
         {/* --- HEADER --- */}
-        <div className="text-center mb-16">
+        <header className="text-center mb-16">
           <h2 className="text-[32px] lg:text-[40px] font-black text-[#1A1A1A] uppercase tracking-tight leading-none mb-2">
             DATA GURU
           </h2>
           <p className="text-[18px] lg:text-[22px] font-medium text-[#555]">
             SMA Negeri 14 Samarinda
           </p>
-          <div className="w-24 h-[4px] bg-[#587F93] mx-auto mt-4 rounded-full" />
-        </div>
+          <div className="w-24 h-[4px] bg-[#587F93] mx-auto mt-4 rounded-full" aria-hidden="true" />
+        </header>
 
         {/* --- SLIDER AREA --- */}
         <div className="relative group mb-12">
@@ -97,20 +97,20 @@ const DataGuru = () => {
           >
             {guruData.map((guru, index) => (
               <SwiperSlide key={`${guru._id}-${index}`}>
-                <motion.div
+                <motion.article
                   whileHover={{ y: -10 }}
                   className="flex flex-col items-center p-2"
                 >
-                  <div className="w-full aspect-[4/5] bg-white rounded-2xl shadow-[0_25px_50px_-15px_rgba(0,0,0,0.15)] border border-white overflow-hidden mb-6 relative group/img">
+                  <figure className="w-full aspect-[4/5] bg-white rounded-2xl shadow-[0_25px_50px_-15px_rgba(0,0,0,0.15)] border border-white overflow-hidden mb-6 relative group/img">
                     <img 
                       src={guru.foto ? urlFor(guru.foto).width(400).height(500).url() : 'https://via.placeholder.com/400x500?text=Guru'} 
                       alt={guru.nama}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover/img:scale-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity duration-500" />
-                  </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity duration-500" aria-hidden="true" />
+                  </figure>
 
-                  <div className="text-center">
+                  <figcaption className="text-center">
                     <h3 className="text-[15px] lg:text-[21px] font-bold text-[#1A1A1A] leading-tight mb-1">
                       {guru.nama}
                     </h3>
@@ -122,8 +122,8 @@ const DataGuru = () => {
                         : "Guru"
                       }
                     </p>
-                  </div>
-                </motion.div>
+                  </figcaption>
+                </motion.article>
               </SwiperSlide>
             ))}
           </Swiper>

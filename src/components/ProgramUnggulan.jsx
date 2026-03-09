@@ -40,40 +40,40 @@ const ProgramUnggulan = () => {
       <div className="max-w-[1440px] mx-auto px-5 lg:px-[100px]">
         
         {/* --- HEADER SECTION --- (DISAMAKAN DENGAN ACHIEVEMENT) */}
-        <div className="flex flex-col items-start mb-16">
+        <header className="flex flex-col items-start mb-16">
           <div className="flex items-center gap-6 mb-2">
             <span className="text-[#888888] font-[900] tracking-[0.3em] uppercase text-[18px] lg:text-[20px] whitespace-nowrap">
               Our Program
             </span>
-            <div className="w-24 lg:w-32 h-[3px] bg-[#BCBCBC] rounded-full" />
+            <div className="w-24 lg:w-32 h-[3px] bg-[#BCBCBC] rounded-full" aria-hidden="true" />
           </div>
           
           <h2 className="text-[28px] lg:text-[36px] font-[900] text-black uppercase tracking-tight -ml-[1px] lg:-ml-[2px]">
             Program Unggulan
           </h2>
-        </div>
+        </header>
 
         {/* --- GRID KARTU --- */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {programData.map((item) => (
-            <motion.div
+            <motion.article
               key={item.id}
               whileHover={{ y: -10 }}
               transition={{ duration: 0.3 }}
               className="bg-white rounded-[10px] overflow-hidden flex flex-col h-full border border-gray-100 shadow-lg"
             >
               {/* Image Container */}
-              <div className="relative h-[250px] overflow-hidden group">
+              <figure className="relative h-[250px] overflow-hidden group">
                 <img 
                   src={item.img} 
                   alt={item.title}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   onError={(e) => { e.target.src = 'https://via.placeholder.com/600x400?text=SMAPAS+Program'; }}
                 />
-              </div>
+              </figure>
 
               {/* Content Layer */}
-              <div className="p-8 flex flex-col flex-grow">
+              <figcaption className="p-8 flex flex-col flex-grow">
                 <div className="bg-[#587F93] text-white w-10 h-7 flex items-center justify-center font-bold text-sm mb-4">
                   #{item.id}
                 </div>
@@ -85,8 +85,8 @@ const ProgramUnggulan = () => {
                 <p className="text-[#64748b] font-normal leading-relaxed text-[15px] lg:text-[16px]">
                   {item.desc}
                 </p>
-              </div>
-            </motion.div>
+              </figcaption>
+            </motion.article>
           ))}
         </div>
       </div>

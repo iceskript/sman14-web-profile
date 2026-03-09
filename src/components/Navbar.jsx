@@ -234,18 +234,18 @@ const Navbar = () => {
       >
         
         {/* --- TOP BAR (Utility Bar) - Warna Abu-abu Sesuai Desain Awal --- */}
-        <div className="hidden lg:block bg-[#EAEAEA] h-[42px] w-full border-b border-gray-200">
+        <section className="hidden lg:block bg-[#EAEAEA] h-[42px] w-full border-b border-gray-200" aria-label="Utility Bar">
           <div className="max-w-[1440px] mx-auto h-full px-[60px] flex justify-between items-center text-[12px] font-bold text-[#333]">
-            <div className="flex items-center gap-[25px]">
+            <address className="flex items-center gap-[25px] not-italic">
               <div className="flex items-center gap-[6px]">
-                <Phone size={14} className="text-gray-700" />
+                <Phone size={14} className="text-gray-700" aria-hidden="true" />
                 <span>0812-2995-9922</span>
               </div>
               <div className="flex items-center gap-[6px] border-l border-gray-400 pl-[25px]">
-                <Mail size={14} className="text-gray-700" />
+                <Mail size={14} className="text-gray-700" aria-hidden="true" />
                 <span className="lowercase">sman14.smapas@gmail.com</span>
               </div>
-            </div>
+            </address>
 
             <div className="flex items-center gap-4">
               {/* --- SEARCH BAR DIKEMBALIKAN --- */}
@@ -262,14 +262,14 @@ const Navbar = () => {
                   onFocus={() => searchQuery.length >= 2 && setShowSuggestions(true)}
                   className="w-[180px] h-[28px] bg-white border border-gray-300 rounded-full px-4 pl-9 text-[11px] focus:outline-none focus:border-[#587F93] transition-all"
                 />
-                <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" aria-hidden="true" />
 
                 {/* Suggestions Dropdown Desktop */}
                 {showSuggestions && searchQuery.length >= 2 && (
-                  <div className="absolute top-full right-0 w-[280px] bg-white shadow-2xl rounded-xl mt-2 py-2 border border-gray-100 z-[110] overflow-hidden">
+                  <ul className="absolute top-full right-0 w-[280px] bg-white shadow-2xl rounded-xl mt-2 py-2 border border-gray-100 z-[110] overflow-hidden">
                     {suggestions.length > 0 ? (
                       suggestions.map((item) => (
-                        <div 
+                        <li 
                           key={item._id}
                           onClick={() => {
                             handleNavigation(item.path);
@@ -282,7 +282,7 @@ const Navbar = () => {
                             {item.foto ? (
                               <img src={urlFor(item.foto).width(50).height(50).url()} className="w-full h-full object-cover" />
                             ) : (
-                              <Search size={12} className="m-auto text-gray-400" />
+                              <Search size={12} className="m-auto text-gray-400" aria-hidden="true" />
                             )}
                           </div>
                           <div className="text-left overflow-hidden">
@@ -291,48 +291,57 @@ const Navbar = () => {
                               {item._type === 'static' ? item.typeLabel : (item._type === 'saranaPrasarana' ? 'Fasilitas' : item._type === 'tenagaKependidikan' ? 'Tenaga Kependidikan' : item._type === 'dewanGuru' ? 'Dewan Guru' : item._type)}
                             </p>
                           </div>
-                        </div>
+                        </li>
                       ))
                     ) : (
-                      <div className="px-4 py-3 text-[11px] text-gray-400 font-bold text-center">
+                      <li className="px-4 py-3 text-[11px] text-gray-400 font-bold text-center">
                         Tidak ada hasil...
-                      </div>
+                      </li>
                     )}
-                  </div>
+                  </ul>
                 )}
               </div>
               <Link 
                 to="/login"
                 className="bg-[#587F93] text-white px-4 h-[28px] rounded-full font-extrabold text-[11px] flex items-center gap-1.5 active:scale-95 shadow-sm hover:bg-[#587F93] transition-all cursor-pointer no-underline inline-flex items-center"
               >
-                <LogIn size={13} /> LOGIN
+                <LogIn size={13} aria-hidden="true" /> LOGIN
               </Link>
             </div>
           </div>
-        </div>
+        </section>
 
         {/* --- MAIN NAVBAR --- */}
-        <nav className="h-[70px] lg:h-[90px] w-full border-b border-gray-100 bg-white">
+        <nav className="h-[70px] lg:h-[90px] w-full border-b border-gray-100 bg-white" aria-label="Main Navigation">
           <div className="max-w-[1440px] mx-auto h-full px-5 lg:px-[60px] flex justify-between items-center">
             
             {/* Branding Logo */}
-            <div className="flex items-center gap-[10px] lg:gap-[15px] cursor-pointer" onClick={() => handleNavigation('/')}>
+            <Link 
+              to="/" 
+              className="flex items-center gap-[10px] lg:gap-[15px] cursor-pointer no-underline"
+              onClick={(e) => { e.preventDefault(); handleNavigation('/'); }}
+            >
               <div className="w-[45px] h-[45px] lg:w-[55px] lg:h-[55px] flex items-center justify-center shrink-0">
                 <img src="/logo-smapas.svg" alt="Logo SMAN 14" className="max-w-full max-h-full object-contain" />
               </div>
               <div className="flex flex-col justify-center text-left">
-                <h1 className="text-[16px] lg:text-[20px] font-[900] text-black leading-none uppercase tracking-tight">
+                <span className="text-[16px] lg:text-[20px] font-[900] text-black leading-none uppercase tracking-tight">
                   SMAN 14 SAMARINDA
-                </h1>
+                </span>
                 <p className="text-[10px] lg:text-[12px] text-[#666] font-bold italic mt-[1px]">
                   Beriman, Berakhlak, Berprestasi
                 </p>
               </div>
-            </div>
+            </Link>
 
             {/* Hamburger Button Mobile */}
-            <button className="xl:hidden p-2 text-gray-700" onClick={() => setIsMobileMenuOpen(true)}>
-              <Menu size={32} />
+            <button 
+              className="xl:hidden p-2 text-gray-700" 
+              onClick={() => setIsMobileMenuOpen(true)}
+              aria-label="Open Mobile Menu"
+              aria-expanded={isMobileMenuOpen}
+            >
+              <Menu size={32} aria-hidden="true" />
             </button>
 
             {/* Menu Navigasi Desktop */}
@@ -347,7 +356,7 @@ const Navbar = () => {
                 >
                   <div className="flex items-center gap-[3px] hover:text-[#587F93] transition-colors py-8">
                     {menu.name}
-                    {menu.dropdown && <ChevronDown size={12} className="opacity-60" />}
+                    {menu.dropdown && <ChevronDown size={12} className="opacity-60" aria-hidden="true" />}
                   </div>
 
                   {menu.dropdown && activeDropdown === menu.name && (
@@ -380,10 +389,13 @@ const Navbar = () => {
         onClick={() => setIsMobileMenuOpen(false)}
       />
 
-    <div className={`fixed top-0 right-0 h-full w-[85%] max-w-[350px] bg-white z-[200] shadow-2xl transition-transform duration-300 ease-in-out transform xl:hidden flex flex-col font-urbanist ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+    <nav 
+      className={`fixed top-0 right-0 h-full w-[85%] max-w-[350px] bg-white z-[200] shadow-2xl transition-transform duration-300 ease-in-out transform xl:hidden flex flex-col font-urbanist ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
+      aria-label="Mobile Navigation"
+    >
         <div className="flex justify-between items-center p-5 border-b border-gray-100 shrink-0">
            <img src="/logo-smapas.svg" alt="Logo" className="w-[40px] h-[40px]" onClick={() => { handleNavigation('/'); setIsMobileMenuOpen(false); }} />
-           <button onClick={() => setIsMobileMenuOpen(false)} className="p-2 text-gray-500"><X size={28} /></button>
+           <button onClick={() => setIsMobileMenuOpen(false)} className="p-2 text-gray-500" aria-label="Close Mobile Menu"><X size={28} aria-hidden="true" /></button>
         </div>
 
         <div className="flex-grow overflow-y-auto p-5">
@@ -400,13 +412,13 @@ const Navbar = () => {
                onKeyDown={handleSearch}
                className="w-full h-[45px] bg-gray-50 border border-gray-200 rounded-xl px-5 pl-12 text-sm focus:outline-none focus:border-[#587F93] transition-all font-bold"
              />
-             <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+             <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" aria-hidden="true" />
 
              {/* Mobile Suggestions */}
              {showSuggestions && searchQuery.length >= 2 && suggestions.length > 0 && (
-               <div className="absolute top-full left-0 w-full bg-white shadow-xl rounded-xl mt-2 py-1 border border-gray-100 z-[110] overflow-hidden">
+               <ul className="absolute top-full left-0 w-full bg-white shadow-xl rounded-xl mt-2 py-1 border border-gray-100 z-[110] overflow-hidden">
                  {suggestions.map((item) => (
-                   <div 
+                   <li 
                      key={item._id}
                      onClick={() => {
                        handleNavigation(item.path);
@@ -418,7 +430,7 @@ const Navbar = () => {
                         {item.foto ? (
                           <img src={urlFor(item.foto).width(80).height(80).url()} className="w-full h-full object-cover" />
                         ) : (
-                          <Search size={16} className="m-auto text-gray-400" />
+                          <Search size={16} className="m-auto text-gray-400" aria-hidden="true" />
                         )}
                      </div>
                      <div className="text-left overflow-hidden">
@@ -427,9 +439,9 @@ const Navbar = () => {
                          {item._type === 'static' ? item.typeLabel : (item._type === 'saranaPrasarana' ? 'Fasilitas' : item._type === 'tenagaKependidikan' ? 'Tenaga Kependidikan' : item._type === 'dewanGuru' ? 'Dewan Guru' : item._type)}
                        </p>
                      </div>
-                   </div>
+                   </li>
                  ))}
-               </div>
+               </ul>
              )}
            </div>
 
@@ -448,7 +460,7 @@ const Navbar = () => {
                     }}
                  >
                     {menu.name}
-                    {menu.dropdown && <ChevronDown size={18} className={`${activeDropdown === menu.name ? 'rotate-180' : ''}`} />}
+                    {menu.dropdown && <ChevronDown size={18} className={`${activeDropdown === menu.name ? 'rotate-180' : ''}`} aria-hidden="true" />}
                  </div>
 
                  {menu.dropdown && activeDropdown === menu.name && (
@@ -472,10 +484,10 @@ const Navbar = () => {
             onClick={() => setIsMobileMenuOpen(false)}
             className="w-full bg-[#587F93] text-white h-[50px] rounded-xl font-[900] text-[14px] flex items-center justify-center gap-3 active:scale-95 shadow-lg transition-all uppercase tracking-widest cursor-pointer no-underline"
           >
-            <LogIn size={20} /> Login Admin
+            <LogIn size={20} aria-hidden="true" /> Login Admin
           </Link>
         </div>
-      </div>
+      </nav>
     </>
   );
 };

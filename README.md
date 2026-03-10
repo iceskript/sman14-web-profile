@@ -67,17 +67,6 @@ Features:
 
 ---
 
-### Class Information
-Provides information about school classes.
-
-Features:
-- Class X
-- Class XI
-- Class XII
-- Homeroom teacher information
-
----
-
 ### Extracurricular Activities
 Displays extracurricular activities available in the school.
 

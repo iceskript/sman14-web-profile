@@ -31,6 +31,8 @@ const Sambutan = () => {
                 src="/kepala-sekolah.webp" 
                 alt="Syawal Arifin, S.S., M.Pd." 
                 className="w-full h-auto object-cover max-h-[480px] hover:scale-105 transition-transform duration-700"
+                loading = "lazy"
+                decoding = "async"
                 onError={(e) => { e.target.src = "https://via.placeholder.com/600x800?text=Foto+Kepsek+SMA+14"; }}
               />
             </motion.div>

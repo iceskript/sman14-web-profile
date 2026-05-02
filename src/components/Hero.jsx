@@ -43,18 +43,15 @@ const Hero = () => {
     <section className="relative w-full h-screen overflow-hidden font-urbanist bg-black select-none">
       
       {/* 1. Background Image dengan Animasi Zoom-In Perlahan */}
-      <motion.div 
-        variants={backgroundVariants}
-        initial="hidden"
-        animate="visible"
-        aria-hidden="true"
-        className="absolute inset-0"
-        style={{ 
-          backgroundImage: `url('/gedung-smapas.webp')`,
-          backgroundSize: 'cover', 
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
-        }}
+      <motion.img
+        src="/gedung-smapas.webp"
+        alt="gedung smapas"
+        initial={{ scale: 1.1, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 1.5 }}
+        className="absolute inset-0 w-full h-full object-cover"
+        loading = "eager"
+        decoding = "async"
       />
 
       {/* 2. Overlay Gradasi Figma */}

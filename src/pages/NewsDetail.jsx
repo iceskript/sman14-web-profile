@@ -9,7 +9,10 @@ import {
   Facebook, 
   MessageCircle, 
   Link as LinkIcon,
-  ArrowRight
+  ArrowRight,
+  FileText,
+  ExternalLink,
+  Download
 } from 'lucide-react';
 import { fetchBeritaById, fetchRelatedBerita, urlFor } from '../lib/sanity';
 import { PortableText } from '@portabletext/react';
@@ -58,6 +61,62 @@ const NewsDetail = () => {
           />
         </motion.div>
       ),
+      pdfForm: ({ value }) => {
+        if (!value?.fileUrl) return null;
+
+        const pdfTitle = value.judul || value.fileName || 'Form PDF';
+
+        return (
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="my-10 overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-xl clear-both"
+            aria-label={pdfTitle}
+          >
+            <div className="flex flex-col gap-4 border-b border-gray-100 bg-gray-50 p-5 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex min-w-0 items-start gap-3">
+                <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-[#587F93]/10 text-[#587F93]">
+                  <FileText size={22} aria-hidden="true" />
+                </div>
+                <div className="min-w-0">
+                  <h4 className="text-lg font-black text-gray-900">{pdfTitle}</h4>
+                  {value.deskripsi && (
+                    <p className="mt-1 text-sm font-medium leading-relaxed text-gray-500">
+                      {value.deskripsi}
+                    </p>
+                  )}
+                </div>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <a
+                  href={value.fileUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full bg-[#587F93] px-4 py-2 text-xs font-black uppercase tracking-widest text-white transition-colors hover:bg-[#466575]"
+                >
+                  <ExternalLink size={15} aria-hidden="true" />
+                  Buka
+                </a>
+                <a
+                  href={`${value.fileUrl}?dl=${encodeURIComponent(value.fileName || pdfTitle)}`}
+                  className="inline-flex items-center gap-2 rounded-full border border-[#587F93]/20 px-4 py-2 text-xs font-black uppercase tracking-widest text-[#587F93] transition-colors hover:bg-[#587F93]/10"
+                >
+                  <Download size={15} aria-hidden="true" />
+                  Unduh
+                </a>
+              </div>
+            </div>
+            <div className="h-[520px] bg-gray-100 sm:h-[640px]">
+              <iframe
+                src={value.fileUrl}
+                title={pdfTitle}
+                className="h-full w-full"
+              />
+            </div>
+          </motion.section>
+        );
+      },
     },
     block: {
       h1: ({ children }) => <h1 className="text-3xl font-black text-gray-900 my-8">{children}</h1>,

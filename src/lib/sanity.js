@@ -173,7 +173,14 @@ export const fetchBeritaById = async (id) => {
     excerpt,
     foto,
     galeri,
-    konten,
+    konten[]{
+      ...,
+      _type == "pdfForm" => {
+        ...,
+        "fileUrl": file.asset->url,
+        "fileName": file.asset->originalFilename
+      }
+    },
     hashtag,
     "author": coalesce(penulis, "Admin SMAN 14")
   }`;

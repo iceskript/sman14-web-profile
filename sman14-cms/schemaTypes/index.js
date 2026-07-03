@@ -9,6 +9,7 @@ import sertifikat from './sertifikat';
 import galeri from './galeri';
 import admin from './admin';
 import strukturOrganisasiPage from './strukturOrganisasiPage';
+import pdfForm from './pdfForm';
 
 // Masukkan 'admin' ke dalam array agar muncul di Sanity Studio
 export const schemaTypes = [
@@ -22,5 +23,6 @@ export const schemaTypes = [
   sertifikat, 
   strukturOrganisasiPage,
   galeri,
+  pdfForm,
   admin 
 ];
